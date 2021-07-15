@@ -1,0 +1,2 @@
+rootProject.name = "Golfbook"
+include ':app'
