@@ -4,7 +4,7 @@ import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.course.local.CourseDetails
 import com.mindeurfou.golfbook.data.course.remote.PostCourseNetworkEntity
 import com.mindeurfou.golfbook.data.course.remote.PutCourseNetworkEntity
-import com.mindeurfou.golfbook.datasource.network.RetrofitBuilder
+import com.mindeurfou.golfbook.utils.GBException
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -12,12 +12,12 @@ class CourseNetworkDataSourceImpl @Inject constructor(
     private val courseApiService: CourseApiService
 ) : CourseNetworkDataSource {
 
-    override suspend fun getCourse(courseId: Int): CourseDetails? {
-        return try {
-            courseApiService.getCourse(courseId)
+    @Throws(GBException::class)
+    override suspend fun getCourse(courseId: Int): CourseDetails {
+        try {
+            return courseApiService.getCourse(courseId)
         } catch (e: HttpException) {
-            print(e.response())
-            null
+            throw GBException(GBException.COURSE_NOT_FIND_MESSAGE)
         }
     }
 

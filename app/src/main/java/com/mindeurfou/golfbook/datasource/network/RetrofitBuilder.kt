@@ -6,6 +6,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitBuilder {
@@ -23,6 +24,7 @@ object RetrofitBuilder {
     val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(client)
+        .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(Json.asConverterFactory(contentType))
         .build()
 

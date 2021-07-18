@@ -5,12 +5,14 @@ import com.mindeurfou.golfbook.data.hole.local.Hole
 import com.mindeurfou.golfbook.datasource.network.course.CourseApiService
 import com.mindeurfou.golfbook.datasource.network.course.CourseNetworkDataSource
 import com.mindeurfou.golfbook.datasource.network.course.CourseNetworkDataSourceImpl
+import com.mindeurfou.golfbook.utils.GBException
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import okhttp3.mockwebserver.MockResponse
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
+import retrofit2.HttpException
 import java.time.LocalDate
 
 @ExperimentalSerializationApi
@@ -34,7 +36,7 @@ class CourseApiTest : BaseApiTest() {
 
     @Test
     fun getCourse() = runBlocking {
-        mockWebServer.enqueueResponse("courseDetails.json", 436)
+        mockWebServer.enqueueResponse("courseDetails.json", 200)
 
         val result = courseNetworkDataSource.getCourse(1)
         val expected = CourseDetails(
@@ -57,6 +59,26 @@ class CourseApiTest : BaseApiTest() {
             )
         )
         assertEquals(expected, result)
+
+    }
+
+    @Test
+    fun `get non existing course`(): Unit = runBlocking {
+        mockWebServer.enqueueGBErrorResponse(GBException.COURSE_NOT_FIND_MESSAGE)
+        mockWebServer.enqueueGBErrorResponse(GBException.COURSE_NOT_FIND_MESSAGE)
+
+        assertThrows<GBException> {
+            courseNetworkDataSource.getCourse(1)
+        }
+
+        try {
+            courseNetworkDataSource.getCourse(1)
+        } catch (e: GBException) {
+            assertEquals(GBException.COURSE_NOT_FIND_MESSAGE, e.message)
+        }
+
+
+
 
     }
 }
