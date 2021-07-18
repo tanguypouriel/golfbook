@@ -1,15 +1,29 @@
 package com.mindeurfou.golfbook.datasource.network
 
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object RetrofitBuilder {
 
     private const val BASE_URL = "http://192.168.0.38:8080/"
+    private val contentType = MediaType.get("application/json; charset=utf-8")
 
-    val retrofit = Retrofit.Builder()
+    private val client = OkHttpClient.Builder()
+        .connectTimeout(1, TimeUnit.SECONDS)
+        .readTimeout(1, TimeUnit.SECONDS)
+        .writeTimeout(1, TimeUnit.SECONDS)
+        .build()
+
+    @ExperimentalSerializationApi
+    val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
+        .client(client)
+        .addConverterFactory(Json.asConverterFactory(contentType))
         .build()
 
 }

@@ -1,17 +1,28 @@
 package com.mindeurfou.golfbook.datasource.network.player
 
 import com.mindeurfou.golfbook.data.player.local.Player
+import com.mindeurfou.golfbook.data.player.remote.PostPlayerNetworkEntity
+import com.mindeurfou.golfbook.data.player.remote.toPutPlayerNetworkEntity
 import com.mindeurfou.golfbook.datasource.network.RetrofitBuilder
+import javax.inject.Inject
 
-class PlayerNetworkDataSourceImpl : PlayerNetworkDataSource {
-
-    private val apiService = RetrofitBuilder.retrofit.create(PlayerApiService::class.java)
+class PlayerNetworkDataSourceImpl @Inject constructor(
+    private val playerApiService: PlayerApiService
+): PlayerNetworkDataSource {
 
     override suspend fun getPlayer(playerId: Int): Player =
-        apiService.getPlayer(playerId)
+        playerApiService.getPlayer(playerId).networkEntityToPlayer()
 
     override suspend fun getPlayers(): List<Player> =
-        apiService.getPlayers()
+        playerApiService.getPlayers().map { it.networkEntityToPlayer() }
 
+    override suspend fun postPlayer(postPlayer: PostPlayerNetworkEntity): Player =
+        playerApiService.postPlayer(postPlayer)
+
+    override suspend fun updatePlayer(player: Player): Player =
+        playerApiService.updatePlayer(player.id, player.toPutPlayerNetworkEntity())
+
+    override suspend fun deletePlayer(playerId: Int): Boolean =
+        playerApiService.deletePlayer(playerId)
 
 }
