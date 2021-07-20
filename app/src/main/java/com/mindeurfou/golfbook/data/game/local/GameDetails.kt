@@ -2,7 +2,9 @@ package com.mindeurfou.golfbook.data.game.local
 
 import com.mindeurfou.golfbook.data.GBState
 import com.mindeurfou.golfbook.data.player.local.Player
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class GameDetails(
     val id : Int,
     val state: GBState,

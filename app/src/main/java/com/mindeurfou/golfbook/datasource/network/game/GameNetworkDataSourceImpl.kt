@@ -8,33 +8,34 @@ import com.mindeurfou.golfbook.data.game.remote.PutGameNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PutScoreBookNetworkEntity
 import com.mindeurfou.golfbook.datasource.network.RetrofitBuilder
 import kotlinx.serialization.ExperimentalSerializationApi
+import javax.inject.Inject
 
 @ExperimentalSerializationApi
-class GameNetworkDataSourceImpl : GameNetworkDataSource {
-
-    private val apiService: GameApiService = RetrofitBuilder.retrofit.create(GameApiService::class.java)
+class GameNetworkDataSourceImpl @Inject constructor(
+    private val gameApiService: GameApiService
+) : GameNetworkDataSource {
 
     override suspend fun getGame(gameId: Int): GameDetails =
-        apiService.getGame(gameId)
+        gameApiService.getGame(gameId)
 
     override suspend fun getGames(): List<Game> =
-        apiService.getGames()
+        gameApiService.getGames()
 
     override suspend fun postGame(postGame: PostGameNetworkEntity): GameDetails =
-        apiService.postGame(postGame)
+        gameApiService.postGame(postGame)
 
     override suspend fun updateGame(putGame: PutGameNetworkEntity): GameDetails =
-        apiService.updateGame(putGame.id, putGame)
+        gameApiService.updateGame(putGame.id, putGame)
 
     override suspend fun deleteGame(gameId: Int) =
-        apiService.deleteGame(gameId)
+        gameApiService.deleteGame(gameId)
 
     override suspend fun addOrDeletePlayer(gameId: Int, patchGame: PatchGameNetworkEntity) =
-        apiService.addOrDeletePlayer(gameId, patchGame)
+        gameApiService.addOrDeletePlayer(gameId, patchGame)
 
     override suspend fun getScoreBook(gameId: Int): Map<String, List<Int?>> =
-        apiService.getScoreBook(gameId)
+        gameApiService.getScoreBook(gameId)
 
     override suspend fun putScoreBook(putScoreBook: PutScoreBookNetworkEntity): Map<String, List<Int?>> =
-        apiService.putScoreBook(putScoreBook.gameId, putScoreBook)
+        gameApiService.putScoreBook(putScoreBook.gameId, putScoreBook)
 }

@@ -1,7 +1,6 @@
 package com.mindeurfou.golfbook.datasource.network.player
 
 import com.mindeurfou.golfbook.data.player.local.Player
-import com.mindeurfou.golfbook.data.player.remote.PlayerNetworkEntity
 import com.mindeurfou.golfbook.data.player.remote.PostPlayerNetworkEntity
 import com.mindeurfou.golfbook.data.player.remote.PutPlayerNetworkEntity
 import retrofit2.http.*
@@ -9,10 +8,10 @@ import retrofit2.http.*
 interface PlayerApiService {
 
     @GET("/player/{playerId}")
-    suspend fun getPlayer(@Path("playerId") playerId: Int): PlayerNetworkEntity
+    suspend fun getPlayer(@Path("playerId") playerId: Int): Player
 
     @GET("/player")
-    suspend fun getPlayers(): List<PlayerNetworkEntity>
+    suspend fun getPlayers(): List<Player>
 
     @POST("/player")
     suspend fun postPlayer(@Body postPlayer: PostPlayerNetworkEntity): Player

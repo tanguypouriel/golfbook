@@ -11,10 +11,10 @@ class PlayerNetworkDataSourceImpl @Inject constructor(
 ): PlayerNetworkDataSource {
 
     override suspend fun getPlayer(playerId: Int): Player =
-        playerApiService.getPlayer(playerId).networkEntityToPlayer()
+        playerApiService.getPlayer(playerId)
 
     override suspend fun getPlayers(): List<Player> =
-        playerApiService.getPlayers().map { it.networkEntityToPlayer() }
+        playerApiService.getPlayers()
 
     override suspend fun postPlayer(postPlayer: PostPlayerNetworkEntity): Player =
         playerApiService.postPlayer(postPlayer)

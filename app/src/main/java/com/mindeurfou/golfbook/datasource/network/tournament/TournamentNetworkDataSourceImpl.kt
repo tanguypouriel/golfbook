@@ -6,22 +6,23 @@ import com.mindeurfou.golfbook.data.tournament.remote.PostTournamentNetworkEntit
 import com.mindeurfou.golfbook.data.tournament.remote.PutTournamentNetworkEntity
 import com.mindeurfou.golfbook.datasource.network.RetrofitBuilder
 import kotlinx.serialization.ExperimentalSerializationApi
+import javax.inject.Inject
 
 @ExperimentalSerializationApi
-class TournamentNetworkDataSourceImpl : TournamentNetworkDataSource {
-
-    private val apiService: TournamentApiService = RetrofitBuilder.retrofit.create(TournamentApiService::class.java)
+class TournamentNetworkDataSourceImpl @Inject constructor(
+    private val tournamentApiService: TournamentApiService
+) : TournamentNetworkDataSource {
 
     override suspend fun getTournament(tournamentId: Int): TournamentDetails =
-        apiService.getTournament(tournamentId)
+        tournamentApiService.getTournament(tournamentId)
 
     override suspend fun getTournaments(): List<Tournament> =
-        apiService.getTournaments()
+        tournamentApiService.getTournaments()
 
     override suspend fun postTournament(postTournament: PostTournamentNetworkEntity): TournamentDetails =
-        apiService.postTournament(postTournament)
+        tournamentApiService.postTournament(postTournament)
 
     override suspend fun updateTournament(putTournament: PutTournamentNetworkEntity): TournamentDetails =
-        apiService.updateTournament(putTournament.id, putTournament)
+        tournamentApiService.updateTournament(putTournament.id, putTournament)
 
 }
