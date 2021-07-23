@@ -4,23 +4,60 @@ import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.data.player.remote.PostPlayerNetworkEntity
 import com.mindeurfou.golfbook.data.player.remote.toPutPlayerNetworkEntity
 import com.mindeurfou.golfbook.datasource.network.RetrofitBuilder
+import com.mindeurfou.golfbook.utils.GBException
+import com.mindeurfou.golfbook.utils.GBHttpStatusCode
+import retrofit2.HttpException
+import java.net.HttpURLConnection
 import javax.inject.Inject
 
 class PlayerNetworkDataSourceImpl @Inject constructor(
     private val playerApiService: PlayerApiService
 ): PlayerNetworkDataSource {
 
-    override suspend fun getPlayer(playerId: Int): Player =
-        playerApiService.getPlayer(playerId)
+    override suspend fun getPlayer(playerId: Int): Player {
+        try {
+            return playerApiService.getPlayer(playerId)
+        } catch (e: HttpException) {
+            if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
+                throw GBException(GBException.PLAYER_NOT_FIND_MESSAGE)
+            else
+                throw UnknownError("status code is ${e.code()}")
+        }
 
-    override suspend fun getPlayers(): List<Player> =
-        playerApiService.getPlayers()
+    }
 
-    override suspend fun postPlayer(postPlayer: PostPlayerNetworkEntity): Player =
-        playerApiService.postPlayer(postPlayer)
+    override suspend fun getPlayers(): List<Player> {
+        try {
+            return playerApiService.getPlayers()
+        } catch (e: HttpException) {
+            if (e.code() == HttpURLConnection.HTTP_NO_CONTENT)
+                throw GBException(GBException.NO_RESOURCES_MESSAGE)
+            else
+                throw UnknownError("status code is ${e.code()}")
+        }
+    }
 
-    override suspend fun updatePlayer(player: Player): Player =
-        playerApiService.updatePlayer(player.id, player.toPutPlayerNetworkEntity())
+    override suspend fun postPlayer(postPlayer: PostPlayerNetworkEntity): Player {
+        try {
+            return playerApiService.postPlayer(postPlayer)
+        } catch (e: HttpException) {
+            if (e.code() == GBHttpStatusCode.valueA)
+                throw GBException(GBException.USERNAME_ALREADY_TAKEN_MESSAGE)
+            else
+                throw UnknownError("status code is ${e.code()}")
+        }
+    }
+
+    override suspend fun updatePlayer(player: Player): Player {
+        try {
+            return playerApiService.updatePlayer(player.id, player.toPutPlayerNetworkEntity())
+        } catch (e: HttpException) {
+            if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
+                throw GBException(GBException.PLAYER_NOT_FIND_MESSAGE)
+            else
+                throw UnknownError("status code is ${e.code()}")
+        }
+    }
 
     override suspend fun deletePlayer(playerId: Int): Boolean =
         playerApiService.deletePlayer(playerId)

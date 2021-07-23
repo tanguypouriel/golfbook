@@ -14,6 +14,7 @@ import okhttp3.mockwebserver.MockResponse
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import retrofit2.HttpException
+import java.net.HttpURLConnection
 import java.time.LocalDate
 
 @ExperimentalSerializationApi
@@ -58,8 +59,8 @@ class CourseNetworkDataSourceTest : BaseApiTest() {
 
     @Test
     fun `get non existing course`(): Unit = runBlocking {
-        mockWebServer.enqueueGBErrorResponse(GBException.COURSE_NOT_FIND_MESSAGE)
-        mockWebServer.enqueueGBErrorResponse(GBException.COURSE_NOT_FIND_MESSAGE)
+        mockWebServer.enqueueGBErrorResponse(HttpURLConnection.HTTP_NOT_FOUND)
+        mockWebServer.enqueueGBErrorResponse(HttpURLConnection.HTTP_NOT_FOUND)
 
         assertThrows<GBException> {
             courseNetworkDataSource.getCourse(1)

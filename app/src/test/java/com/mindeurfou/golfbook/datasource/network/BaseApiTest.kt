@@ -51,11 +51,10 @@ internal fun MockWebServer.enqueueResponse(fileName: String, code: Int) {
             .setBody(jsonString)
     )
 }
-internal fun MockWebServer.enqueueGBErrorResponse(message: String) {
+internal fun MockWebServer.enqueueGBErrorResponse(code: Int) {
     enqueue(
         MockResponse()
-            .setResponseCode(436)
+            .setResponseCode(code)
             .setHeader("Content-Type", "text/plain;charset=utf-8")
-            .setBody(message)
     )
 }
