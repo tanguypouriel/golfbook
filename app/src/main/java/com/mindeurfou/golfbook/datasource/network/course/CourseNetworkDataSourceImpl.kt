@@ -26,9 +26,9 @@ class CourseNetworkDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCourses(): List<Course> {
+    override suspend fun getCourses(limit: Int?, offset: Int?): List<Course> {
         try {
-            return courseApiService.getCourses()
+            return courseApiService.getCourses(limit, offset)
         } catch (e: HttpException) {
             if (e.code() == HttpURLConnection.HTTP_NO_CONTENT)
                 throw GBException(GBException.NO_RESOURCES_MESSAGE)

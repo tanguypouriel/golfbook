@@ -28,9 +28,9 @@ class TournamentNetworkDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTournaments(): List<Tournament> {
+    override suspend fun getTournaments(limit: Int?, offset: Int?): List<Tournament> {
         try {
-            return tournamentApiService.getTournaments()
+            return tournamentApiService.getTournaments(limit, offset)
         } catch (e: HttpException) {
             if (e.code() == HttpURLConnection.HTTP_NO_CONTENT)
                 throw GBException(GBException.NO_RESOURCES_MESSAGE)

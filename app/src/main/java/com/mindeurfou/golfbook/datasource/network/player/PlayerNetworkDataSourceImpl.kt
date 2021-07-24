@@ -26,9 +26,9 @@ class PlayerNetworkDataSourceImpl @Inject constructor(
 
     }
 
-    override suspend fun getPlayers(): List<Player> {
+    override suspend fun getPlayers(limit: Int?, offset: Int?): List<Player> {
         try {
-            return playerApiService.getPlayers()
+            return playerApiService.getPlayers(limit, offset)
         } catch (e: HttpException) {
             if (e.code() == HttpURLConnection.HTTP_NO_CONTENT)
                 throw GBException(GBException.NO_RESOURCES_MESSAGE)

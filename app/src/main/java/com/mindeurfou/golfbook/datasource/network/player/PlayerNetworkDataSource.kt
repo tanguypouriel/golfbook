@@ -5,7 +5,7 @@ import com.mindeurfou.golfbook.data.player.remote.PostPlayerNetworkEntity
 
 interface PlayerNetworkDataSource {
     suspend fun getPlayer(playerId: Int): Player
-    suspend fun getPlayers(): List<Player>
+    suspend fun getPlayers(limit: Int? = null, offset: Int? = null): List<Player>
     suspend fun postPlayer(postPlayer: PostPlayerNetworkEntity): Player
     suspend fun updatePlayer(player: Player): Player
     suspend fun deletePlayer(playerId: Int): Boolean

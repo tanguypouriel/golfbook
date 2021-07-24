@@ -11,7 +11,7 @@ interface PlayerApiService {
     suspend fun getPlayer(@Path("playerId") playerId: Int): Player
 
     @GET("/player")
-    suspend fun getPlayers(): List<Player>
+    suspend fun getPlayers(@Query("limit") limit: Int? = null, @Query("offset") offset: Int? = null): List<Player>
 
     @POST("/player")
     suspend fun postPlayer(@Body postPlayer: PostPlayerNetworkEntity): Player

@@ -2,6 +2,7 @@ package com.mindeurfou.golfbook.datasource.network.game
 
 import com.mindeurfou.golfbook.data.game.local.Game
 import com.mindeurfou.golfbook.data.game.local.GameDetails
+import com.mindeurfou.golfbook.data.game.local.ScoreBook
 import com.mindeurfou.golfbook.data.game.remote.PatchGameNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PostGameNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PutGameNetworkEntity
@@ -14,7 +15,7 @@ interface GameApiService {
     suspend fun getGame(@Path("gameId") gameId: Int): GameDetails
 
     @GET("/game")
-    suspend fun getGames(): List<Game>
+    suspend fun getGames(@Query("tournamentId") tournamentId : Int): List<Game>
 
     @POST("/game")
     suspend fun postGame(@Body postGame: PostGameNetworkEntity): GameDetails
@@ -29,9 +30,9 @@ interface GameApiService {
     suspend fun addOrDeletePlayer(@Path("gameId") gameId: Int, @Body patchGame: PatchGameNetworkEntity)
 
     @GET("/game/{gameId}/scorebook")
-    suspend fun getScoreBook(@Path("gameId") gameId: Int): Map<String, List<Int?>>
+    suspend fun getScoreBook(@Path("gameId") gameId: Int): ScoreBook
 
     @PUT("/game/{gameId}/scorebook")
-    suspend fun putScoreBook(@Path("gameId") gameId: Int, @Body putScoreBook: PutScoreBookNetworkEntity): Map<String, List<Int?>>
+    suspend fun putScoreBook(@Path("gameId") gameId: Int, @Body putScoreBook: PutScoreBookNetworkEntity): ScoreBook
 
 }

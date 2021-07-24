@@ -13,5 +13,5 @@ data class GameDetails(
     val currentHole: Int,
     val players: List<Player>,
     //                  name  , list of scores (null if not played yet)
-    val scoreBook : Map<String, List<Int?>>
+    val scoreBook : ScoreBook?
 )

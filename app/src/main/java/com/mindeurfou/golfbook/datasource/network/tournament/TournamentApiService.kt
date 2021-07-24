@@ -12,7 +12,7 @@ interface TournamentApiService {
     suspend fun getTournament(@Path("tournamentId}") tournamentId: Int): TournamentDetails
 
     @GET("/tournament")
-    suspend fun getTournaments(): List<Tournament>
+    suspend fun getTournaments(@Query("limit") limit: Int? = null, @Query("offset") offset: Int? = null): List<Tournament>
 
     @POST("/tournament")
     suspend fun postTournament(@Body postTournament: PostTournamentNetworkEntity): TournamentDetails

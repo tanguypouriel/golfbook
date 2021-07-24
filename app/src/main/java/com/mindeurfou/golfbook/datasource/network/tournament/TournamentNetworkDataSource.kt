@@ -7,7 +7,7 @@ import com.mindeurfou.golfbook.data.tournament.remote.PutTournamentNetworkEntity
 
 interface TournamentNetworkDataSource {
     suspend fun getTournament(tournamentId: Int): TournamentDetails
-    suspend fun getTournaments(): List<Tournament>
+    suspend fun getTournaments(limit: Int? = null, offset: Int? = null): List<Tournament>
     suspend fun postTournament(postTournament: PostTournamentNetworkEntity): TournamentDetails
     suspend fun updateTournament(putTournament: PutTournamentNetworkEntity): TournamentDetails
 }

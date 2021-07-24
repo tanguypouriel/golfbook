@@ -2,6 +2,7 @@ package com.mindeurfou.golfbook.datasource.network.game
 
 import com.mindeurfou.golfbook.data.game.local.Game
 import com.mindeurfou.golfbook.data.game.local.GameDetails
+import com.mindeurfou.golfbook.data.game.local.ScoreBook
 import com.mindeurfou.golfbook.data.game.remote.PatchGameNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PostGameNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PutGameNetworkEntity
@@ -30,9 +31,9 @@ class GameNetworkDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getGames(): List<Game> {
+    override suspend fun getGamesByTournamentId(tournamentId: Int): List<Game> {
         try {
-            return gameApiService.getGames()
+            return gameApiService.getGames(tournamentId)
         } catch (e: HttpException) {
             if (e.code() == HttpURLConnection.HTTP_NO_CONTENT)
                 throw GBException(GBException.NO_RESOURCES_MESSAGE)
@@ -74,7 +75,7 @@ class GameNetworkDataSourceImpl @Inject constructor(
     override suspend fun addOrDeletePlayer(gameId: Int, patchGame: PatchGameNetworkEntity) =
         gameApiService.addOrDeletePlayer(gameId, patchGame)
 
-    override suspend fun getScoreBook(gameId: Int): Map<String, List<Int?>> {
+    override suspend fun getScoreBook(gameId: Int): ScoreBook {
         try {
             return gameApiService.getScoreBook(gameId)
         } catch (e: HttpException) {
@@ -85,7 +86,7 @@ class GameNetworkDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun putScoreBook(putScoreBook: PutScoreBookNetworkEntity): Map<String, List<Int?>> {
+    override suspend fun putScoreBook(putScoreBook: PutScoreBookNetworkEntity): ScoreBook {
         try {
             return gameApiService.putScoreBook(putScoreBook.gameId, putScoreBook)
         } catch (e: HttpException) {
