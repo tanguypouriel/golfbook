@@ -5,9 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentSplashBinding
 import com.mindeurfou.golfbook.ui.common.BaseFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
@@ -24,11 +29,21 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
     ): View? {
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
 
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(3000)
+            navigateToConnectionFragment()
+        }
+
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun navigateToConnectionFragment() {
+//        val navigationAction = SplashFragmentDirections.actionSplashFragmentToConnectionFragment()
+        findNavController().navigate(R.id.action_splashFragment_to_connectionFragment)
     }
 }

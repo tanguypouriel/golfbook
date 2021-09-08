@@ -5,11 +5,11 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlin_version"
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
     compileSdkVersion 31
-    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.mindeurfou.golfbook"
@@ -42,7 +42,6 @@ android {
 dependencies {
 
     def retrofit_version = "2.7.0"
-    def nav_version = "2.3.5"
     def hilt_version ="2.37"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

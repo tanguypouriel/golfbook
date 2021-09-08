@@ -9,6 +9,16 @@
         android:id="@+id/splashFragment"
         android:name="com.mindeurfou.golfbook.ui.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" />
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_connectionFragment"
+            app:destination="@id/connectionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/connectionFragment"
+        android:name="com.mindeurfou.golfbook.ui.ConnectionFragment"
+        android:label="fragment_connection"
+        tools:layout="@layout/fragment_connection" />
 
 </navigation>

@@ -17,7 +17,6 @@ class ConnectionFragment : BaseFragment(R.layout.fragment_splash) {
     private val binding
         get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
