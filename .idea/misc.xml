@@ -6,7 +6,8 @@
         <entry key="app/src/main/res/drawable/bottom_wave.xml" value="0.24444444444444444" />
         <entry key="app/src/main/res/drawable/ic_flag.xml" value="0.24444444444444444" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26313405797101447" />
-        <entry key="app/src/main/res/layout/fragment_connection.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/fragment_connection.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_create_player.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.33" />
       </map>
     </option>

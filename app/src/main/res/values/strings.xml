@@ -4,7 +4,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="connection">Connexion</string>
     <string name="ok">OK</string>
-    <string name="name">Nom</string>
+    <string name="name">Prénom</string>
     <string name="password">Mot de passe</string>
     <string name="rememberMe">Se souvenir de moi</string>
+    <string name="createAccount">Pas encore de compte ? En créer un.</string>
+    <string name="createAccountTitle">Création d\'un compte</string>
+    <string name="lastName">Nom de famille</string>
 </resources>

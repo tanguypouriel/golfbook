@@ -19,6 +19,16 @@
         android:id="@+id/connectionFragment"
         android:name="com.mindeurfou.golfbook.ui.ConnectionFragment"
         android:label="fragment_connection"
-        tools:layout="@layout/fragment_connection" />
+        tools:layout="@layout/fragment_connection" >
+        <action
+            android:id="@+id/action_connectionFragment_to_createPlayerFragment"
+            app:destination="@id/createPlayerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createPlayerFragment"
+        android:name="com.mindeurfou.golfbook.ui.CreatePlayerFragment"
+        android:label="CreatePlayerFragment"
+        tools:layout="@layout/fragment_create_player"/>
 
 </navigation>
