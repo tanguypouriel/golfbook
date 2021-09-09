@@ -1,0 +1,37 @@
+package com.mindeurfou.golfbook.ui.connection
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors
+import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.state.StateEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class ConnectionViewModel
+@Inject constructor(
+    private val connectionInteractors: ConnectionInteractors
+) : ViewModel() {
+
+    private val _connected: MutableLiveData<DataState<Boolean>> = MutableLiveData()
+    val connected: LiveData<DataState<Boolean>> = _connected
+
+    fun setStateEvent(stateEvent: StateEvent) {
+        viewModelScope.launch {
+            when(stateEvent) {
+                is ConnectionEvent.ConnectEvent -> {
+                    connectionInteractors.connect(stateEvent.username, stateEvent.password).onEach {
+                        _connected.value = it
+                    }.launchIn(viewModelScope)
+                }
+            }
+        }
+    }
+
+}

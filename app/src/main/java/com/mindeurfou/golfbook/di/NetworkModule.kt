@@ -5,7 +5,6 @@ import com.mindeurfou.golfbook.datasource.network.course.CourseApiService
 import com.mindeurfou.golfbook.datasource.network.game.GameApiService
 import com.mindeurfou.golfbook.datasource.network.player.PlayerApiService
 import com.mindeurfou.golfbook.datasource.network.tournament.TournamentApiService
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,22 +1,25 @@
-package com.mindeurfou.golfbook.ui
+package com.mindeurfou.golfbook.ui.splash
 
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentSplashBinding
-import com.mindeurfou.golfbook.ui.common.BaseFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashFragment : BaseFragment(R.layout.fragment_splash) {
+class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     private var _binding: FragmentSplashBinding? = null
+
+    private val viewModel: SplashViewModel by viewModels()
 
     private val binding
         get() = _binding!!
@@ -31,7 +34,8 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
         CoroutineScope(Dispatchers.Main).launch {
             delay(3000)
-            navigateToConnectionFragment()
+            val credentials = viewModel.getCredentials()
+            navigateToConnectionFragment(credentials.first, credentials.second)
         }
 
         return binding.root
@@ -42,8 +46,8 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
         _binding = null
     }
 
-    private fun navigateToConnectionFragment() {
-//        val navigationAction = SplashFragmentDirections.actionSplashFragmentToConnectionFragment()
-        findNavController().navigate(R.id.action_splashFragment_to_connectionFragment)
+    private fun navigateToConnectionFragment(username: String?, password : String?) {
+        val navigationAction = SplashFragmentDirections.actionSplashFragmentToConnectionFragment(username, password)
+        findNavController().navigate(navigationAction)
     }
 }
