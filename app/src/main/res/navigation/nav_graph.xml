@@ -25,19 +25,11 @@
         <action
             android:id="@+id/action_connectionFragment_to_createPlayerFragment"
             app:destination="@id/createPlayerFragment" />
-        <argument
-            android:name="username"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="password"
-            app:argType="string"
-            app:nullable="true" />
     </fragment>
 
     <fragment
         android:id="@+id/createPlayerFragment"
-        android:name="com.mindeurfou.golfbook.ui.CreatePlayerFragment"
+        android:name="com.mindeurfou.golfbook.ui.createPlayer.CreatePlayerFragment"
         android:label="CreatePlayerFragment"
         tools:layout="@layout/fragment_create_player"/>
 

@@ -19,8 +19,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     private var _binding: FragmentSplashBinding? = null
 
-    private val viewModel: SplashViewModel by viewModels()
-
     private val binding
         get() = _binding!!
 
@@ -34,8 +32,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
         CoroutineScope(Dispatchers.Main).launch {
             delay(3000)
-            val credentials = viewModel.getCredentials()
-            navigateToConnectionFragment(credentials.first, credentials.second)
+            navigateToConnectionFragment()
         }
 
         return binding.root
@@ -46,8 +43,8 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         _binding = null
     }
 
-    private fun navigateToConnectionFragment(username: String?, password : String?) {
-        val navigationAction = SplashFragmentDirections.actionSplashFragmentToConnectionFragment(username, password)
+    private fun navigateToConnectionFragment() {
+        val navigationAction = SplashFragmentDirections.actionSplashFragmentToConnectionFragment()
         findNavController().navigate(navigationAction)
     }
 }

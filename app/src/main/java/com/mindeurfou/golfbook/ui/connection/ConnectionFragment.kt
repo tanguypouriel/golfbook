@@ -1,6 +1,7 @@
 package com.mindeurfou.golfbook.ui.connection
 
 
+import android.content.Context
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
@@ -27,6 +28,8 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
 
     private val viewModel: ConnectionViewModel by viewModels()
 
+    private val REMEMBER_ME_KEY = "rmbr_key"
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,6 +40,7 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
         setupUI()
         subscribeObservers()
 
+        viewModel.setStateEvent(ConnectionEvent.RetrieveCredentialsEvent)
 
         return binding.root
     }
@@ -63,13 +67,26 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
         binding.createPlayerTextView.text = spannableString
         binding.createPlayerTextView.movementMethod = LinkMovementMethod.getInstance()
 
-        binding.okBtn.setOnClickListener {
-            viewModel.setStateEvent(ConnectionEvent.ConnectEvent("test", "paaaasword"))
+        val sharedPreferences = activity?.getPreferences(Context.MODE_PRIVATE)
+        val rememberMe = sharedPreferences?.getBoolean(REMEMBER_ME_KEY, true) ?: true
+        binding.rememberMeCheckBox.isChecked = rememberMe
+
+        binding.rememberMeCheckBox.setOnCheckedChangeListener { _, checked ->
+            sharedPreferences?.let {
+                with(it.edit()) {
+                    putBoolean(REMEMBER_ME_KEY, checked)
+                    apply()
+                }
+            }
         }
+
+        binding.okBtn.setOnClickListener { okBtnOnClick() }
+
     }
 
     private fun subscribeObservers() {
         viewModel.connected.observe(viewLifecycleOwner) { observeConnected(it) }
+        viewModel.credentials.observe(viewLifecycleOwner) { observeCredentials(it) }
     }
 
     private fun observeConnected(dataState: DataState<Boolean>) {
@@ -83,6 +100,25 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
                     Toast.makeText(requireContext(), "Not connected !", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun observeCredentials(dataState: DataState<Pair<String, String>?>) {
+        when(dataState) {
+            is DataState.Success -> {
+                val credentials = dataState.data
+                credentials?.let {
+                    binding.nameInput.editText?.setText(credentials.first)
+                    binding.passwordInput.editText?.setText(credentials.second)
+                }
+            }
+        }
+    }
+
+    private fun okBtnOnClick() {
+        val username = binding.nameInput.editText!!.text.toString()
+        val password = binding.passwordInput.editText!!.text.toString()
+        val rememberMe = binding.rememberMeCheckBox.isChecked
+        viewModel.setStateEvent(ConnectionEvent.ConnectEvent(username, password, rememberMe))
     }
 
     private fun showLoading() {

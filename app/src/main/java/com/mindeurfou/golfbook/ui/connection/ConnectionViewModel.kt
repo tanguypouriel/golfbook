@@ -22,12 +22,20 @@ class ConnectionViewModel
     private val _connected: MutableLiveData<DataState<Boolean>> = MutableLiveData()
     val connected: LiveData<DataState<Boolean>> = _connected
 
+    private val _credentials: MutableLiveData<DataState<Pair<String, String>?>> = MutableLiveData()
+    val credentials: LiveData<DataState<Pair<String, String>?>> = _credentials
+
     fun setStateEvent(stateEvent: StateEvent) {
         viewModelScope.launch {
             when(stateEvent) {
                 is ConnectionEvent.ConnectEvent -> {
-                    connectionInteractors.connect(stateEvent.username, stateEvent.password).onEach {
+                    connectionInteractors.connect(stateEvent.username, stateEvent.password, stateEvent.rememberMe).onEach {
                         _connected.value = it
+                    }.launchIn(viewModelScope)
+                }
+                is ConnectionEvent.RetrieveCredentialsEvent -> {
+                    connectionInteractors.retrieveCredentials().onEach {
+                        _credentials.value = it
                     }.launchIn(viewModelScope)
                 }
             }

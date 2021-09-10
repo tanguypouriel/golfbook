@@ -6,8 +6,10 @@ sealed class ConnectionEvent : StateEvent {
 
     class ConnectEvent(
         val username: String,
-        val password: String
+        val password: String,
+        val rememberMe: Boolean
     ) : ConnectionEvent()
 
+    object RetrieveCredentialsEvent : ConnectionEvent()
 
 }

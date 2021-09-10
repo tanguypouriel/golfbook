@@ -3,7 +3,6 @@ package com.mindeurfou.golfbook.datasource.network.player
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.data.player.remote.PostPlayerNetworkEntity
 import com.mindeurfou.golfbook.data.player.remote.toPutPlayerNetworkEntity
-import com.mindeurfou.golfbook.datasource.network.RetrofitBuilder
 import com.mindeurfou.golfbook.utils.GBException
 import com.mindeurfou.golfbook.utils.GBHttpStatusCode
 import retrofit2.HttpException

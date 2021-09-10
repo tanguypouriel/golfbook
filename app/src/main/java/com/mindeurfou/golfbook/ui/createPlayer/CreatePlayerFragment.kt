@@ -1,4 +1,4 @@
-package com.mindeurfou.golfbook.ui
+package com.mindeurfou.golfbook.ui.createPlayer
 
 
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentCreatePlayerBinding
@@ -17,6 +18,7 @@ class CreatePlayerFragment : Fragment(R.layout.fragment_create_player) {
     private val binding
         get() = _binding!!
 
+    private val viewModel: CreatePlayerViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +36,4 @@ class CreatePlayerFragment : Fragment(R.layout.fragment_create_player) {
         _binding = null
     }
 
-//    private fun navigateToConnectionFragment() {
-//    }
 }
