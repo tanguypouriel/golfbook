@@ -1,6 +1,7 @@
 package com.mindeurfou.golfbook.interactors.connection
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.mindeurfou.golfbook.datasource.network.player.PlayerNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
 import kotlinx.coroutines.delay
@@ -21,9 +22,11 @@ class ConnectionInteractors
 
         emit(DataState.Loading)
 
-        delay(3000)
+        delay(1000)
 
-        emit(DataState.Success(true))
+//        val token = playerNetworkDataSourceImpl.login(username, password) // ready ? TODO ?
+//        Log.d("httpLogin", "token : $token")
+
 
         if (rememberMe) {
             with(sharedPreferences.edit()) {
@@ -37,6 +40,8 @@ class ConnectionInteractors
             if (sharedPreferences.getString(PASSWORD_KEY, null) != null)
                 sharedPreferences.edit().remove(PASSWORD_KEY).apply()
         }
+
+        emit(DataState.Success(true))
 
     }
 

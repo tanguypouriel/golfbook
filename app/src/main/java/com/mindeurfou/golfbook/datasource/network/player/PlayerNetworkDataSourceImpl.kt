@@ -1,5 +1,7 @@
 package com.mindeurfou.golfbook.datasource.network.player
 
+import android.util.Log
+import com.mindeurfou.golfbook.data.Credentials
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.data.player.remote.PostPlayerNetworkEntity
 import com.mindeurfou.golfbook.data.player.remote.toPutPlayerNetworkEntity
@@ -12,6 +14,15 @@ import javax.inject.Inject
 class PlayerNetworkDataSourceImpl @Inject constructor(
     private val playerApiService: PlayerApiService
 ): PlayerNetworkDataSource {
+
+    override suspend fun login(username: String, password: String): Map<String, String> {
+        try {
+            return playerApiService.login(Credentials(username, password))
+        } catch (e: HttpException) {
+            Log.d("httpLogin", e.message())
+            throw Exception("httpLogin")
+        }
+    }
 
     override suspend fun getPlayer(playerId: Int): Player {
         try {
