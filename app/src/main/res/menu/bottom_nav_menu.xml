@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/playersFragment"
+        android:icon="@drawable/ic_player"
+        android:title="@string/players"/>
+    <item
+        android:id="@+id/gamesFragment"
+        android:icon="@drawable/ic_game"
+        android:title="@string/games"/>
+    <item
+        android:id="@+id/tournamentsFragment"
+        android:icon="@drawable/ic_trophie"
+        android:title="@string/tournaments"/>
+    <item
+        android:id="@+id/coursesFragment"
+        android:icon="@drawable/ic_course"
+        android:title="@string/courses"/>
+
+</menu>

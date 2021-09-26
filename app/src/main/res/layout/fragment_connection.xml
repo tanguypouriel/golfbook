@@ -12,19 +12,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
-        android:fontFamily="@font/lulo_clean"
         android:text="@string/connection"
+        style="@style/TextAppearance.Golfbook.Title"
         android:textColor="@color/colorArdoise"
-        android:textSize="@dimen/h1_text_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
-        android:layout_height="240dp"
+        android:layout_height="260dp"
+        style="@style/Widget.Golfbook.Cardview"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
@@ -43,7 +42,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nameInput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.Golfbook.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -51,7 +50,6 @@
                 android:layout_marginEnd="16dp"
                 android:hint="@string/name"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -63,14 +61,14 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordInput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.Golfbook.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
                 android:hint="@string/password"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/nameInput">
 
@@ -92,13 +90,15 @@
 
             <Button
                 android:id="@+id/okBtn"
-                android:layout_width="64dp"
-                android:layout_height="56dp"
+                style="@style/Widget.Golfbook.Button"
+                android:layout_width="70dp"
+                android:layout_height="64dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/ok"
-                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rememberMeCheckBox" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -117,9 +117,8 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/progressBarSize"
+        android:layout_height="@dimen/progressBarSize"
         android:visibility="gone"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -129,11 +128,12 @@
     <ImageView
         android:id="@+id/footerImg"
         android:layout_width="match_parent"
-        android:layout_height="181dp"
+        android:layout_height="170dp"
         android:src="@drawable/bottom_wave"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="centerCrop"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

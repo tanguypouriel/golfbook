@@ -12,5 +12,49 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/colorPrimaryDark</item>
         <!-- Customize your theme here. -->
+        <item name="android:navigationBarColor">@color/colorSecondaryVariant</item>
+    </style>
+
+    <style name="TextAppearance.Golfbook.baseGlacial" parent="">
+        <item name="fontFamily">@font/glacial_indif</item>
+        <item name="android:textColor">@color/colorArdoise</item>
+    </style>
+
+    <style name="TextAppearance.Golfbook.Title" parent="">
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorArdoise</item>
+        <item name="fontFamily">@font/lulo_clean</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextAppearance.Golfbook.h2" parent="">
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorArdoise</item>
+        <item name="fontFamily">@font/lulo_clean</item>
+    </style>
+
+    <style name="Widget.Golfbook.Cardview" parent="CardView">
+        <item name="cardCornerRadius">25dp</item>
+        <item name="cardElevation">1dp</item>
+    </style>
+
+    <style name="Widget.Golfbook.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextAppearance">@style/TextAppearance.Golfbook.TextInputLayout.HintText</item>
+        <item name="android:textAppearance">@style/TextAppearance.Golfbook.TextInputLayout.InputText</item>
+    </style>
+
+    <style name="TextAppearance.Golfbook.TextInputLayout.HintText" parent="TextAppearance.Golfbook.baseGlacial">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.Golfbook.TextInputLayout.InputText" parent="TextAppearance.Golfbook.baseGlacial">
+    </style>
+
+    <style name="Widget.Golfbook.Button" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="fontFamily">@font/lulo_clean</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorArdoise</item>
     </style>
 </resources>

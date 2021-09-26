@@ -10,4 +10,8 @@
     <string name="createAccount">Pas encore de compte ? En créer un.</string>
     <string name="createAccountTitle">Création d\'un compte</string>
     <string name="lastName">Nom de famille</string>
+    <string name="players">Joueurs</string>
+    <string name="games">Parties</string>
+    <string name="tournaments">Tournois</string>
+    <string name="courses">Parcours</string>
 </resources>

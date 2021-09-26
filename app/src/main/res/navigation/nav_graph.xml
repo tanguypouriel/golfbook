@@ -25,6 +25,11 @@
         <action
             android:id="@+id/action_connectionFragment_to_createPlayerFragment"
             app:destination="@id/createPlayerFragment" />
+        <action
+            android:id="@+id/action_connectionFragment_to_tournamentsFragment"
+            app:destination="@id/tournamentsFragment"
+            app:popUpTo="@id/connectionFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -32,5 +37,39 @@
         android:name="com.mindeurfou.golfbook.ui.createPlayer.CreatePlayerFragment"
         android:label="CreatePlayerFragment"
         tools:layout="@layout/fragment_create_player"/>
+
+    <fragment
+        android:id="@+id/coursesFragment"
+        android:name="com.mindeurfou.golfbook.ui.courses.CoursesFragment"
+        android:label="CoursesFragment"
+        tools:layout="@layout/fragment_courses"/>
+
+    <fragment
+        android:id="@+id/gamesFragment"
+        android:name="com.mindeurfou.golfbook.ui.games.GamesFragment"
+        android:label="GamesFragment"
+        tools:layout="@layout/fragment_games"/>
+
+    <fragment
+        android:id="@+id/playersFragment"
+        android:name="com.mindeurfou.golfbook.ui.players.PlayersFragment"
+        android:label="PlayersFragment"
+        tools:layout="@layout/fragment_players"/>
+
+    <fragment
+        android:id="@+id/tournamentsFragment"
+        android:name="com.mindeurfou.golfbook.ui.tournaments.TournamentsFragment"
+        android:label="TournamentsFragment"
+        tools:layout="@layout/fragment_tournaments">
+        <action
+            android:id="@+id/action_tournamentsFragment_to_tournamentDetailsFragment"
+            app:destination="@id/tournamentDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tournamentDetailsFragment"
+        android:name="com.mindeurfou.golfbook.ui.tournamentDetails.TournamentDetailsFragment"
+        android:label="TournamentDetailsFragment"
+        tools:layout="@layout/fragment_tournament_details"/>
 
 </navigation>

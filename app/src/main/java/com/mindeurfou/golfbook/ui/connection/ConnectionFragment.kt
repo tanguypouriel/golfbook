@@ -54,6 +54,10 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
         findNavController().navigate(R.id.action_connectionFragment_to_createPlayerFragment)
     }
 
+    private fun navigateToTournamentsFragment() {
+        findNavController().navigate(R.id.action_connectionFragment_to_tournamentsFragment)
+    }
+
     private fun setupUI() {
 
         // Make the "create account" label
@@ -95,7 +99,7 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
             is DataState.Success -> {
                 hideLoading()
                 if (dataState.data)
-                    Toast.makeText(requireContext(), "Connected !", Toast.LENGTH_SHORT).show()
+                    navigateToTournamentsFragment()
                 else
                     Toast.makeText(requireContext(), "Not connected !", Toast.LENGTH_SHORT).show()
             }

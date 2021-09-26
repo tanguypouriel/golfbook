@@ -3,12 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/bottom_wave.xml" value="0.24444444444444444" />
+        <entry key="app/src/main/res/drawable/bottom_wave.xml" value="0.67" />
         <entry key="app/src/main/res/drawable/ic_flag.xml" value="0.24444444444444444" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.26313405797101447" />
-        <entry key="app/src/main/res/layout/fragment_connection.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_connection.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_courses.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/fragment_create_player.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_games.xml" value="0.4010416666666667" />
+        <entry key="app/src/main/res/layout/fragment_players.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_tournament_details.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/fragment_tournaments.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/item_tournament_first.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/item_tournament_fourth.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/item_tournament_recycler.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_tournament_second.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/item_tournament_third.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.4010416666666667" />
       </map>
     </option>
   </component>
