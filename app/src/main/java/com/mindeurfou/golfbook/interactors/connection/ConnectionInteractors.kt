@@ -24,8 +24,8 @@ class ConnectionInteractors
 
         delay(1000)
 
-//        val token = playerNetworkDataSourceImpl.login(username, password) // ready ? TODO ?
-//        Log.d("httpLogin", "token : $token")
+        val token = playerNetworkDataSourceImpl.login(username, password) // ready ? TODO ?
+        Log.d("httpLogin", "token : $token")
 
 
         if (rememberMe) {
