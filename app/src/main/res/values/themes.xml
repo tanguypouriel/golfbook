@@ -33,6 +33,15 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/colorArdoise</item>
         <item name="fontFamily">@font/lulo_clean</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextAppearance.Golfbook.h3" parent="">
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/colorArdoise</item>
+        <item name="fontFamily">@font/lulo_clean</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="Widget.Golfbook.Cardview" parent="CardView">

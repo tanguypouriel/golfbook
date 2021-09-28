@@ -2,4 +2,5 @@
 <resources>
     <dimen name="h1_text_size">24sp</dimen>
     <dimen name="progressBarSize">50dp</dimen>
+    <dimen name="avatar_images_reveal">500dp</dimen>
 </resources>

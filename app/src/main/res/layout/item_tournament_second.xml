@@ -16,10 +16,10 @@
             android:id="@+id/titleTournament"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.Golfbook.h2"
+            style="@style/TextAppearance.Golfbook.h3"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="WYNDAM TOURNAMENT"
+            android:text="WYNDAM TOURNAMENT 2"
             />
 
 

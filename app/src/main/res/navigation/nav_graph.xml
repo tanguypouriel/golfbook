@@ -36,7 +36,13 @@
         android:id="@+id/createPlayerFragment"
         android:name="com.mindeurfou.golfbook.ui.createPlayer.CreatePlayerFragment"
         android:label="CreatePlayerFragment"
-        tools:layout="@layout/fragment_create_player"/>
+        tools:layout="@layout/fragment_create_player">
+        <action
+            android:id="@+id/action_createPlayerFragment_to_tournamentsFragment"
+            app:destination="@id/tournamentsFragment"
+            app:popUpTo="@id/createPlayerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/coursesFragment"
