@@ -15,12 +15,14 @@ class PlayerNetworkDataSourceImpl @Inject constructor(
     private val playerApiService: PlayerApiService
 ): PlayerNetworkDataSource {
 
-    override suspend fun login(username: String, password: String): Map<String, String> {
+    override suspend fun login(username: String, password: String): Map<String, String>? {
         try {
             return playerApiService.login(Credentials(username, password))
         } catch (e: HttpException) {
-            Log.d("httpLogin", e.message())
-            throw Exception("httpLogin")
+            if (e.code() == HttpURLConnection.HTTP_UNAUTHORIZED) // bad credentials
+                return null
+
+            throw Exception("HttpException")
         }
     }
 

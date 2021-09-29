@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ProgressBar
 import androidx.core.animation.doOnEnd
 import androidx.core.view.drawToBitmap
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -69,4 +70,14 @@ fun BottomNavigationView.hide() {
         }
         start()
     }
+}
+
+fun ProgressBar.show() {
+    if (visibility != View.VISIBLE)
+        visibility = View.VISIBLE
+}
+
+fun ProgressBar.hide() {
+    if (visibility != View.GONE)
+        visibility = View.GONE
 }

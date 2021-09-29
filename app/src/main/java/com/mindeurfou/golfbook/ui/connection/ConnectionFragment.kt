@@ -16,6 +16,8 @@ import androidx.navigation.fragment.findNavController
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentConnectionBinding
 import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.hide
+import com.mindeurfou.golfbook.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -95,13 +97,17 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
 
     private fun observeConnected(dataState: DataState<Boolean>) {
         when(dataState) {
-            is DataState.Loading -> showLoading()
+            is DataState.Loading -> binding.progressBar.show()
             is DataState.Success -> {
-                hideLoading()
+                binding.progressBar.hide()
                 if (dataState.data)
                     navigateToTournamentsFragment()
                 else
-                    Toast.makeText(requireContext(), "Not connected !", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Identifiants incorrects", Toast.LENGTH_SHORT).show()
+            }
+            is DataState.Failure -> {
+                binding.progressBar.hide()
+                Toast.makeText(requireContext(), "Un problème est survenu, veuillez réessayer plus tard", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -119,17 +125,9 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
     }
 
     private fun okBtnOnClick() {
-        val username = binding.nameInput.editText!!.text.toString()
-        val password = binding.passwordInput.editText!!.text.toString()
+        val username = binding.nameInput.editText!!.text.toString().trim()
+        val password = binding.passwordInput.editText!!.text.toString().trim()
         val rememberMe = binding.rememberMeCheckBox.isChecked
         viewModel.setStateEvent(ConnectionEvent.ConnectEvent(username, password, rememberMe))
-    }
-
-    private fun showLoading() {
-        binding.progressBar.visibility = View.VISIBLE
-    }
-
-    private fun hideLoading() {
-        binding.progressBar.visibility = View.GONE
     }
 }

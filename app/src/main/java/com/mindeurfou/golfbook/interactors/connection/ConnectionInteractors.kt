@@ -24,10 +24,7 @@ class ConnectionInteractors
 
         delay(1000)
 
-        val token = playerNetworkDataSourceImpl.login(username, password) // ready ? TODO ?
-        Log.d("httpLogin", "token : $token")
-
-
+        // manage credentials cache
         if (rememberMe) {
             with(sharedPreferences.edit()) {
                 putString(USERNAME_KEY, username)
@@ -41,8 +38,14 @@ class ConnectionInteractors
                 sharedPreferences.edit().remove(PASSWORD_KEY).apply()
         }
 
-        emit(DataState.Success(true))
-
+        try {
+            val token = playerNetworkDataSourceImpl.login(username, password)
+            token?.let {
+                emit(DataState.Success(true))
+            } ?: emit(DataState.Success(false))
+        } catch (e: Exception){
+            emit(DataState.Failure(e))
+        }
     }
 
     fun retrieveCredentials() : Flow<DataState<Pair<String, String>?>> = flow {
