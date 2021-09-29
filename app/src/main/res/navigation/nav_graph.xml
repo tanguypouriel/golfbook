@@ -60,7 +60,11 @@
         android:id="@+id/playersFragment"
         android:name="com.mindeurfou.golfbook.ui.players.PlayersFragment"
         android:label="PlayersFragment"
-        tools:layout="@layout/fragment_players"/>
+        tools:layout="@layout/fragment_players">
+        <action
+            android:id="@+id/action_playersFragment_to_playerDetailsFragment"
+            app:destination="@id/playerDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/tournamentsFragment"
@@ -77,5 +81,11 @@
         android:name="com.mindeurfou.golfbook.ui.tournamentDetails.TournamentDetailsFragment"
         android:label="TournamentDetailsFragment"
         tools:layout="@layout/fragment_tournament_details"/>
+
+    <fragment
+        android:id="@+id/playerDetailsFragment"
+        android:name="com.mindeurfou.golfbook.ui.playerDetails.PlayerDetailsFragment"
+        android:label="PlayerDetailsFragment"
+        tools:layout="@layout/fragment_player_details"/>
 
 </navigation>
