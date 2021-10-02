@@ -5,25 +5,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.android.material.bottomappbar.BottomAppBarTopEdgeTreatment
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mindeurfou.golfbook.R
+import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.utils.CustomEdgeTreatment
 
 class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    val imageAvatar: ImageView = itemView.findViewById(R.id.imageAvatar)
+    private val imageAvatar: ImageView = itemView.findViewById(R.id.imageAvatar)
+    private val playerName: TextView = itemView.findViewById(R.id.titlePlayer)
 
+    fun bind(player: Player) {
+
+        if (player.drawableResourceId >= R.drawable.man_1 && player.drawableResourceId <= R.drawable.woman_8)
+            imageAvatar.setImageResource(player.drawableResourceId)
+        else
+            imageAvatar.setImageResource(R.drawable.man_1)
+
+        playerName.text = player.username
+    }
 }
 
 class PlayerAdapter(
+    private val players: List<Player>,
     private val onClick: () -> Unit
 ) : RecyclerView.Adapter<PlayerViewHolder>(){
-
-    private val dummy = listOf("a", "b")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
         val layoutId = when (viewType) {
@@ -34,6 +44,11 @@ class PlayerAdapter(
             else -> R.layout.item_player_main
         }
         val view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
+        if (layoutId == R.layout.item_player_main) {
+            val layoutParams : StaggeredGridLayoutManager.LayoutParams = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
+            layoutParams.isFullSpan = true
+            view.layoutParams = layoutParams
+        }
         val cardView : MaterialCardView = view.findViewById(R.id.cardView)
         setShape(cardView)
         
@@ -42,21 +57,17 @@ class PlayerAdapter(
 
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         holder.itemView.setOnClickListener { onClick() }
-        if (position == 0) {
-            val layoutParams : StaggeredGridLayoutManager.LayoutParams = holder.itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams
-            layoutParams.isFullSpan = true
-            holder.itemView.layoutParams = layoutParams
-        }
+        holder.bind(players[position])
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == 0)
-            return 5
+        return if (position == 0)
+            5
         else
-            return (position % 4)
+            (position % 4)
     }
 
-    override fun getItemCount(): Int = dummy.size + 7
+    override fun getItemCount(): Int = players.size
 
     @SuppressLint("RestrictedApi")
     private fun setShape(view: MaterialCardView) {

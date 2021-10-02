@@ -7,17 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mindeurfou.golfbook.R
+import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.databinding.FragmentPlayersBinding
+import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.hide
+import com.mindeurfou.golfbook.utils.show
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlayersFragment : Fragment(R.layout.fragment_players) {
 
     private var _binding: FragmentPlayersBinding? = null
     private val binding
         get() = _binding!!
 
-//    private val viewModel: PlayersViewModel by viewModels()
+    private val viewModel: PlayersViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,8 +32,29 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
         _binding = FragmentPlayersBinding.inflate(inflater, container, false)
 
         setupUI()
+        subscribeObservers()
+
+        viewModel.setStateEvent(PlayersEvent.GetPlayersEvent())
 
         return binding.root
+    }
+
+    private fun subscribeObservers() {
+
+        viewModel.players.observe(viewLifecycleOwner) { observePlayers(it) }
+    }
+
+    private fun observePlayers(dataState: DataState<List<Player>>) {
+        when(dataState) {
+            is DataState.Loading -> binding.progressBar.show()
+            is DataState.Success -> {
+                binding.progressBar.hide()
+                binding.recyclerPlayers.adapter = PlayerAdapter(dataState.data) {
+                    navigateToPlayerDetails()
+                }
+            }
+            is DataState.Failure -> binding.progressBar.hide()
+        }
     }
 
     override fun onDestroyView() {
@@ -36,13 +62,7 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
         _binding = null
     }
 
-    private fun setupUI() {
-
-        binding.recyclerPlayers.adapter = PlayerAdapter {
-            navigateToPlayerDetails()
-        }
-        binding.recyclerPlayers.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-    }
+    private fun setupUI() {}
 
     private fun navigateToPlayerDetails() {
         findNavController().navigate(R.id.action_playersFragment_to_playerDetailsFragment)
