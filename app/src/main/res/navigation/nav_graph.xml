@@ -15,6 +15,11 @@
             app:destination="@id/connectionFragment"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_tournamentsFragment"
+            app:destination="@id/tournamentsFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

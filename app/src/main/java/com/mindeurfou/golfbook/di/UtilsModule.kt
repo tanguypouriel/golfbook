@@ -15,5 +15,7 @@ object UtilsModule {
     @Provides
     fun provideSharedPreferences(
         application: Application
-    ): SharedPreferences = application.getSharedPreferences("CREDENTIALS_FILE", Context.MODE_PRIVATE)
+    ): SharedPreferences = application.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
+
+    const val SHARED_PREF_NAME = "golfbook_prefs"
 }

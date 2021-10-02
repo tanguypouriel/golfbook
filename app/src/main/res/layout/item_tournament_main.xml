@@ -16,6 +16,7 @@
         android:paddingEnd="12dp">
 
         <TextView
+            android:id="@+id/titleTournament"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextAppearance.Golfbook.h2"

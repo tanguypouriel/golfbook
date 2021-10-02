@@ -35,7 +35,7 @@ class TournamentNetworkDataSourceImpl @Inject constructor(
             if (e.code() == HttpURLConnection.HTTP_NO_CONTENT)
                 throw GBException(GBException.NO_RESOURCES_MESSAGE)
             else
-                throw UnknownError("status code is ${e.code()}")
+                throw Exception("status code is ${e.code()}")
         }
     }
 

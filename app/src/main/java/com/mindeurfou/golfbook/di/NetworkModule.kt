@@ -21,19 +21,19 @@ import javax.inject.Singleton
 object NetworkModule {
 
     @Provides
-    fun providePlayerApiService(): PlayerApiService =
-        RetrofitBuilder.retrofit.create(PlayerApiService::class.java)
+    fun providePlayerApiService(retrofitBuilder: RetrofitBuilder): PlayerApiService =
+        retrofitBuilder.retrofit.create(PlayerApiService::class.java)
 
     @Provides
-    fun provideCourseApiService(): CourseApiService =
-        RetrofitBuilder.retrofit.create(CourseApiService::class.java)
+    fun provideCourseApiService(retrofitBuilder: RetrofitBuilder): CourseApiService =
+        retrofitBuilder.retrofit.create(CourseApiService::class.java)
 
     @Provides
-    fun provideGameApiService(): GameApiService =
-        RetrofitBuilder.retrofit.create(GameApiService::class.java)
+    fun provideGameApiService(retrofitBuilder: RetrofitBuilder): GameApiService =
+        retrofitBuilder.retrofit.create(GameApiService::class.java)
 
     @Provides
-    fun provideTournamentApiService(): TournamentApiService =
-        RetrofitBuilder.retrofit.create(TournamentApiService::class.java)
+    fun provideTournamentApiService(retrofitBuilder: RetrofitBuilder): TournamentApiService =
+        retrofitBuilder.retrofit.create(TournamentApiService::class.java)
 
 }

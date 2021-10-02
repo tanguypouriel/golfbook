@@ -15,9 +15,6 @@ class ConnectionInteractors
     private val sharedPreferences: SharedPreferences
 ) {
 
-    val USERNAME_KEY = "username_key"
-    val PASSWORD_KEY = "password_key"
-
     fun connect(username: String, password: String, rememberMe: Boolean) : Flow<DataState<Boolean>> = flow {
 
         emit(DataState.Loading)
@@ -40,7 +37,8 @@ class ConnectionInteractors
 
         try {
             val token = playerNetworkDataSourceImpl.login(username, password)
-            token?.let {
+            token?.let { tokenMap ->
+                saveToken(tokenMap["token"])
                 emit(DataState.Success(true))
             } ?: emit(DataState.Success(false))
         } catch (e: Exception){
@@ -58,5 +56,21 @@ class ConnectionInteractors
             emit(DataState.Success(null))
         else
             emit(DataState.Success(Pair(username, password)))
+    }
+
+    private fun saveToken(token: String?) {
+        val validity = System.currentTimeMillis() + 86400000L
+        with(sharedPreferences.edit()) {
+            putString(TOKEN_KEY, token)
+            putLong(VALIDITY_KEY, validity)
+            apply()
+        }
+    }
+
+    companion object {
+        const val USERNAME_KEY = "username_key"
+        const val PASSWORD_KEY = "password_key"
+        const val TOKEN_KEY = "token_key"
+        const val VALIDITY_KEY = "validity_key"
     }
 }

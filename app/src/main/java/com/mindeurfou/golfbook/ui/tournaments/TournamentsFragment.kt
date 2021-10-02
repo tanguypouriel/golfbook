@@ -10,8 +10,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mindeurfou.golfbook.R
+import com.mindeurfou.golfbook.data.tournament.local.Tournament
 import com.mindeurfou.golfbook.databinding.FragmentTournamentsBinding
+import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.hide
+import com.mindeurfou.golfbook.utils.show
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.serialization.ExperimentalSerializationApi
 
+@AndroidEntryPoint
+@ExperimentalSerializationApi
 class TournamentsFragment : Fragment(R.layout.fragment_tournaments) {
 
     private var _binding: FragmentTournamentsBinding? = null
@@ -30,6 +38,8 @@ class TournamentsFragment : Fragment(R.layout.fragment_tournaments) {
         setupUI()
         subscribeObservers()
 
+        viewModel.setStateEvent(TournamentsEvent.GetTournamentsEvent())
+
         return binding.root
     }
 
@@ -38,16 +48,23 @@ class TournamentsFragment : Fragment(R.layout.fragment_tournaments) {
         _binding = null
     }
 
-    private fun setupUI() {
-
-        binding.recyclerTournaments.adapter = TournamentAdapter {
-            navigateToTournamentDetails()
-        }
-        binding.recyclerTournaments.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-    }
+    private fun setupUI() {}
 
     private fun subscribeObservers() {
+        viewModel.tournaments.observe(viewLifecycleOwner) { observeTournaments(it) }
+    }
 
+    private fun observeTournaments(dataState: DataState<List<Tournament>>) {
+        when(dataState) {
+            is DataState.Loading -> binding.progressBar.show()
+            is DataState.Success -> {
+                binding.progressBar.hide()
+                binding.recyclerTournaments.adapter = TournamentAdapter(dataState.data) {
+                    navigateToTournamentDetails()
+                }
+            }
+            is DataState.Failure -> binding.progressBar.hide()
+        }
     }
 
     private fun navigateToTournamentDetails() {

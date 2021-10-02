@@ -1,6 +1,5 @@
 package com.mindeurfou.golfbook.datasource.network.player
 
-import android.util.Log
 import com.mindeurfou.golfbook.data.Credentials
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.data.player.remote.PostPlayerNetworkEntity
