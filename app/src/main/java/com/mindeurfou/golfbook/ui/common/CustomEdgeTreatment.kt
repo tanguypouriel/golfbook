@@ -1,4 +1,4 @@
-package com.mindeurfou.golfbook.utils
+package com.mindeurfou.golfbook.ui.common
 
 import com.google.android.material.shape.EdgeTreatment
 import com.google.android.material.shape.ShapePath
