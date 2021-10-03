@@ -20,8 +20,8 @@ class CreatePlayerViewModel
     private val createPlayerInteractors: CreatePlayerInteractors
 ) : ViewModel() {
 
-    private val _playerId: MutableLiveData<DataState<Int>> = MutableLiveData()
-    val playerId: LiveData<DataState<Int>> = _playerId
+    private val _playerCreated: MutableLiveData<DataState<Boolean>> = MutableLiveData()
+    val playerCreated: LiveData<DataState<Boolean>> = _playerCreated
 
     fun setStateEvent(stateEvent: StateEvent) {
         viewModelScope.launch {
@@ -36,7 +36,7 @@ class CreatePlayerViewModel
                             drawableResourceId = stateEvent.avatarId
                         )
                     ).onEach {
-                        _playerId.value = it
+                        _playerCreated.value = it
                     }.launchIn(viewModelScope)
                 }
             }

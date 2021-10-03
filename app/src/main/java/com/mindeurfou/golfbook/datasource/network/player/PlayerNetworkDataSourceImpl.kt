@@ -32,7 +32,7 @@ class PlayerNetworkDataSourceImpl @Inject constructor(
             if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
                 throw GBException(GBException.PLAYER_NOT_FIND_MESSAGE)
             else
-                throw UnknownError("status code is ${e.code()}")
+                throw Exception("status code is ${e.code()}")
         }
 
     }
@@ -48,14 +48,14 @@ class PlayerNetworkDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun postPlayer(postPlayer: PostPlayerNetworkEntity): Player {
+    override suspend fun postPlayer(postPlayer: PostPlayerNetworkEntity): Map<String, String> {
         try {
             return playerApiService.postPlayer(postPlayer)
         } catch (e: HttpException) {
             if (e.code() == GBHttpStatusCode.valueA)
                 throw GBException(GBException.USERNAME_ALREADY_TAKEN_MESSAGE)
             else
-                throw UnknownError("status code is ${e.code()}")
+                throw Exception("status code is ${e.code()}")
         }
     }
 
@@ -66,7 +66,7 @@ class PlayerNetworkDataSourceImpl @Inject constructor(
             if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
                 throw GBException(GBException.PLAYER_NOT_FIND_MESSAGE)
             else
-                throw UnknownError("status code is ${e.code()}")
+                throw Exception("status code is ${e.code()}")
         }
     }
 

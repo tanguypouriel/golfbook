@@ -4,7 +4,6 @@ import com.mindeurfou.golfbook.data.tournament.local.Tournament
 import com.mindeurfou.golfbook.data.tournament.local.TournamentDetails
 import com.mindeurfou.golfbook.data.tournament.remote.PostTournamentNetworkEntity
 import com.mindeurfou.golfbook.data.tournament.remote.PutTournamentNetworkEntity
-import com.mindeurfou.golfbook.datasource.network.RetrofitBuilder
 import com.mindeurfou.golfbook.utils.GBException
 import com.mindeurfou.golfbook.utils.GBHttpStatusCode
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -24,7 +23,7 @@ class TournamentNetworkDataSourceImpl @Inject constructor(
             if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
                 throw GBException(GBException.TOURNAMENT_NOT_FIND_MESSAGE)
             else
-                throw UnknownError("status code is ${e.code()}")
+                throw Exception("status code is ${e.code()}")
         }
     }
 
@@ -51,7 +50,7 @@ class TournamentNetworkDataSourceImpl @Inject constructor(
             else if (e.code() == GBHttpStatusCode.valueA)
                 throw GBException(GBException.INVALID_OPERATION_MESSAGE)
             else
-                throw UnknownError("status code is ${e.code()}")
+                throw Exception("status code is ${e.code()}")
         }
     }
 

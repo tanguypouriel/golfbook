@@ -52,10 +52,10 @@ class CreatePlayerFragment : Fragment(R.layout.fragment_create_player) {
     }
 
     private fun subscribeObservers() {
-        viewModel.playerId.observe(viewLifecycleOwner) { observePlayerId(it) }
+        viewModel.playerCreated.observe(viewLifecycleOwner) { observePlayerCreated(it) }
     }
 
-    private fun observePlayerId(dataState: DataState<Int>) {
+    private fun observePlayerCreated(dataState: DataState<Boolean>) {
         when (dataState) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Success -> {

@@ -7,7 +7,7 @@ interface PlayerNetworkDataSource {
     suspend fun login(username: String, password: String): Map<String, String>?
     suspend fun getPlayer(playerId: Int): Player
     suspend fun getPlayers(limit: Int? = null, offset: Int? = null): List<Player>
-    suspend fun postPlayer(postPlayer: PostPlayerNetworkEntity): Player
+    suspend fun postPlayer(postPlayer: PostPlayerNetworkEntity): Map<String, String>
     suspend fun updatePlayer(player: Player): Player
     suspend fun deletePlayer(playerId: Int): Boolean
 }

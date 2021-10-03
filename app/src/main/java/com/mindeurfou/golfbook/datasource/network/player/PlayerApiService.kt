@@ -18,7 +18,7 @@ interface PlayerApiService {
     suspend fun getPlayers(@Query("limit") limit: Int? = null, @Query("offset") offset: Int? = null): List<Player>
 
     @POST("/player")
-    suspend fun postPlayer(@Body postPlayer: PostPlayerNetworkEntity): Player
+    suspend fun postPlayer(@Body postPlayer: PostPlayerNetworkEntity): Map<String, String>
 
     @PUT("/player/{playerId}")
     suspend fun updatePlayer(@Path("playerId") playerId: Int, @Body putPlayer: PutPlayerNetworkEntity): Player
