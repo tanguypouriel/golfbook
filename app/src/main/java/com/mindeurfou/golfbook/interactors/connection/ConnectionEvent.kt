@@ -1,4 +1,4 @@
-package com.mindeurfou.golfbook.ui.connection
+package com.mindeurfou.golfbook.interactors.connection
 
 import com.mindeurfou.golfbook.utils.state.StateEvent
 

@@ -1,4 +1,4 @@
-package com.mindeurfou.golfbook.ui.createPlayer
+package com.mindeurfou.golfbook.interactors.createPlayer
 
 import com.mindeurfou.golfbook.utils.state.StateEvent
 

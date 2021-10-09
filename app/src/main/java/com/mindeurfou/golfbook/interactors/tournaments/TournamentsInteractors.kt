@@ -1,4 +1,4 @@
-package com.mindeurfou.golfbook.ui.tournaments
+package com.mindeurfou.golfbook.interactors.tournaments
 
 import com.mindeurfou.golfbook.data.tournament.local.Tournament
 import com.mindeurfou.golfbook.datasource.network.tournament.TournamentNetworkDataSourceImpl

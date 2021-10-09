@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mindeurfou.golfbook.interactors.connection.ConnectionEvent
 import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.state.StateEvent

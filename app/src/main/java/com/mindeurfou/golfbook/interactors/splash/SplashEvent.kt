@@ -1,4 +1,4 @@
-package com.mindeurfou.golfbook.ui.splash
+package com.mindeurfou.golfbook.interactors.splash
 
 import com.mindeurfou.golfbook.utils.state.StateEvent
 

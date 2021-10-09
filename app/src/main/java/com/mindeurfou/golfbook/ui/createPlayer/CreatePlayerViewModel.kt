@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mindeurfou.golfbook.data.player.remote.PostPlayerNetworkEntity
-import com.mindeurfou.golfbook.interactors.CreatePlayerInteractors
+import com.mindeurfou.golfbook.interactors.createPlayer.CreatePlayerInteractors
+import com.mindeurfou.golfbook.interactors.createPlayer.CreatePlayerEvent
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.state.StateEvent
 import dagger.hilt.android.lifecycle.HiltViewModel

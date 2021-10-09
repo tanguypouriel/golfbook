@@ -1,4 +1,4 @@
-package com.mindeurfou.golfbook.interactors
+package com.mindeurfou.golfbook.interactors.createPlayer
 
 import android.content.SharedPreferences
 import com.mindeurfou.golfbook.data.player.remote.PostPlayerNetworkEntity

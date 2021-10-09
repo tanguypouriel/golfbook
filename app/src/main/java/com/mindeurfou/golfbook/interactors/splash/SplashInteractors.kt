@@ -1,4 +1,4 @@
-package com.mindeurfou.golfbook.ui.splash
+package com.mindeurfou.golfbook.interactors.splash
 
 import android.content.SharedPreferences
 import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.TOKEN_KEY

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.mindeurfou.golfbook.MainActivity
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentSplashBinding
+import com.mindeurfou.golfbook.interactors.splash.SplashEvent
 import com.mindeurfou.golfbook.ui.hillView.HillPosition
 import com.mindeurfou.golfbook.utils.DataState
 import dagger.hilt.android.AndroidEntryPoint

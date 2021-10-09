@@ -35,7 +35,15 @@ class ConnectionInteractors
                 sharedPreferences.edit().remove(PASSWORD_KEY).apply()
         }
 
-        emit(DataState.Success(true))
+        try {
+            val token = playerNetworkDataSourceImpl.login(username, password)
+            token?.let { tokenMap ->
+                saveToken(tokenMap["token"])
+                emit(DataState.Success(true))
+            } ?: emit(DataState.Success(false))
+        } catch (e: Exception){
+            emit(DataState.Failure(e))
+        }
     }
 
     fun retrieveCredentials() : Flow<DataState<Pair<String, String>?>> = flow {
