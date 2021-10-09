@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -48,7 +49,11 @@ class TournamentsFragment : Fragment(R.layout.fragment_tournaments) {
         _binding = null
     }
 
-    private fun setupUI() {}
+    private fun setupUI() {
+        binding.floatingActionButton.setOnClickListener {
+            navigateToCreateTournament()
+        }
+    }
 
     private fun subscribeObservers() {
         viewModel.tournaments.observe(viewLifecycleOwner) { observeTournaments(it) }
@@ -69,6 +74,10 @@ class TournamentsFragment : Fragment(R.layout.fragment_tournaments) {
 
     private fun navigateToTournamentDetails() {
         findNavController().navigate(R.id.action_tournamentsFragment_to_tournamentDetailsFragment)
+    }
+
+    private fun navigateToCreateTournament() {
+        Toast.makeText(requireContext(), "test", Toast.LENGTH_SHORT).show()
     }
 
 }

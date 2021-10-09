@@ -64,5 +64,14 @@
         android:layout_width="@dimen/progressBarSize"
         android:layout_height="@dimen/progressBarSize" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_add"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/margin_bottom_fab"
+        android:layout_marginEnd="@dimen/margin_end_fab"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
