@@ -33,7 +33,7 @@ class TournamentsFragment : Fragment(R.layout.fragment_tournaments) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTournamentsBinding.inflate(inflater, container, false)
 
         setupUI()
@@ -77,7 +77,7 @@ class TournamentsFragment : Fragment(R.layout.fragment_tournaments) {
     }
 
     private fun navigateToCreateTournament() {
-        Toast.makeText(requireContext(), "test", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.action_tournamentsFragment_to_createTournamentFragment)
     }
 
 }
