@@ -1,13 +1,19 @@
 package com.mindeurfou.golfbook
 
+import android.animation.ValueAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.mindeurfou.golfbook.databinding.ActivityMainBinding
+import com.mindeurfou.golfbook.ui.hillView.HillPosition
+import com.mindeurfou.golfbook.ui.hillView.HillView
 import com.mindeurfou.golfbook.utils.hide
 import com.mindeurfou.golfbook.utils.show
 import com.simform.custombottomnavigation.Model
@@ -16,9 +22,15 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private var _binding: ActivityMainBinding? = null
+    private val binding: ActivityMainBinding
+        get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val bottomNavigation = findViewById<SSCustomBottomNavigation>(R.id.bottom_navigation)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -35,6 +47,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    fun animateToHillPosition(hillPosition: HillPosition) {
+        lifecycleScope.launchWhenCreated {
+            binding.hillView.animateToHillPosition(hillPosition)
+        }
+    }
+
+    fun getAnimatorToHillPosition(hillPosition: HillPosition, startDelay: Long = 0) : ValueAnimator =
+            binding.hillView.getAnimatorToHillPosition(hillPosition, startDelay)
 
     private fun setupCustomBottomNavigation(bottomNavigation: SSCustomBottomNavigation, navController: NavController) {
 

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.337037037037037" />
         <entry key="app/src/main/res/drawable/bottom_wave.xml" value="0.67" />
         <entry key="app/src/main/res/drawable/hill.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/hill_bottom.xml" value="0.371875" />
@@ -14,7 +15,7 @@
         <entry key="app/src/main/res/drawable/woman_7.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/woman_8.xml" value="0.371875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_connection.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_connection.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_courses.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/fragment_create_player.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_games.xml" value="0.4010416666666667" />

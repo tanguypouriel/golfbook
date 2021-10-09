@@ -1,6 +1,8 @@
 package com.mindeurfou.golfbook.utils
 
 import android.animation.ValueAnimator
+import android.graphics.Matrix
+import android.graphics.Path
 import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.view.ViewGroup
@@ -80,4 +82,9 @@ fun ProgressBar.show() {
 fun ProgressBar.hide() {
     if (visibility != View.GONE)
         visibility = View.GONE
+}
+fun Path.scale(width: Int, height: Int) {
+    val drawMatrix = Matrix()
+    drawMatrix.setScale(width / 100f, height / 100f)
+    transform(drawMatrix)
 }

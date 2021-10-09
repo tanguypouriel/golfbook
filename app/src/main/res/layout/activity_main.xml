@@ -4,21 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    tools:context=".MainActivity">
+
+        <com.mindeurfou.golfbook.ui.hillView.HillView
+            android:id="@+id/hillView"
+            android:elevation="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <fragment
-           android:id="@+id/nav_host_fragment"
-           android:name="androidx.navigation.fragment.NavHostFragment"
-           android:layout_width="match_parent"
-           android:layout_height="0dp"
-           app:defaultNavHost="true"
-           app:navGraph="@navigation/nav_graph"
-           app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintHorizontal_bias="0.5"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/nav_graph" />
+
 
         <com.simform.custombottomnavigation.SSCustomBottomNavigation
             android:id="@+id/bottom_navigation"
@@ -29,12 +40,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf=" parent"
             app:ss_backgroundBottomColor="@color/colorHill"
-            app:ss_waveHeight="5"
-            app:ss_rippleColor="#00000000"
-            app:ss_iconTextSize="14sp"
-            app:ss_selectedIconColor="@color/colorPrimaryDark"
             app:ss_defaultIconColor="@color/colorArdoise"
             app:ss_iconTextColor="@color/colorArdoise"
-            app:ss_selectedIconTextColor="@color/colorPrimary"/>
+            app:ss_iconTextSize="14sp"
+            app:ss_rippleColor="#00000000"
+            app:ss_selectedIconColor="@color/colorPrimaryDark"
+            app:ss_selectedIconTextColor="@color/colorPrimary"
+            app:ss_waveHeight="5" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

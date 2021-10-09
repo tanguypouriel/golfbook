@@ -64,5 +64,6 @@ class ConnectionInteractors
         const val PASSWORD_KEY = "password_key"
         const val TOKEN_KEY = "token_key"
         const val VALIDITY_KEY = "validity_key"
+        const val REMEMBER_ME_KEY = "rmbr_key"
     }
 }
