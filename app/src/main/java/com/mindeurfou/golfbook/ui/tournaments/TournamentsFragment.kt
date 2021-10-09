@@ -10,9 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mindeurfou.golfbook.MainActivity
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.tournament.local.Tournament
 import com.mindeurfou.golfbook.databinding.FragmentTournamentsBinding
+import com.mindeurfou.golfbook.ui.hillView.HillPosition
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.hide
 import com.mindeurfou.golfbook.utils.show

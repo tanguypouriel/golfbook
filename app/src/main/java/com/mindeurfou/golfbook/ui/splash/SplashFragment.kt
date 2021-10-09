@@ -23,8 +23,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SplashFragment : Fragment(R.layout.fragment_splash) {
 
-    private val activity: MainActivity by lazy { requireActivity() as MainActivity }
-
     private var _binding: FragmentSplashBinding? = null
 
     private val binding
@@ -38,8 +36,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
-
-        activity.animateToHillPosition(HillPosition.POSITION_BOTTOM_LEFT)
 
         CoroutineScope(Dispatchers.Main).launch {
             delay(1000)

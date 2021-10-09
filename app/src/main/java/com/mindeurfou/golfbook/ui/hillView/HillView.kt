@@ -80,10 +80,11 @@ class HillView @JvmOverloads constructor(
     }
 
     fun animateToHillPosition(hillPosition: HillPosition) {
-        getAnimatorToHillPosition(hillPosition).start()
+        getAnimatorToHillPosition(hillPosition)?.start()
     }
 
-    fun getAnimatorToHillPosition(hillPosition: HillPosition, startDelay: Long = 0) : ValueAnimator {
+    fun getAnimatorToHillPosition(hillPosition: HillPosition, startDelay: Long = 0) : ValueAnimator? {
+        if (hillPosition == actualPosition) return null
         newPosition = hillPosition
         valueAnimator.apply {
             interpolator = AccelerateDecelerateInterpolator()

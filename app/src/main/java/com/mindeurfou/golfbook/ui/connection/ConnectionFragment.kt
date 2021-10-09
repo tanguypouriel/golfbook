@@ -31,8 +31,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ConnectionFragment : Fragment(R.layout.fragment_splash) {
 
-    private val activity: MainActivity by lazy { requireActivity() as MainActivity }
-
     private var _binding: FragmentConnectionBinding? = null
 
     private val binding
@@ -44,7 +42,7 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentConnectionBinding.inflate(inflater, container, false)
 
         setupUI()
@@ -69,8 +67,6 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
     }
 
     private fun setupUI() {
-
-        activity.animateToHillPosition(HillPosition.POSITION_BOTTOM_RIGHT)
         // Make the "create account" label
         val spannableString = SpannableString(getString(R.string.createAccount))
         val clickableSpan = object : ClickableSpan() {
@@ -82,7 +78,7 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
         binding.createPlayerTextView.text = spannableString
         binding.createPlayerTextView.movementMethod = LinkMovementMethod.getInstance()
 
-        val sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
+        val sharedPreferences = activity?.getPreferences(Context.MODE_PRIVATE)
         val rememberMe = sharedPreferences?.getBoolean(REMEMBER_ME_KEY, true) ?: true
         binding.rememberMeCheckBox.isChecked = rememberMe
 
@@ -110,7 +106,6 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
             is DataState.Success -> {
                 binding.progressBar.hide()
                 if (dataState.data) {
-                    activity.animateToHillPosition(HillPosition.POSITION_FLAT)
                     CoroutineScope(Dispatchers.Main).launch {
                         delay(1000)
                         navigateToTournamentsFragment()

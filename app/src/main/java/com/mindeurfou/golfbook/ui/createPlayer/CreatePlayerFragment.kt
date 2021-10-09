@@ -48,8 +48,6 @@ class CreatePlayerFragment : Fragment(R.layout.fragment_create_player) {
 
     private fun setupUI() {
 
-        activity.animateToHillPosition(HillPosition.POSITION_FLAT)
-
         binding.imageAvatar.setOnClickListener(
             AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid,true, this)
         )

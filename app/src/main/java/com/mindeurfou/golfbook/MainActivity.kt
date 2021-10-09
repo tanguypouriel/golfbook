@@ -40,8 +40,19 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenResumed {
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
-                    R.id.splashFragment -> {}
-                    R.id.connectionFragment, R.id.createPlayerFragment -> bottomNavigation.visibility = View.GONE
+                    R.id.splashFragment -> binding.hillView.animateToHillPosition(HillPosition.POSITION_BOTTOM_LEFT)
+                    R.id.connectionFragment -> {
+                        bottomNavigation.visibility = View.GONE
+                        binding.hillView.animateToHillPosition(HillPosition.POSITION_BOTTOM_RIGHT)
+                    }
+                    R.id.createPlayerFragment -> {
+                        bottomNavigation.visibility = View.GONE
+                        binding.hillView.animateToHillPosition(HillPosition.POSITION_FLAT)
+                    }
+                    R.id.tournamentsFragment, R.id.playersFragment, R.id.coursesFragment, R.id.gamesFragment -> {
+                        bottomNavigation.visibility = View.VISIBLE
+                        binding.hillView.animateToHillPosition(HillPosition.POSITION_FLAT)
+                    }
                     else -> bottomNavigation.visibility = View.VISIBLE // TODO faire les bails mieux
                 }
             }
@@ -53,13 +64,7 @@ class MainActivity : AppCompatActivity() {
         _binding = null
     }
 
-    fun animateToHillPosition(hillPosition: HillPosition) {
-        lifecycleScope.launchWhenCreated {
-            binding.hillView.animateToHillPosition(hillPosition)
-        }
-    }
-
-    fun getAnimatorToHillPosition(hillPosition: HillPosition, startDelay: Long = 0) : ValueAnimator =
+    fun getAnimatorToHillPosition(hillPosition: HillPosition, startDelay: Long = 0) : ValueAnimator? =
             binding.hillView.getAnimatorToHillPosition(hillPosition, startDelay)
 
     private fun setupCustomBottomNavigation(bottomNavigation: SSCustomBottomNavigation, navController: NavController) {
