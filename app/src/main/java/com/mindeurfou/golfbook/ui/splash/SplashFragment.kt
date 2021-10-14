@@ -34,11 +34,11 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
 
         CoroutineScope(Dispatchers.Main).launch {
-            delay(1500)
+            delay(2000)
             viewModel.setStateEvent(SplashEvent.CheckToken)
         }
 

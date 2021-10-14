@@ -19,6 +19,8 @@ import com.mindeurfou.golfbook.utils.show
 import com.simform.custombottomnavigation.Model
 import com.simform.custombottomnavigation.SSCustomBottomNavigation
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -40,7 +42,12 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenResumed {
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
-                    R.id.splashFragment -> binding.hillView.animateToHillPosition(HillPosition.POSITION_BOTTOM_LEFT)
+                    R.id.splashFragment -> {
+                        launch {
+                            delay(500)
+                            binding.hillView.animateToHillPosition(HillPosition.POSITION_BOTTOM_LEFT)
+                        }
+                    }
                     R.id.connectionFragment -> {
                         bottomNavigation.visibility = View.GONE
                         binding.hillView.animateToHillPosition(HillPosition.POSITION_BOTTOM_RIGHT)
