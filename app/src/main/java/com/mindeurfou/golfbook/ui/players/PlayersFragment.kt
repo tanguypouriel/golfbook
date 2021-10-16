@@ -49,8 +49,8 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Success -> {
                 binding.progressBar.hide()
-                binding.recyclerPlayers.adapter = PlayerAdapter(dataState.data) {
-                    navigateToPlayerDetails()
+                binding.recyclerPlayers.adapter = PlayerAdapter(dataState.data) { playerId, isSelf ->
+                    navigateToPlayerDetails(playerId, isSelf)
                 }
             }
             is DataState.Failure -> binding.progressBar.hide()
@@ -64,7 +64,8 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
 
     private fun setupUI() {}
 
-    private fun navigateToPlayerDetails() {
-        findNavController().navigate(R.id.action_playersFragment_to_playerDetailsFragment)
+    private fun navigateToPlayerDetails(playerId: Int, isSelf: Boolean = false) {
+        val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerDetailsFragment(playerId, isSelf)
+        findNavController().navigate(action)
     }
 }

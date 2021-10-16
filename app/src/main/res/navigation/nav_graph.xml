@@ -102,7 +102,15 @@
         android:id="@+id/playerDetailsFragment"
         android:name="com.mindeurfou.golfbook.ui.playerDetails.PlayerDetailsFragment"
         android:label="PlayerDetailsFragment"
-        tools:layout="@layout/fragment_player_details"/>
+        tools:layout="@layout/fragment_player_details">
+        <argument
+            android:name="playerId"
+            app:argType="integer" />
+        <argument
+            android:name="isSelf"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
 
     <fragment
         android:id="@+id/createTournamentFragment"

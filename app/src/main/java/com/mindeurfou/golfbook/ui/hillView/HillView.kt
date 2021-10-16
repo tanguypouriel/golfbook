@@ -41,7 +41,7 @@ class HillView @JvmOverloads constructor(
             isAntiAlias = true
             isDither = true
             style = Paint.Style.FILL
-            color = context.getColor(R.color.transparent)
+            color = context.getColor(R.color.colorSecondary)
         }
         borderPaint = Paint().apply {
             isAntiAlias = true
@@ -64,17 +64,15 @@ class HillView @JvmOverloads constructor(
             val points = computeWavePoints(actualPosition, newPosition, progress)
             path.moveTo(points[0].x, points[0].y)
             path.cubicTo(points[1].x, points[1].y, points[2].x, points[2].y, points[3].x, points[3].y)
-            borderPath.moveTo(points[0].x, points[0].y)
-            borderPath.cubicTo(points[1].x, points[1].y, points[2].x, points[2].y, points[3].x, points[3].y)
+            borderPath.moveTo(points[0].x - 1f, points[0].y)
+            borderPath.cubicTo(points[1].x, points[1].y, points[2].x, points[2].y, points[3].x + 1f, points[3].y)
         }
-
 
         path.lineTo(100f, 100f)
         path.lineTo(0f, 100f)
         path.close()
         path.scale(width, height)
         borderPath.scale(width, height)
-        paint.color = context.getColor(newPosition.color)
         canvas.drawPath(path, paint)
         canvas.drawPath(borderPath, borderPaint)
     }

@@ -10,6 +10,7 @@ import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.ui.common.BaseAdapter
 import com.mindeurfou.golfbook.ui.common.BaseViewHolder
 import com.mindeurfou.golfbook.ui.common.CustomEdgeTreatment
+import com.mindeurfou.golfbook.utils.setAvatarResource
 
 class PlayerViewHolder(itemView: View) : BaseViewHolder<Player>(itemView) {
 
@@ -18,18 +19,14 @@ class PlayerViewHolder(itemView: View) : BaseViewHolder<Player>(itemView) {
 
     override fun bind(item: Player) {
 
-        if (item.drawableResourceId >= R.drawable.man_1 && item.drawableResourceId <= R.drawable.woman_8)
-            imageAvatar.setImageResource(item.drawableResourceId)
-        else
-            imageAvatar.setImageResource(R.drawable.man_1)
-
+        imageAvatar.setAvatarResource(item.drawableResourceId)
         playerName.text = item.username
     }
 }
 
 class PlayerAdapter(
     players: List<Player>,
-    private val onClick: () -> Unit
+    private val onClick: (playerId: Int, isSelf: Boolean) -> Unit
 ) : BaseAdapter<Player>(
     list = players,
     layoutItems = listOf(R.layout.item_player_main, R.layout.item_player_first, R.layout.item_player_second, R.layout.item_player_third, R.layout.item_player_fourth)
@@ -45,7 +42,7 @@ class PlayerAdapter(
     }
 
     override fun onItemClick(itemView: View) {
-        onClick()
+        onClick(1, true)
     }
 
     override fun getViewHolder(itemView: View): BaseViewHolder<Player> =

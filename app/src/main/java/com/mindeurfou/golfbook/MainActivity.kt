@@ -53,6 +53,9 @@ class MainActivity : AppCompatActivity() {
                         bottomNavigation.visibility = View.VISIBLE
                         binding.hillView.animateToHillPosition(HillPosition.POSITION_FLAT)
                     }
+                    R.id.playerDetailsFragment -> {
+                        binding.hillView.animateToHillPosition(HillPosition.POSITION_TOP_LEFT)
+                    }
                     else -> bottomNavigation.visibility = View.VISIBLE // TODO faire les bails mieux
                 }
             }

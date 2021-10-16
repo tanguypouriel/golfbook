@@ -46,6 +46,7 @@
             app:ss_rippleColor="#00000000"
             app:ss_selectedIconColor="@color/colorPrimaryDark"
             app:ss_selectedIconTextColor="@color/colorPrimary"
+            app:ss_shadowColor="@color/colorArdoise"
             app:ss_waveHeight="5" />
 
 

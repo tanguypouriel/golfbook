@@ -6,4 +6,5 @@
     <dimen name="margin_bottom_fab">115dp</dimen>
     <dimen name="margin_end_fab">32dp</dimen>
     <dimen name="cardInfoLayoutHeight">80dp</dimen>
+    <dimen name="marginWithbottomNav">80dp</dimen>
 </resources>

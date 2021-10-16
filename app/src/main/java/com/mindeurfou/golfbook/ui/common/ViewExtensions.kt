@@ -7,10 +7,12 @@ import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.core.animation.doOnEnd
 import androidx.core.view.drawToBitmap
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.mindeurfou.golfbook.R
 
 fun BottomNavigationView.show() {
     if (visibility == View.VISIBLE) return
@@ -87,4 +89,11 @@ fun Path.scale(width: Int, height: Int) {
     val drawMatrix = Matrix()
     drawMatrix.setScale(width / 100f, height / 100f)
     transform(drawMatrix)
+}
+
+fun ImageView.setAvatarResource(avatarId: Int) {
+    if (avatarId >= R.drawable.man_1 && avatarId <= R.drawable.woman_8)
+        setImageResource(avatarId)
+    else
+        setImageResource(R.drawable.man_1)
 }

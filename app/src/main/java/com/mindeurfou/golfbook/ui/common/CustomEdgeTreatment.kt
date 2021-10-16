@@ -7,8 +7,8 @@ import kotlin.math.sqrt
 
 class CustomEdgeTreatment : EdgeTreatment() {
 
-    private val cradleRoundedCornerRadius: Float = 15f
-    private val radius: Float = 50f
+    private val cradleRoundedCornerRadius: Float = 50f
+    private val radius: Float = 35f
 
     override fun getEdgePath(
         length: Float,
@@ -19,7 +19,7 @@ class CustomEdgeTreatment : EdgeTreatment() {
 
 
         val roundedCornerOffset = interpolation * cradleRoundedCornerRadius
-        val middle = length / 2.0f + length / 4f
+        val middle = length / 2.0f + length / 8f
         val verticalOffset = (1.0f - interpolation) * radius
 
         val verticalOffsetRatio = verticalOffset / radius

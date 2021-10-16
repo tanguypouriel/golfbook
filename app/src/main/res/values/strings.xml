@@ -14,7 +14,8 @@
     <string name="tournaments">Tournois</string>
     <string name="courses">Parcours</string>
     <string name="username">Pseudo</string>
-    <string name="name_and_dots">name :</string>
+    <string name="name_and_dots">Prénom :</string>
     <string name="change_profile">Modifier mon profil</string>
     <string name="lastname_and_dots">Nom de famille :</string>
+    <string name="myStats">Mes statistiques</string>
 </resources>
