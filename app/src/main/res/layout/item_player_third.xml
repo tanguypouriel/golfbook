@@ -33,7 +33,7 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/titleTournament"
+                android:id="@+id/titlePlayer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.Golfbook.h3"

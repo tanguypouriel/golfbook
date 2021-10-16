@@ -38,7 +38,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
 
         CoroutineScope(Dispatchers.Main).launch {
-            delay(1000)
+            delay(1500)
             viewModel.setStateEvent(SplashEvent.CheckToken)
         }
 

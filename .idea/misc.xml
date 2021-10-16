@@ -22,19 +22,21 @@
         <entry key="app/src/main/res/layout/fragment_create_player.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_create_tournament.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/fragment_games.xml" value="0.4010416666666667" />
+        <entry key="app/src/main/res/layout/fragment_player_details.xml" value="0.2536231884057971" />
         <entry key="app/src/main/res/layout/fragment_players.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_tournament_details.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/fragment_tournaments.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_tournaments.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_player_first.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/item_player_fourth.xml" value="0.184375" />
         <entry key="app/src/main/res/layout/item_player_main.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/item_player_second.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/item_tournament_first.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/item_tournament_fourth.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/item_tournament_main.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/item_tournament_first.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/item_tournament_fourth.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_tournament_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_tournament_recycler.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/item_tournament_second.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/item_tournament_third.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/item_tournament_second.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_tournament_third.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/xml/network_security_config.xml" value="0.35572916666666665" />
       </map>

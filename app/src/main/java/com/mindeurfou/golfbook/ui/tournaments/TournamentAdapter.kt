@@ -10,9 +10,15 @@ import com.mindeurfou.golfbook.ui.common.BaseViewHolder
 class TournamentViewHolder(itemView: View) : BaseViewHolder<Tournament>(itemView) {
 
     private val tournamentName: TextView = itemView.findViewById(R.id.titleTournament)
+    private val tournamentState: TextView = itemView.findViewById(R.id.tournamentStateText)
+    private val tournamentDate: TextView = itemView.findViewById(R.id.tournamentDate)
+    private val tournamentCourse: TextView = itemView.findViewById(R.id.tournamentCourse)
 
     override fun bind(item: Tournament) {
         tournamentName.text = item.name
+        tournamentCourse.text = "Parcours du chêne"
+        tournamentDate.text = item.createdAt.toString()
+        tournamentState.text = item.state.toString()
     }
 }
 

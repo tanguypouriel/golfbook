@@ -44,6 +44,26 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="TextAppearance.Golfbook.h4" parent="">
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/colorArdoise</item>
+        <item name="fontFamily">@font/lulo_clean</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextAppearance.Golfbook.subtitle1" parent="TextAppearance.Golfbook.baseGlacial">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorArdoise</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextAppearance.Golfbook.subtitle2" parent="TextAppearance.Golfbook.baseGlacial">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorArdoise</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="Widget.Golfbook.Cardview" parent="CardView">
         <item name="cardCornerRadius">25dp</item>
         <item name="cardElevation">1dp</item>
