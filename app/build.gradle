@@ -69,7 +69,7 @@ dependencies {
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
 
-
+    implementation "androidx.fragment:fragment-ktx:1.4.0-alpha10"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 

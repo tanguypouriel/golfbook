@@ -3,8 +3,8 @@
     <dimen name="h1_text_size">24sp</dimen>
     <dimen name="progressBarSize">50dp</dimen>
     <dimen name="avatar_images_reveal">500dp</dimen>
-    <dimen name="margin_bottom_fab">115dp</dimen>
+    <dimen name="margin_bottom_fab">16dp</dimen>
     <dimen name="margin_end_fab">32dp</dimen>
     <dimen name="cardInfoLayoutHeight">80dp</dimen>
-    <dimen name="marginWithbottomNav">80dp</dimen>
+    <dimen name="marginWithbottomNav">8dp</dimen>
 </resources>

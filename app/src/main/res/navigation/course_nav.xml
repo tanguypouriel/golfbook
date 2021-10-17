@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coursesNav"
+    app:startDestination="@id/coursesFragment">
+
+    <fragment
+        android:id="@+id/coursesFragment"
+        android:name="com.mindeurfou.golfbook.ui.courses.CoursesFragment"
+        android:label="CoursesFragment"
+        tools:layout="@layout/fragment_courses">
+        <action
+            android:id="@+id/action_coursesFragment_to_createCourseFragment"
+            app:destination="@id/createCourseFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createCourseFragment"
+        android:name="com.mindeurfou.golfbook.ui.createCourse.CreateCourseFragment"
+        android:label="CreateCourseFragment"
+        tools:layout="@layout/fragment_create_course"/>
+
+</navigation>

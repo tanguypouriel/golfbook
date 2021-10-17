@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.player.local.Player
@@ -62,8 +63,10 @@ class PlayerDetailsFragment : Fragment(R.layout.fragment_player_details){
     private fun observeIsSelf(dataState: DataState<Boolean>) {
         when (dataState) {
             is DataState.Success -> {
-                if (dataState.data)
+                if (dataState.data) {
                     binding.modifyProfileButton.visibility = View.VISIBLE
+                    binding.modifyProfileButton.setOnClickListener { onModifyBtnClick() }
+                }
             }
             else -> {}
         }
@@ -80,6 +83,20 @@ class PlayerDetailsFragment : Fragment(R.layout.fragment_player_details){
             }
             else -> {}
         }
+    }
+
+    private fun onModifyBtnClick() {
+        viewModel.player.value?.let { dataState ->
+            if (dataState !is DataState.Success)
+                return Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
+
+            navigateToModifyPlayerFragment(dataState.data)
+        }
+    }
+
+    private fun navigateToModifyPlayerFragment(player: Player) {
+        val action = PlayerDetailsFragmentDirections.actionPlayerDetailsFragmentToModifyPlayerFragment(player)
+        findNavController().navigate(action)
     }
 
     private fun showFragmentScreen() {

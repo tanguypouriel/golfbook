@@ -3,15 +3,20 @@ package com.mindeurfou.golfbook
 import android.animation.ValueAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mindeurfou.golfbook.databinding.ActivityMainBinding
+import com.mindeurfou.golfbook.ui.common.SScustomMenuItem
 import com.mindeurfou.golfbook.ui.hillView.HillPosition
 import com.mindeurfou.golfbook.ui.hillView.HillView
 import com.mindeurfou.golfbook.utils.hide
@@ -34,10 +39,12 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val bottomNavigation = findViewById<SSCustomBottomNavigation>(R.id.bottom_navigation)
-        val navController = findNavController(R.id.nav_host_fragment)
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
-        setupCustomBottomNavigation(bottomNavigation, navController)
+        val navController = navHostFragment.navController
+        bottomNavigation.setupWithNavController(navController)
+//            setupCustomBottomNavigation(bottomNavigation, navController)
 
         lifecycleScope.launchWhenResumed {
             navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -61,13 +68,22 @@ class MainActivity : AppCompatActivity() {
                         binding.hillView.animateToHillPosition(HillPosition.POSITION_FLAT)
                     }
                     R.id.playerDetailsFragment -> {
+                        bottomNavigation.visibility = View.VISIBLE
                         binding.hillView.animateToHillPosition(HillPosition.POSITION_TOP_LEFT)
                     }
-                    else -> bottomNavigation.visibility = View.VISIBLE // TODO faire les bails mieux
+                    R.id.modifyPlayerFragment -> {
+                        binding.hillView.animateToHillPosition(HillPosition.POSITION_FLAT)
+                        bottomNavigation.visibility = View.GONE
+                    }
+                    else -> {
+                        binding.hillView.animateToHillPosition(HillPosition.POSITION_FLAT)
+                        bottomNavigation.visibility = View.VISIBLE
+                    } // TODO faire les bails mieux
                 }
             }
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -84,25 +100,25 @@ class MainActivity : AppCompatActivity() {
         val menuItems = arrayOf(
             Model(
                 icon = R.drawable.ic_player,
-                destinationId = R.id.playersFragment,
+                destinationId = R.id.playersNav,
                 id = ID_PLAYER,
                 text = R.string.players,
             ),
             Model(
                 icon = R.drawable.ic_game,
-                destinationId = R.id.gamesFragment,
+                destinationId = R.id.gamesNav,
                 id = ID_GAME,
                 text = R.string.games,
             ),
             Model(
                 icon = R.drawable.ic_tournament,
-                destinationId = R.id.tournamentsFragment,
+                destinationId = R.id.tournamentsNav,
                 id = ID_TOURNAMENT,
                 text = R.string.tournaments,
             ),
             Model(
                 icon = R.drawable.ic_course,
-                destinationId = R.id.coursesFragment,
+                destinationId = R.id.gamesNav,
                 id = ID_COURSE,
                 text = R.string.courses,
             )
@@ -110,7 +126,9 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigation.apply {
             setMenuItems(menuItems, activeIndex)
-            setupWithNavController(navController)
+            setOnMenuItemClickListener { model, i ->
+                NavigationUI.onNavDestinationSelected(SScustomMenuItem(model.destinationId), navController)
+            }
         }
     }
 

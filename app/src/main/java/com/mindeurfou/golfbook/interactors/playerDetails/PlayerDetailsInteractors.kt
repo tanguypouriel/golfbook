@@ -1,10 +1,12 @@
 package com.mindeurfou.golfbook.interactors.playerDetails
 
 import android.content.SharedPreferences
+import com.mindeurfou.golfbook.BuildConfig
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.datasource.network.player.PlayerNetworkDataSourceImpl
 import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.PLAYER_ID_KEY
 import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.FakeData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -17,6 +19,11 @@ class PlayerDetailsInteractors
 
     fun getPlayer(playerId: Int): Flow<DataState<Player>> = flow {
         emit(DataState.Loading)
+
+        if (BuildConfig.fakeData) {
+            emit(DataState.Success(FakeData.player()))
+            return@flow
+        }
 
         try {
             val player = playerNetworkDataSourceImpl.getPlayer(playerId)

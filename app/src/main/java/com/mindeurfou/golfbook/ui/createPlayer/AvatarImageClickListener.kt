@@ -6,13 +6,14 @@ import android.content.Context
 import android.view.View
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.ui.hillView.HillPosition
+import com.mindeurfou.golfbook.ui.playerDetails.PlayerConfigFragment
 
 class AvatarImageClickListener(
     private val context: Context,
     private val container: View,
     private val gridContainer: View? = null,
     private val isMainImage: Boolean = false,
-    private val fragment: CreatePlayerFragment,
+    private val fragment: PlayerConfigFragment,
     private val changeAvatarImage: (() -> Unit)? = null,
 ) : View.OnClickListener {
 

@@ -17,9 +17,7 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_tournamentsFragment"
-            app:destination="@id/tournamentsFragment"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/tournamentsNav" />
     </fragment>
 
     <fragment
@@ -32,9 +30,7 @@
             app:destination="@id/createPlayerFragment" />
         <action
             android:id="@+id/action_connectionFragment_to_tournamentsFragment"
-            app:destination="@id/tournamentsFragment"
-            app:popUpTo="@id/connectionFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/tournamentsNav" />
     </fragment>
 
     <fragment
@@ -44,99 +40,14 @@
         tools:layout="@layout/fragment_create_player">
         <action
             android:id="@+id/action_createPlayerFragment_to_tournamentsFragment"
-            app:destination="@id/tournamentsFragment"
+            app:destination="@id/tournamentsNav"
             app:popUpTo="@id/createPlayerFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
-    <fragment
-        android:id="@+id/coursesFragment"
-        android:name="com.mindeurfou.golfbook.ui.courses.CoursesFragment"
-        android:label="CoursesFragment"
-        tools:layout="@layout/fragment_courses">
-        <action
-            android:id="@+id/action_coursesFragment_to_createCourseFragment"
-            app:destination="@id/createCourseFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/gamesFragment"
-        android:name="com.mindeurfou.golfbook.ui.games.GamesFragment"
-        android:label="GamesFragment"
-        tools:layout="@layout/fragment_games">
-        <action
-            android:id="@+id/action_gamesFragment_to_createGameFragment"
-            app:destination="@id/createGameFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/playersFragment"
-        android:name="com.mindeurfou.golfbook.ui.players.PlayersFragment"
-        android:label="PlayersFragment"
-        tools:layout="@layout/fragment_players">
-        <action
-            android:id="@+id/action_playersFragment_to_playerDetailsFragment"
-            app:destination="@id/playerDetailsFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/tournamentsFragment"
-        android:name="com.mindeurfou.golfbook.ui.tournaments.TournamentsFragment"
-        android:label="TournamentsFragment"
-        tools:layout="@layout/fragment_tournaments">
-        <action
-            android:id="@+id/action_tournamentsFragment_to_tournamentDetailsFragment"
-            app:destination="@id/tournamentDetailsFragment" />
-        <action
-            android:id="@+id/action_tournamentsFragment_to_createTournamentFragment"
-            app:destination="@id/createTournamentFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/tournamentDetailsFragment"
-        android:name="com.mindeurfou.golfbook.ui.tournamentDetails.TournamentDetailsFragment"
-        android:label="TournamentDetailsFragment"
-        tools:layout="@layout/fragment_tournament_details"/>
-
-    <fragment
-        android:id="@+id/playerDetailsFragment"
-        android:name="com.mindeurfou.golfbook.ui.playerDetails.PlayerDetailsFragment"
-        android:label="PlayerDetailsFragment"
-        tools:layout="@layout/fragment_player_details">
-        <argument
-            android:name="playerId"
-            app:argType="integer" />
-        <action
-            android:id="@+id/action_playerDetailsFragment_to_modifyPlayerFragment"
-            app:destination="@id/modifyPlayerFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/createTournamentFragment"
-        android:name="com.mindeurfou.golfbook.ui.createTournament.CreateTournamentFragment"
-        android:label="CreateTournamentFragment"
-        tools:layout="@layout/fragment_create_tournament"/>
-
-    <fragment
-        android:id="@+id/createCourseFragment"
-        android:name="com.mindeurfou.golfbook.ui.createCourse.CreateCourseFragment"
-        android:label="CreateCourseFragment"
-        tools:layout="@layout/fragment_create_course"/>
-
-    <fragment
-        android:id="@+id/createGameFragment"
-        android:name="com.mindeurfou.golfbook.ui.createGame.CreateGameFragment"
-        android:label="CreateGameFragment"
-        tools:layout="@layout/fragment_create_game"/>
-
-    <fragment
-        android:id="@+id/modifyPlayerFragment"
-        android:name="com.mindeurfou.golfbook.ui.modifyPlayer.ModifyPlayerFragment"
-        android:label="ModifyPlayerFragment"
-        tools:layout="@layout/fragment_create_player">
-        <argument
-            android:name="player"
-            app:argType="com.mindeurfou.golfbook.data.player.local.Player" />
-    </fragment>
+    <include app:graph="@navigation/course_nav"/>
+    <include app:graph="@navigation/player_nav"/>
+    <include app:graph="@navigation/game_nav"/>
+    <include app:graph="@navigation/tournament_nav"/>
 
 </navigation>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gamesNav"
+    app:startDestination="@id/gamesFragment">
+
+    <fragment
+        android:id="@+id/gamesFragment"
+        android:name="com.mindeurfou.golfbook.ui.games.GamesFragment"
+        android:label="GamesFragment"
+        tools:layout="@layout/fragment_games">
+        <action
+            android:id="@+id/action_gamesFragment_to_createGameFragment"
+            app:destination="@id/createGameFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createGameFragment"
+        android:name="com.mindeurfou.golfbook.ui.createGame.CreateGameFragment"
+        android:label="CreateGameFragment"
+        tools:layout="@layout/fragment_create_game"/>
+</navigation>

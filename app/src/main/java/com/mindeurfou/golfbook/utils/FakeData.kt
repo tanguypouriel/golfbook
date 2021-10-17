@@ -17,6 +17,7 @@ object FakeData {
         Player(6, "Lisa", "Debrincat", "Petrouchka", R.drawable.woman_4),
     )
 
+    fun player() = Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5)
 
 
     fun tournaments() = listOf(

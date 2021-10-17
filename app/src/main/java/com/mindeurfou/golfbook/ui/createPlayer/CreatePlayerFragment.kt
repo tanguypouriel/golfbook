@@ -14,15 +14,16 @@ import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentCreatePlayerBinding
 import com.mindeurfou.golfbook.interactors.createPlayer.CreatePlayerEvent
 import com.mindeurfou.golfbook.ui.hillView.HillPosition
+import com.mindeurfou.golfbook.ui.playerDetails.PlayerConfigFragment
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.hide
 import com.mindeurfou.golfbook.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreatePlayerFragment : Fragment(R.layout.fragment_create_player) {
+class CreatePlayerFragment : Fragment(R.layout.fragment_create_player), PlayerConfigFragment {
 
-    val activity: MainActivity by lazy { requireActivity() as MainActivity }
+    override val activity: MainActivity by lazy { requireActivity() as MainActivity }
 
     private var _binding: FragmentCreatePlayerBinding? = null
 
@@ -31,7 +32,7 @@ class CreatePlayerFragment : Fragment(R.layout.fragment_create_player) {
 
     private val viewModel: CreatePlayerViewModel by viewModels()
 
-    var backdropShown: Boolean = false
+    override var backdropShown: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,

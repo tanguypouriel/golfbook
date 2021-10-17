@@ -41,7 +41,7 @@ class HillView @JvmOverloads constructor(
             isAntiAlias = true
             isDither = true
             style = Paint.Style.FILL
-            color = context.getColor(R.color.colorSecondary)
+            color = context.getColor(R.color.colorHill)
         }
         borderPaint = Paint().apply {
             isAntiAlias = true

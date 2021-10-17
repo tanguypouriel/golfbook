@@ -40,6 +40,7 @@
         <entry key="app/src/main/res/layout/item_tournament_second.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_tournament_third.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.4010416666666667" />
+        <entry key="app/src/main/res/menu/intro_nav.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.21770833333333334" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.21770833333333334" />
         <entry key="app/src/main/res/xml/network_security_config.xml" value="0.35572916666666665" />
