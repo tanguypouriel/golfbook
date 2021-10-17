@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_coursesFragment_to_createCourseFragment"
             app:destination="@id/createCourseFragment" />
+        <action
+            android:id="@+id/action_coursesFragment_to_courseDetailsFragment"
+            app:destination="@id/courseDetailsFragment" />
     </fragment>
 
     <fragment
@@ -20,5 +23,15 @@
         android:name="com.mindeurfou.golfbook.ui.createCourse.CreateCourseFragment"
         android:label="CreateCourseFragment"
         tools:layout="@layout/fragment_create_course"/>
+
+    <fragment
+        android:id="@+id/courseDetailsFragment"
+        android:name="com.mindeurfou.golfbook.ui.courseDetails.CourseDetailsFragment"
+        android:label="CourseDetailsFragment"
+        tools:layout="@layout/fragment_course_details">
+        <argument
+            android:name="courseId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

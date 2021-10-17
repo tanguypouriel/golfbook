@@ -2,6 +2,8 @@ package com.mindeurfou.golfbook.utils
 
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.GBState
+import com.mindeurfou.golfbook.data.course.local.Course
+import com.mindeurfou.golfbook.data.course.local.CourseDetails
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.data.tournament.local.Tournament
 import java.time.LocalDate
@@ -30,5 +32,17 @@ object FakeData {
         Tournament(1, "Tournois", GBState.PENDING, LocalDate.now()),
         Tournament(1, "Tournois", GBState.PENDING, LocalDate.now())
     )
+
+    fun courses() = listOf(
+        Course(1, "Parcours du chêne", 18, 72, 3, LocalDate.now()),
+        Course(1, "Parcours du chêne", 18, 72, 3, LocalDate.now()),
+        Course(1, "Parcours du chêne", 18, 72, 3, LocalDate.now()),
+        Course(1, "Parcours du chêne", 18, 72, 3, LocalDate.now()),
+        Course(1, "Parcours du chêne", 18, 72, 3, LocalDate.now()),
+        Course(1, "Parcours du chêne", 18, 72, 3, LocalDate.now()),
+        Course(1, "Parcours du chêne", 18, 72, 3, LocalDate.now()),
+    )
+
+    fun courseDetails() = CourseDetails(1, "Parcours du chêne", 18, 72, 3, LocalDate.now(), listOf())
 
 }

@@ -19,4 +19,5 @@
     <string name="lastname_and_dots">Nom de famille :</string>
     <string name="myStats">Mes statistiques</string>
     <string name="modify">Modification</string>
+    <string name="numberOfHoles">%1$d trous</string>
 </resources>
