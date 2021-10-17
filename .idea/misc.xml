@@ -21,7 +21,7 @@
         <entry key="app/src/main/res/layout/fragment_courses.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_create_course.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/fragment_create_game.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/fragment_create_player.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_create_player.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_create_tournament.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/fragment_games.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/fragment_player_details.xml" value="0.25" />

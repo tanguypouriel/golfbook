@@ -18,4 +18,5 @@
     <string name="change_profile">Modifier mon profil</string>
     <string name="lastname_and_dots">Nom de famille :</string>
     <string name="myStats">Mes statistiques</string>
+    <string name="modify">Modification</string>
 </resources>

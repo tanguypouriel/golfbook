@@ -1,7 +1,10 @@
 package com.mindeurfou.golfbook.data.player.local
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
+@Parcelize
 @Serializable
 data class Player(
     val id: Int,
@@ -9,4 +12,4 @@ data class Player(
     val lastName : String,
     val username : String,
     val drawableResourceId: Int
-)
+) : Parcelable

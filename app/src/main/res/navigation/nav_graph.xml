@@ -110,6 +110,9 @@
             android:name="isSelf"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_playerDetailsFragment_to_modifyPlayerFragment"
+            app:destination="@id/modifyPlayerFragment" />
     </fragment>
 
     <fragment
@@ -129,5 +132,15 @@
         android:name="com.mindeurfou.golfbook.ui.createGame.CreateGameFragment"
         android:label="CreateGameFragment"
         tools:layout="@layout/fragment_create_game"/>
+
+    <fragment
+        android:id="@+id/modifyPlayerFragment"
+        android:name="com.mindeurfou.golfbook.ui.modifyPlayer.ModifyPlayerFragment"
+        android:label="ModifyPlayerFragment"
+        tools:layout="@layout/fragment_create_player">
+        <argument
+            android:name="player"
+            app:argType="com.mindeurfou.golfbook.data.player.local.Player" />
+    </fragment>
 
 </navigation>
