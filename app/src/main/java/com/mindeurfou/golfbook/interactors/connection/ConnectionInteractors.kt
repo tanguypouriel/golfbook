@@ -45,6 +45,10 @@ class ConnectionInteractors
             val token = playerNetworkDataSourceImpl.login(username, password)
             token?.let { tokenMap ->
                 saveToken(tokenMap["token"])
+
+                if (sharedPreferences.getString(PLAYER_ID_KEY, null) == null)
+                    sharedPreferences.edit().putInt(PLAYER_ID_KEY, tokenMap["playerId"]!!.toInt()).apply()
+
                 emit(DataState.Success(true))
             } ?: emit(DataState.Success(false))
         } catch (e: Exception){
@@ -76,6 +80,7 @@ class ConnectionInteractors
     companion object {
         const val USERNAME_KEY = "username_key"
         const val PASSWORD_KEY = "password_key"
+        const val PLAYER_ID_KEY = "player_id_key"
         const val TOKEN_KEY = "token_key"
         const val VALIDITY_KEY = "validity_key"
         const val REMEMBER_ME_KEY = "rmbr_key"

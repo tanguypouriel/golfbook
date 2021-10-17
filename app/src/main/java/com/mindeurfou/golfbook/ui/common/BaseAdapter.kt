@@ -5,14 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mindeurfou.golfbook.data.GBData
 
-abstract class BaseViewHolder<Item>(itemView: View): RecyclerView.ViewHolder(itemView) {
-    abstract fun bind(item: Item)
+abstract class BaseViewHolder<Item : GBData>(itemView: View): RecyclerView.ViewHolder(itemView) {
+    abstract fun bind(item: Item, position: Int, onClick: (Item) -> Unit)
 }
 
-abstract class BaseAdapter<Item> (
+abstract class BaseAdapter<Item : GBData> (
     private val list: List<Item>,
     private val layoutItems: List<Int>,
+    private val onClick: (Item) -> Unit
 ) : RecyclerView.Adapter<BaseViewHolder<Item>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Item> {
@@ -29,13 +31,12 @@ abstract class BaseAdapter<Item> (
             layoutParams.isFullSpan = true
             view.layoutParams = layoutParams
         }
-        view.setOnClickListener { onItemClick(it) }
         additionalLayout(view)
         return getViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<Item>, position: Int) {
-        holder.bind(list[position])
+        holder.bind(list[position], position, onClick)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -47,7 +48,6 @@ abstract class BaseAdapter<Item> (
 
     override fun getItemCount(): Int = list.size
 
-    protected abstract fun onItemClick(itemView: View)
     protected abstract fun additionalLayout(view: View)
     protected abstract fun getViewHolder(itemView: View) : BaseViewHolder<Item>
 

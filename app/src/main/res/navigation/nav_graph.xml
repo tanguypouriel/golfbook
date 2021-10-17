@@ -106,10 +106,6 @@
         <argument
             android:name="playerId"
             app:argType="integer" />
-        <argument
-            android:name="isSelf"
-            app:argType="boolean"
-            android:defaultValue="false" />
         <action
             android:id="@+id/action_playerDetailsFragment_to_modifyPlayerFragment"
             app:destination="@id/modifyPlayerFragment" />

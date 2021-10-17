@@ -17,19 +17,21 @@ class PlayerViewHolder(itemView: View) : BaseViewHolder<Player>(itemView) {
     private val imageAvatar: ImageView = itemView.findViewById(R.id.imageAvatar)
     private val playerName: TextView = itemView.findViewById(R.id.titlePlayer)
 
-    override fun bind(item: Player) {
+    override fun bind(item: Player, position: Int, onClick: (player: Player) -> Unit) {
 
         imageAvatar.setAvatarResource(item.drawableResourceId)
         playerName.text = item.username
+        itemView.setOnClickListener { onClick(item) }
     }
 }
 
 class PlayerAdapter(
     players: List<Player>,
-    private val onClick: (playerId: Int, isSelf: Boolean) -> Unit
+    onClick: (player: Player) -> Unit
 ) : BaseAdapter<Player>(
     list = players,
-    layoutItems = listOf(R.layout.item_player_main, R.layout.item_player_first, R.layout.item_player_second, R.layout.item_player_third, R.layout.item_player_fourth)
+    layoutItems = listOf(R.layout.item_player_main, R.layout.item_player_first, R.layout.item_player_second, R.layout.item_player_third, R.layout.item_player_fourth),
+    onClick
 ) {
 
     override fun additionalLayout(view: View) {
@@ -39,10 +41,6 @@ class PlayerAdapter(
             .setTopEdge(CustomEdgeTreatment())
             .build()
         cardView.shapeAppearanceModel = builder
-    }
-
-    override fun onItemClick(itemView: View) {
-        onClick(1, true)
     }
 
     override fun getViewHolder(itemView: View): BaseViewHolder<Player> =

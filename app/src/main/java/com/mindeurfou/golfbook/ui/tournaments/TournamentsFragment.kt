@@ -66,15 +66,15 @@ class TournamentsFragment : Fragment(R.layout.fragment_tournaments) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Success -> {
                 binding.progressBar.hide()
-                binding.recyclerTournaments.adapter = TournamentAdapter(dataState.data) {
-                    navigateToTournamentDetails()
+                binding.recyclerTournaments.adapter = TournamentAdapter(dataState.data) { tournament ->
+                    navigateToTournamentDetails(tournament.id)
                 }
             }
             is DataState.Failure -> binding.progressBar.hide()
         }
     }
 
-    private fun navigateToTournamentDetails() {
+    private fun navigateToTournamentDetails(tournamentId: Int) {
         findNavController().navigate(R.id.action_tournamentsFragment_to_tournamentDetailsFragment)
     }
 

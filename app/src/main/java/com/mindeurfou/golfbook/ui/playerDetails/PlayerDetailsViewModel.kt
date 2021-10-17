@@ -22,14 +22,22 @@ class PlayerDetailsViewModel
     private val _player: MutableLiveData<DataState<Player>> = MutableLiveData()
     val player: LiveData<DataState<Player>> = _player
 
+    private val _isSelf: MutableLiveData<DataState<Boolean>> = MutableLiveData()
+    val isSelf: LiveData<DataState<Boolean>> = _isSelf
+
     private val playerId: Int = state.get("playerId")!!
 
-    fun setStateEvent(stateEvent: StateEvent) {
+    fun setStateEvent(stateEvent: PlayerDetailsEvent) {
         viewModelScope.launch {
             when(stateEvent) {
                 is PlayerDetailsEvent.GetPlayerEvent -> {
                     playerDetailsInteractors.getPlayer(playerId).onEach {
                         _player.value = it
+                    }.launchIn(viewModelScope)
+                }
+                is PlayerDetailsEvent.CheckIfIsSelf -> {
+                    playerDetailsInteractors.checkIfIsSelf(playerId).onEach {
+                        _isSelf.value = it
                     }.launchIn(viewModelScope)
                 }
             }

@@ -28,7 +28,7 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPlayersBinding.inflate(inflater, container, false)
 
         setupUI()
@@ -40,7 +40,6 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
     }
 
     private fun subscribeObservers() {
-
         viewModel.players.observe(viewLifecycleOwner) { observePlayers(it) }
     }
 
@@ -49,8 +48,8 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Success -> {
                 binding.progressBar.hide()
-                binding.recyclerPlayers.adapter = PlayerAdapter(dataState.data) { playerId, isSelf ->
-                    navigateToPlayerDetails(playerId, isSelf)
+                binding.recyclerPlayers.adapter = PlayerAdapter(dataState.data) { player ->
+                    navigateToPlayerDetails(player.id)
                 }
             }
             is DataState.Failure -> binding.progressBar.hide()
@@ -64,8 +63,8 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
 
     private fun setupUI() {}
 
-    private fun navigateToPlayerDetails(playerId: Int, isSelf: Boolean = false) {
-        val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerDetailsFragment(playerId, isSelf)
+    private fun navigateToPlayerDetails(playerId: Int) {
+        val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerDetailsFragment(playerId)
         findNavController().navigate(action)
     }
 }

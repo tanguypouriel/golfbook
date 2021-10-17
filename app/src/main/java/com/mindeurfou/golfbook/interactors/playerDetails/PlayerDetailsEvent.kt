@@ -6,4 +6,5 @@ sealed class PlayerDetailsEvent : StateEvent {
 
     object GetPlayerEvent: PlayerDetailsEvent()
 
+    object CheckIfIsSelf: PlayerDetailsEvent()
 }

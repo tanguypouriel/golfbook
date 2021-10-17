@@ -40,6 +40,7 @@ class PlayerDetailsFragment : Fragment(R.layout.fragment_player_details){
         subscribeObservers()
 
         viewModel.setStateEvent(PlayerDetailsEvent.GetPlayerEvent)
+        viewModel.setStateEvent(PlayerDetailsEvent.CheckIfIsSelf)
 
         showFragmentScreen()
 
@@ -51,15 +52,21 @@ class PlayerDetailsFragment : Fragment(R.layout.fragment_player_details){
         _binding = null
     }
 
-    private fun setupUI() {
-        if (navArgs.isSelf) {
-            binding.modifyProfileButton.visibility = View.VISIBLE
-            binding.modifyProfileButton.setOnClickListener { Toast.makeText(requireContext(), "Modifié !", Toast.LENGTH_SHORT).show() }
-        }
-    }
+    private fun setupUI() {}
 
     private fun subscribeObservers() {
         viewModel.player.observe(viewLifecycleOwner) { observePlayer(it) }
+        viewModel.isSelf.observe(viewLifecycleOwner) { observeIsSelf(it) }
+    }
+
+    private fun observeIsSelf(dataState: DataState<Boolean>) {
+        when (dataState) {
+            is DataState.Success -> {
+                if (dataState.data)
+                    binding.modifyProfileButton.visibility = View.VISIBLE
+            }
+            else -> {}
+        }
     }
 
     private fun observePlayer(dataState: DataState<Player>) {
@@ -71,6 +78,7 @@ class PlayerDetailsFragment : Fragment(R.layout.fragment_player_details){
                 binding.nameText.text = player.name
                 binding.lastNameText.text = player.lastName
             }
+            else -> {}
         }
     }
 

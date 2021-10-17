@@ -1,5 +1,6 @@
 package com.mindeurfou.golfbook.data.course.local
 
+import com.mindeurfou.golfbook.data.GBData
 import com.mindeurfou.golfbook.utils.DateAsLongSerializer
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
@@ -13,4 +14,4 @@ data class Course(
     val gamesPlayed : Int,
     @Serializable(with = DateAsLongSerializer::class)
     val createdAt : LocalDate
-)
+) : GBData
