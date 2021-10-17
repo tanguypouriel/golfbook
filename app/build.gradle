@@ -26,6 +26,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("Boolean", "fakeData", "false")
+        }
+        debug {
+            buildConfigField("Boolean", "fakeData", "false")
+        }
+        fakeData {
+            initWith debug
+            buildConfigField("Boolean", "fakeData", "true")
         }
     }
     compileOptions {

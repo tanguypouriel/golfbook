@@ -2,6 +2,7 @@ package com.mindeurfou.golfbook.interactors.connection
 
 import android.content.SharedPreferences
 import android.util.Log
+import com.mindeurfou.golfbook.BuildConfig
 import com.mindeurfou.golfbook.datasource.network.player.PlayerNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
 import kotlinx.coroutines.delay
@@ -33,6 +34,11 @@ class ConnectionInteractors
                 sharedPreferences.edit().remove(USERNAME_KEY).apply()
             if (sharedPreferences.getString(PASSWORD_KEY, null) != null)
                 sharedPreferences.edit().remove(PASSWORD_KEY).apply()
+        }
+
+        if (BuildConfig.fakeData) {
+            emit(DataState.Success(true))
+            return@flow
         }
 
         try {
