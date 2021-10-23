@@ -14,6 +14,72 @@
         android:layout_height="match_parent"
         android:background="@color/colorSecondary">
 
+
+        <GridLayout
+            android:id="@+id/courseStaringLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:columnCount="5"
+            android:rowCount="1"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/starBall1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_ball_full"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                />
+
+            <ImageView
+                android:id="@+id/starBall2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_ball_empty"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                />
+
+            <ImageView
+                android:id="@+id/starBall3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_ball_empty"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                />
+
+            <ImageView
+                android:id="@+id/starBall4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_ball_empty"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                />
+
+            <ImageView
+                android:id="@+id/starBall5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_ball_empty"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                />
+
+        </GridLayout>
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -21,7 +87,8 @@
             android:background="@color/white"
             android:orientation="vertical"
             android:paddingTop="8dp"
-            android:paddingStart="16dp"
+            android:paddingStart="@dimen/cards_padding"
+            android:paddingEnd="@dimen/cards_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">

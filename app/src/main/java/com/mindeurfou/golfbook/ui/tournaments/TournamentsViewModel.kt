@@ -27,13 +27,11 @@ class TournamentsViewModel
 
 
     fun setStateEvent(stateEvent: StateEvent) {
-        viewModelScope.launch {
-            when(stateEvent) {
-                is TournamentsEvent.GetTournamentsEvent -> {
-                    tournamentsInteractors.getTournaments().onEach {
-                        _tournaments.value = it
-                    }.launchIn(viewModelScope)
-                }
+        when(stateEvent) {
+            is TournamentsEvent.GetTournamentsEvent -> {
+                tournamentsInteractors.getTournaments().onEach {
+                    _tournaments.value = it
+                }.launchIn(viewModelScope)
             }
         }
     }

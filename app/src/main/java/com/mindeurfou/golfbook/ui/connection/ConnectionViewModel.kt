@@ -27,18 +27,16 @@ class ConnectionViewModel
     val credentials: LiveData<DataState<Pair<String, String>?>> = _credentials
 
     fun setStateEvent(stateEvent: StateEvent) {
-        viewModelScope.launch {
-            when(stateEvent) {
-                is ConnectionEvent.ConnectEvent -> {
-                    connectionInteractors.connect(stateEvent.username, stateEvent.password, stateEvent.rememberMe).onEach {
-                        _connected.value = it
-                    }.launchIn(viewModelScope)
-                }
-                is ConnectionEvent.RetrieveCredentialsEvent -> {
-                    connectionInteractors.retrieveCredentials().onEach {
-                        _credentials.value = it
-                    }.launchIn(viewModelScope)
-                }
+        when(stateEvent) {
+            is ConnectionEvent.ConnectEvent -> {
+                connectionInteractors.connect(stateEvent.username, stateEvent.password, stateEvent.rememberMe).onEach {
+                    _connected.value = it
+                }.launchIn(viewModelScope)
+            }
+            is ConnectionEvent.RetrieveCredentialsEvent -> {
+                connectionInteractors.retrieveCredentials().onEach {
+                    _credentials.value = it
+                }.launchIn(viewModelScope)
             }
         }
     }

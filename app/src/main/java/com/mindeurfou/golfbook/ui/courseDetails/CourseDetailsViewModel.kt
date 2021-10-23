@@ -22,13 +22,11 @@ class CourseDetailsViewModel
     val courseDetails: LiveData<DataState<CourseDetails>> = _courseDetails
 
     fun setStateEvent(stateEvent : CourseDetailsEvent) {
-        viewModelScope.launch {
-            when(stateEvent) {
-                is CourseDetailsEvent.GetCourseDetails -> {
-                    courseDetailsInteractors.getCourse(state.get("courseId")!!).onEach {
-                        _courseDetails.value = it
-                    }.launchIn(viewModelScope)
-                }
+        when(stateEvent) {
+            is CourseDetailsEvent.GetCourseDetails -> {
+                courseDetailsInteractors.getCourse(state.get("courseId")!!).onEach {
+                    _courseDetails.value = it
+                }.launchIn(viewModelScope)
             }
         }
     }

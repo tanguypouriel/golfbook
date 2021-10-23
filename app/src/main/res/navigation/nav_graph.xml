@@ -1,49 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashFragment">
-
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.mindeurfou.golfbook.ui.splash.SplashFragment"
-        android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
-        <action
-            android:id="@+id/action_splashFragment_to_connectionFragment"
-            app:destination="@id/connectionFragment"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_splashFragment_to_tournamentsFragment"
-            app:destination="@id/tournamentsNav" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/connectionFragment"
-        android:name="com.mindeurfou.golfbook.ui.connection.ConnectionFragment"
-        android:label="fragment_connection"
-        tools:layout="@layout/fragment_connection" >
-        <action
-            android:id="@+id/action_connectionFragment_to_createPlayerFragment"
-            app:destination="@id/createPlayerFragment" />
-        <action
-            android:id="@+id/action_connectionFragment_to_tournamentsFragment"
-            app:destination="@id/tournamentsNav" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/createPlayerFragment"
-        android:name="com.mindeurfou.golfbook.ui.createPlayer.CreatePlayerFragment"
-        android:label="CreatePlayerFragment"
-        tools:layout="@layout/fragment_create_player">
-        <action
-            android:id="@+id/action_createPlayerFragment_to_tournamentsFragment"
-            app:destination="@id/tournamentsNav"
-            app:popUpTo="@id/createPlayerFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+    app:startDestination="@id/tournamentsNav">
 
     <include app:graph="@navigation/course_nav"/>
     <include app:graph="@navigation/player_nav"/>

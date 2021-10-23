@@ -8,6 +8,9 @@
         <entry key="app/src/main/res/drawable/circle_shape.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/hill.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/hill_bottom.xml" value="0.371875" />
+        <entry key="app/src/main/res/drawable/ic_ball.xml" value="0.2755208333333333" />
+        <entry key="app/src/main/res/drawable/ic_ball_empty.xml" value="0.37135416666666665" />
+        <entry key="app/src/main/res/drawable/ic_ball_full.xml" value="0.37135416666666665" />
         <entry key="app/src/main/res/drawable/ic_flag.xml" value="0.24444444444444444" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.4171875" />
         <entry key="app/src/main/res/drawable/iwoman_7.xml" value="0.371875" />
@@ -16,15 +19,18 @@
         <entry key="app/src/main/res/drawable/woman_6.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/woman_7.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/woman_8.xml" value="0.371875" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_start.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/fragment_connection.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_course_details.xml" value="0.34148550724637683" />
-        <entry key="app/src/main/res/layout/fragment_courses.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_courses.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_create_course.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/fragment_create_game.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/fragment_create_player.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_create_tournament.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/fragment_game_details.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/fragment_games.xml" value="0.4010416666666667" />
+        <entry key="app/src/main/res/layout/fragment_onboard_game.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/fragment_player_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_players.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.33" />
@@ -32,10 +38,16 @@
         <entry key="app/src/main/res/layout/fragment_tournaments.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_course_first.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_course_fourth.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/item_course_main.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/item_course_main.xml" value="0.29672045809474235" />
         <entry key="app/src/main/res/layout/item_course_second.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/item_course_third.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/item_player_first.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/item_game_first.xml" value="0.5987394957983193" />
+        <entry key="app/src/main/res/layout/item_game_fourth.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/item_game_main.xml" value="0.4010416666666667" />
+        <entry key="app/src/main/res/layout/item_game_second.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_game_third.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/item_player.xml" value="0.4010416666666667" />
+        <entry key="app/src/main/res/layout/item_player_first.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_player_fourth.xml" value="0.184375" />
         <entry key="app/src/main/res/layout/item_player_main.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/item_player_second.xml" value="0.35572916666666665" />

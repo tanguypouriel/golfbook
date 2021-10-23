@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.mindeurfou.golfbook.MainActivity
+import com.mindeurfou.golfbook.ui.StartActivity
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.databinding.FragmentCreatePlayerBinding
@@ -34,7 +34,7 @@ class ModifyPlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
     private val viewModel: ModifyPlayerViewModel by viewModels()
 
     override var backdropShown = false
-    override val activity: MainActivity by lazy { requireActivity() as MainActivity }
+    override val activity: StartActivity by lazy { requireActivity() as StartActivity }
 
     override fun onCreateView(
         inflater: LayoutInflater,

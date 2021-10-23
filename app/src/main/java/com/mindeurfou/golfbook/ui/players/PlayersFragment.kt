@@ -10,9 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.databinding.FragmentPlayersBinding
-import com.mindeurfou.golfbook.utils.DataState
-import com.mindeurfou.golfbook.utils.hide
-import com.mindeurfou.golfbook.utils.show
+import com.mindeurfou.golfbook.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,6 +46,18 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Success -> {
                 binding.progressBar.hide()
+
+                // TODO récupérer le selfPlayer ici
+                val selfPlayer = Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_8)
+                binding.imageAvatar.setAvatarResource(selfPlayer.drawableResourceId)
+                binding.titlePlayer.text = selfPlayer.username
+                binding.playerName.text = selfPlayer.name
+                binding.playerLastName.text = selfPlayer.lastName
+                binding.cardView.cropTopEdge()
+                binding.cardView.visibility = View.VISIBLE
+                binding.imageAvatar.visibility = View.VISIBLE
+                binding.cardView.setOnClickListener { navigateToPlayerDetails(selfPlayer.id) }
+
                 binding.recyclerPlayers.adapter = PlayerAdapter(dataState.data) { player ->
                     navigateToPlayerDetails(player.id)
                 }

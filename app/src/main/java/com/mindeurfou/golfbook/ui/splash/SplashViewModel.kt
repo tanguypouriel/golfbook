@@ -24,13 +24,11 @@ class SplashViewModel
     val validToken: LiveData<DataState<Boolean>> = _validToken
 
     fun setStateEvent(stateEvent: StateEvent) {
-        viewModelScope.launch {
-            when (stateEvent) {
-                is SplashEvent.CheckToken -> {
-                    splashInteractors.checkToken().onEach {
-                        _validToken.value = it
-                    }.launchIn(viewModelScope)
-                }
+        when (stateEvent) {
+            is SplashEvent.CheckToken -> {
+                splashInteractors.checkToken().onEach {
+                    _validToken.value = it
+                }.launchIn(viewModelScope)
             }
         }
     }

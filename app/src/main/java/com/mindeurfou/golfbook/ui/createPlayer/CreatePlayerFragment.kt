@@ -9,11 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.mindeurfou.golfbook.MainActivity
+import com.mindeurfou.golfbook.ui.StartActivity
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentCreatePlayerBinding
 import com.mindeurfou.golfbook.interactors.createPlayer.CreatePlayerEvent
-import com.mindeurfou.golfbook.ui.hillView.HillPosition
 import com.mindeurfou.golfbook.ui.playerDetails.PlayerConfigFragment
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.hide
@@ -23,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CreatePlayerFragment : Fragment(R.layout.fragment_create_player), PlayerConfigFragment {
 
-    override val activity: MainActivity by lazy { requireActivity() as MainActivity }
+    override val activity: StartActivity by lazy { requireActivity() as StartActivity }
 
     private var _binding: FragmentCreatePlayerBinding? = null
 
@@ -66,7 +65,7 @@ class CreatePlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Success -> {
                 binding.progressBar.hide()
-                navigateToTournamentsFragment()
+                activity.navigateToMainActivity()
             }
             is DataState.Failure -> {
                 binding.progressBar.hide()
@@ -78,10 +77,6 @@ class CreatePlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun navigateToTournamentsFragment() {
-        findNavController().navigate(R.id.action_createPlayerFragment_to_tournamentsFragment)
     }
 
     private fun okBtnOnClick() {

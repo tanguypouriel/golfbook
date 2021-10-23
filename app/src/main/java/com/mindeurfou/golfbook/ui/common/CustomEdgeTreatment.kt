@@ -5,10 +5,10 @@ import com.google.android.material.shape.ShapePath
 import kotlin.math.atan
 import kotlin.math.sqrt
 
-class CustomEdgeTreatment : EdgeTreatment() {
+class CustomEdgeTreatment: EdgeTreatment() {
 
-    private val cradleRoundedCornerRadius: Float = 50f
-    private val radius: Float = 35f
+    private val cradleRoundedCornerRadius: Float = 75f
+    private val radius: Float = 45f
 
     override fun getEdgePath(
         length: Float,
@@ -19,7 +19,7 @@ class CustomEdgeTreatment : EdgeTreatment() {
 
 
         val roundedCornerOffset = interpolation * cradleRoundedCornerRadius
-        val middle = length / 2.0f + length / 8f
+        val middle = length * 0.805f  //horizontalBias
         val verticalOffset = (1.0f - interpolation) * radius
 
         val verticalOffsetRatio = verticalOffset / radius

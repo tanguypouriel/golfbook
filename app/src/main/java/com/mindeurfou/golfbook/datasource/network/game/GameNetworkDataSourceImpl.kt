@@ -42,6 +42,11 @@ class GameNetworkDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun getGamesByPlayerId(playerId: Int): List<Game> {
+         // TODO("not yet implemented")
+        return listOf()
+    }
+
     override suspend fun postGame(postGame: PostGameNetworkEntity): GameDetails {
         try {
             return gameApiService.postGame(postGame)

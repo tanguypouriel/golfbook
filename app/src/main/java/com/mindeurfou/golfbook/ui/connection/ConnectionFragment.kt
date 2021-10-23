@@ -13,12 +13,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.mindeurfou.golfbook.MainActivity
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentConnectionBinding
 import com.mindeurfou.golfbook.interactors.connection.ConnectionEvent
 import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.REMEMBER_ME_KEY
-import com.mindeurfou.golfbook.ui.hillView.HillPosition
+import com.mindeurfou.golfbook.ui.StartActivity
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.hide
 import com.mindeurfou.golfbook.utils.show
@@ -30,6 +29,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ConnectionFragment : Fragment(R.layout.fragment_splash) {
+
+    private val startActivity: StartActivity by lazy { requireActivity() as StartActivity }
 
     private var _binding: FragmentConnectionBinding? = null
 
@@ -60,10 +61,6 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
 
     private fun navigateToCreatePlayerFragment() {
         findNavController().navigate(R.id.action_connectionFragment_to_createPlayerFragment)
-    }
-
-    private fun navigateToTournamentsFragment() {
-        findNavController().navigate(R.id.action_connectionFragment_to_tournamentsFragment)
     }
 
     private fun setupUI() {
@@ -108,7 +105,7 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
                 if (dataState.data) {
                     CoroutineScope(Dispatchers.Main).launch {
                         delay(1000)
-                        navigateToTournamentsFragment()
+                        startActivity.navigateToMainActivity()
                     }
                 }
                 else

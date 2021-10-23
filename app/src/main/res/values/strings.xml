@@ -20,4 +20,5 @@
     <string name="myStats">Mes statistiques</string>
     <string name="modify">Modification</string>
     <string name="numberOfHoles">%1$d trous</string>
+    <string name="play">Jouer</string>
 </resources>

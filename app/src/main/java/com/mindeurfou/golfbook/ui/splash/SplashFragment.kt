@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.mindeurfou.golfbook.MainActivity
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentSplashBinding
 import com.mindeurfou.golfbook.interactors.splash.SplashEvent
-import com.mindeurfou.golfbook.ui.hillView.HillPosition
+import com.mindeurfou.golfbook.ui.StartActivity
 import com.mindeurfou.golfbook.utils.DataState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -22,6 +21,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashFragment : Fragment(R.layout.fragment_splash) {
+
+    private val startActivity: StartActivity by lazy { requireActivity() as StartActivity }
 
     private var _binding: FragmentSplashBinding? = null
 
@@ -60,7 +61,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         when (dataState) {
             is DataState.Success -> {
                 if (dataState.data)
-                    navigateToTournamentsFragment()
+                    startActivity.navigateToMainActivity()
                 else
                     navigateToConnectionFragment()
             }
@@ -71,9 +72,5 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
     private fun navigateToConnectionFragment() {
         val navigationAction = SplashFragmentDirections.actionSplashFragmentToConnectionFragment()
         findNavController().navigate(navigationAction)
-    }
-
-    private fun navigateToTournamentsFragment() {
-        findNavController().navigate(R.id.action_splashFragment_to_tournamentsFragment)
     }
 }

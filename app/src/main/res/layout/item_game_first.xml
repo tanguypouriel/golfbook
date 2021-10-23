@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.Golfbook.Cardview"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="16dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSecondary">
+
+        <GridLayout
+            android:id="@+id/playersLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:rowCount="8"
+            android:columnCount="2">
+
+            <ImageView
+                android:id="@+id/imageAvatar1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                tools:src="@drawable/man_4"
+                android:layout_rowWeight="3"
+                android:layout_columnWeight="1"
+                android:padding="4dp"
+                />
+
+            <ImageView
+                android:id="@+id/imageAvatar2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                tools:src="@drawable/man_4"
+                android:layout_rowWeight="3"
+                android:layout_columnWeight="1"
+                android:padding="4dp"
+                />
+
+            <TextView
+                android:id="@+id/player1Name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                style="@style/TextAppearance.Golfbook.subtitle4"
+                android:textColor="@color/white"
+                tools:text="Frere le boss"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                />
+
+            <TextView
+                android:id="@+id/player2Name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                style="@style/TextAppearance.Golfbook.subtitle4"
+                android:textColor="@color/white"
+                tools:text="Frere le boss"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                />
+
+            <ImageView
+                android:id="@+id/imageAvatar3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                tools:src="@drawable/man_4"
+                android:layout_rowWeight="3"
+                android:layout_columnWeight="1"
+                android:padding="4dp"
+                />
+
+            <ImageView
+                android:id="@+id/imageAvatar4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                tools:src="@drawable/man_4"
+                android:layout_rowWeight="3"
+                android:layout_columnWeight="1"
+                android:padding="4dp"
+                />
+
+            <TextView
+                android:id="@+id/player3Name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                style="@style/TextAppearance.Golfbook.subtitle4"
+                android:textColor="@color/white"
+                tools:text="Frere le boss"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                />
+
+            <TextView
+                android:id="@+id/player4Name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                style="@style/TextAppearance.Golfbook.subtitle4"
+                android:textColor="@color/white"
+                tools:text="Frere le boss"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:padding="4dp"
+                />
+        </GridLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cardInfoLayoutHeight"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingStart="@dimen/cards_padding"
+            android:paddingEnd="@dimen/cards_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/titleGame"
+                style="@style/TextAppearance.Golfbook.h4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                tools:text="Partie du 16/07/21" />
+
+            <TextView
+                android:id="@+id/gameState"
+                style="@style/TextAppearance.Golfbook.subtitle3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="12dp"
+                tools:text="Partie terminée" />
+
+            <TextView
+                android:id="@+id/courseName"
+                style="@style/TextAppearance.Golfbook.subtitle3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="1dp"
+                tools:text="Parcours du chêne" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -12,7 +12,10 @@ import android.widget.ProgressBar
 import androidx.core.animation.doOnEnd
 import androidx.core.view.drawToBitmap
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.mindeurfou.golfbook.R
+import com.mindeurfou.golfbook.ui.common.CustomEdgeTreatment
 
 fun BottomNavigationView.show() {
     if (visibility == View.VISIBLE) return
@@ -96,4 +99,11 @@ fun ImageView.setAvatarResource(avatarId: Int) {
         setImageResource(avatarId)
     else
         setImageResource(R.drawable.man_1)
+}
+
+fun MaterialCardView.cropTopEdge() {
+    shapeAppearanceModel =  ShapeAppearanceModel.Builder()
+        .setAllCornerSizes(50f)
+        .setTopEdge(CustomEdgeTreatment())
+        .build()
 }

@@ -6,6 +6,7 @@ import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.tournament.local.Tournament
 import com.mindeurfou.golfbook.ui.common.BaseAdapter
 import com.mindeurfou.golfbook.ui.common.BaseViewHolder
+import java.time.LocalDate
 
 class TournamentViewHolder(itemView: View) : BaseViewHolder<Tournament>(itemView) {
 
@@ -16,8 +17,8 @@ class TournamentViewHolder(itemView: View) : BaseViewHolder<Tournament>(itemView
 
     override fun bind(item: Tournament, position: Int, onClick: (Tournament) -> Unit) {
         tournamentName.text = item.name
-        tournamentCourse.text = "Parcours du chêne"
-        tournamentDate.text = item.createdAt.toString()
+        tournamentCourse.text = "\u2022 Parcours du chêne"
+        tournamentDate.text = item.createdAt.prettyDateString()
         tournamentState.text = item.state.toString()
         itemView.setOnClickListener { onClick(item) }
     }
@@ -35,4 +36,8 @@ class TournamentAdapter(
         TournamentViewHolder(itemView)
 
     override fun additionalLayout(view: View) {}
+}
+
+fun LocalDate.prettyDateString() : String {
+    return "\u2022 Aujourd'hui à 17h"
 }

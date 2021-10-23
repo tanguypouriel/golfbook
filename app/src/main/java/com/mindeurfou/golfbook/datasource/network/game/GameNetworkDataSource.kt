@@ -11,6 +11,7 @@ import com.mindeurfou.golfbook.data.game.remote.PutScoreBookNetworkEntity
 interface GameNetworkDataSource {
     suspend fun getGame(gameId: Int): GameDetails
     suspend fun getGamesByTournamentId(tournamentId: Int): List<Game>
+    suspend fun getGamesByPlayerId(playerId: Int): List<Game>
     suspend fun postGame(postGame: PostGameNetworkEntity): GameDetails
     suspend fun updateGame(putGame: PutGameNetworkEntity): GameDetails
     suspend fun deleteGame(gameId: Int)

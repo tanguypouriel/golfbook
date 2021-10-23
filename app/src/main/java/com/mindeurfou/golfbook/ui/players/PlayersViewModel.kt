@@ -24,13 +24,11 @@ class PlayersViewModel
     val players : LiveData<DataState<List<Player>>> = _players
 
     fun setStateEvent(stateEvent: StateEvent) {
-        viewModelScope.launch {
-            when(stateEvent) {
-                is PlayersEvent.GetPlayersEvent -> {
-                    playersInteractors.getPlayers().onEach {
-                        _players.value = it
-                    }.launchIn(viewModelScope)
-                }
+        when(stateEvent) {
+            is PlayersEvent.GetPlayersEvent -> {
+                playersInteractors.getPlayers().onEach {
+                    _players.value = it
+                }.launchIn(viewModelScope)
             }
         }
     }

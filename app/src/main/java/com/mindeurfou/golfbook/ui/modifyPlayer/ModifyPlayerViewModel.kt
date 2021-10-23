@@ -23,13 +23,11 @@ class ModifyPlayerViewModel
     val modificationAccepted: LiveData<DataState<Boolean>> = _modificationAccepted
 
     fun setStateEvent(stateEvent: ModifyPlayerEvent) {
-        viewModelScope.launch {
-            when(stateEvent) {
-                is ModifyPlayerEvent.SendModificationEvent -> {
-                    modifyPlayerInteractors.sendModification(stateEvent.player).onEach {
-                        _modificationAccepted.value = it
-                    }.launchIn(viewModelScope)
-                }
+        when(stateEvent) {
+            is ModifyPlayerEvent.SendModificationEvent -> {
+                modifyPlayerInteractors.sendModification(stateEvent.player).onEach {
+                    _modificationAccepted.value = it
+                }.launchIn(viewModelScope)
             }
         }
     }
