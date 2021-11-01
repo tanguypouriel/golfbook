@@ -8,5 +8,6 @@ data class PostCourseNetworkEntity(
     val name : String,
     val numberOfHOles : Int,
     val par : Int,
+    val stars : Int,
     val holes : List<PostHoleNetworkEntity>
 )

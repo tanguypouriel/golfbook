@@ -27,9 +27,9 @@ class GamesViewHolder(itemView: View) : BaseViewHolder<Game>(itemView) {
 
     override fun bind(item: Game, position: Int, onClick: (Game) -> Unit) {
 
-        gameName.text = "Partie du 16/07/21"// TODO item.gameName
-        gameState.text = "\u2022 " + item.state.toString()
-        gameCourse.text = "\u2022 Parcours du cul" // TODO item.courseName
+        gameName.text =  item.name
+        gameState.text = itemView.context.getString(R.string.bulletPointString, item.state)
+        gameCourse.text = itemView.context.getString(R.string.bulletPointString, item.courseName)
 
         item.players?.forEachIndexed { i, player -> setPlayer(i, player) }
 

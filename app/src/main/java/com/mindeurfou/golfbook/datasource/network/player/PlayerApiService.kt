@@ -2,6 +2,7 @@ package com.mindeurfou.golfbook.datasource.network.player
 
 import com.mindeurfou.golfbook.data.Credentials
 import com.mindeurfou.golfbook.data.player.local.Player
+import com.mindeurfou.golfbook.data.player.remote.GetPlayersResponse
 import com.mindeurfou.golfbook.data.player.remote.PostPlayerNetworkEntity
 import com.mindeurfou.golfbook.data.player.remote.PutPlayerNetworkEntity
 import retrofit2.http.*
@@ -15,7 +16,7 @@ interface PlayerApiService {
     suspend fun login(@Body credentials: Credentials): Map<String, String>
 
     @GET("/player")
-    suspend fun getPlayers(@Query("limit") limit: Int? = null, @Query("offset") offset: Int? = null): List<Player>
+    suspend fun getPlayers(@Query("limit") limit: Int? = null, @Query("offset") offset: Int? = null): GetPlayersResponse
 
     @POST("/player")
     suspend fun postPlayer(@Body postPlayer: PostPlayerNetworkEntity): Map<String, String>

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.player.local.Player
+import com.mindeurfou.golfbook.data.player.remote.GetPlayersResponse
 import com.mindeurfou.golfbook.databinding.FragmentPlayersBinding
 import com.mindeurfou.golfbook.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,17 +39,16 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
     }
 
     private fun subscribeObservers() {
-        viewModel.players.observe(viewLifecycleOwner) { observePlayers(it) }
+        viewModel.getPlayersResponse.observe(viewLifecycleOwner) { observePlayers(it) }
     }
 
-    private fun observePlayers(dataState: DataState<List<Player>>) {
+    private fun observePlayers(dataState: DataState<GetPlayersResponse>) {
         when(dataState) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Success -> {
                 binding.progressBar.hide()
 
-                // TODO récupérer le selfPlayer ici
-                val selfPlayer = Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_8)
+                val selfPlayer = dataState.data.selfPlayer
                 binding.imageAvatar.setAvatarResource(selfPlayer.drawableResourceId)
                 binding.titlePlayer.text = selfPlayer.username
                 binding.playerName.text = selfPlayer.name
@@ -58,7 +58,7 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
                 binding.imageAvatar.visibility = View.VISIBLE
                 binding.cardView.setOnClickListener { navigateToPlayerDetails(selfPlayer.id) }
 
-                binding.recyclerPlayers.adapter = PlayerAdapter(dataState.data) { player ->
+                binding.recyclerPlayers.adapter = PlayerAdapter(dataState.data.players) { player ->
                     navigateToPlayerDetails(player.id)
                 }
             }

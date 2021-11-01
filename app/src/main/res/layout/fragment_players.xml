@@ -133,6 +133,7 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="@dimen/progressBarSize"
         android:layout_height="@dimen/progressBarSize"
+        tools:visibility="visible"
         android:visibility="gone"
         android:layout_gravity="center"/>
 

@@ -26,7 +26,7 @@ class GamesInteractors @Inject constructor(
         }
 
         try {
-            val games = gameNetworkDataSourceImpl.getGamesByPlayerId(1) // TODO ajouter le Get game by playerId
+            val games = gameNetworkDataSourceImpl.getGamesByPlayerId(1)
             emit(DataState.Success(games))
         } catch (e: Exception) {
             emit(DataState.Failure(e))

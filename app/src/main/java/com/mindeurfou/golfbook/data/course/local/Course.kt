@@ -12,6 +12,7 @@ data class Course(
     val numberOfHOles : Int,
     val par : Int,
     val gamesPlayed : Int,
+    val stars: Int,
     @Serializable(with = DateAsLongSerializer::class)
     val createdAt : LocalDate
 ) : GBData

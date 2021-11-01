@@ -10,5 +10,6 @@ data class PutCourseNetworkEntity(
     val numberOfHoles : Int,
     val par : Int,
     val gamesPlayed : Int,
+    val stars : Int,
     val holes : List<Hole>
 )

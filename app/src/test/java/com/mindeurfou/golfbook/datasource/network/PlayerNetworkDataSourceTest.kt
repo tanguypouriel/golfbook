@@ -33,4 +33,13 @@ class PlayerNetworkDataSourceTest : BaseApiTest() {
         assertEquals(expected, result)
     }
 
+    @Test
+    fun loging() = runBlocking {
+        mockWebServer.enqueueResponse("loginResponse.json", 200)
+
+        val result = playerNetworkDataSource.login("MindeurFou", "myPassword")
+        val expected = mapOf("token" to "myToken", "playerId" to 1)
+        assertEquals(expected["token"], result!!["token"])
+        assertEquals(expected["playerId"], result["playerId"]!!.toInt())
+    }
 }

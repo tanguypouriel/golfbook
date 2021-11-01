@@ -44,10 +44,10 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
     }
 
     private fun subscribeObservers() {
-        viewModel.courseDetails.observe(viewLifecycleOwner) { obvserveCourseDetails(it) }
+        viewModel.courseDetails.observe(viewLifecycleOwner) { observeCourseDetails(it) }
     }
 
-    private fun obvserveCourseDetails(dataState: DataState<CourseDetails>) {
+    private fun observeCourseDetails(dataState: DataState<CourseDetails>) {
         when (dataState) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Failure -> binding.progressBar.hide()

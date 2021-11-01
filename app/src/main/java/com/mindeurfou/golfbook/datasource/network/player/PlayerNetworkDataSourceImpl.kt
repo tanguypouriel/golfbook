@@ -2,6 +2,7 @@ package com.mindeurfou.golfbook.datasource.network.player
 
 import com.mindeurfou.golfbook.data.Credentials
 import com.mindeurfou.golfbook.data.player.local.Player
+import com.mindeurfou.golfbook.data.player.remote.GetPlayersResponse
 import com.mindeurfou.golfbook.data.player.remote.PostPlayerNetworkEntity
 import com.mindeurfou.golfbook.data.player.remote.toPutPlayerNetworkEntity
 import com.mindeurfou.golfbook.utils.GBException
@@ -37,7 +38,7 @@ class PlayerNetworkDataSourceImpl @Inject constructor(
 
     }
 
-    override suspend fun getPlayers(limit: Int?, offset: Int?): List<Player> {
+    override suspend fun getPlayers(limit: Int?, offset: Int?): GetPlayersResponse {
         try {
             return playerApiService.getPlayers(limit, offset)
         } catch (e: HttpException) {

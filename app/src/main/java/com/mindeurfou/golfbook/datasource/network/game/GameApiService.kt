@@ -15,7 +15,10 @@ interface GameApiService {
     suspend fun getGame(@Path("gameId") gameId: Int): GameDetails
 
     @GET("/game")
-    suspend fun getGames(@Query("tournamentId") tournamentId : Int): List<Game>
+    suspend fun getGamesByTournamentId(@Query("tournamentId") tournamentId : Int): List<Game>
+
+    @GET("/game")
+    suspend fun getGamesByPlayerId(@Query("playerId") playerId: Int): List<Game>
 
     @POST("/game")
     suspend fun postGame(@Body postGame: PostGameNetworkEntity): GameDetails

@@ -40,6 +40,7 @@ class CourseNetworkDataSourceTest : BaseApiTest() {
             9,
             30,
             0,
+            4,
             LocalDate.ofEpochDay(18826),
             listOf(
                 Hole(1, 1, 4),
@@ -85,6 +86,7 @@ class CourseNetworkDataSourceTest : BaseApiTest() {
                 9,
                 33,
                 0,
+                4,
                 LocalDate.ofEpochDay(18828)
             ),
             Course(
@@ -93,6 +95,7 @@ class CourseNetworkDataSourceTest : BaseApiTest() {
                 9,
                 30,
                 0,
+                4,
                 LocalDate.ofEpochDay(18826)
             )
         )

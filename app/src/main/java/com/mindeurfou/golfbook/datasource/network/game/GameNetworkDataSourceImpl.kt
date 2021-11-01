@@ -7,7 +7,6 @@ import com.mindeurfou.golfbook.data.game.remote.PatchGameNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PostGameNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PutGameNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PutScoreBookNetworkEntity
-import com.mindeurfou.golfbook.datasource.network.RetrofitBuilder
 import com.mindeurfou.golfbook.utils.GBException
 import com.mindeurfou.golfbook.utils.GBHttpStatusCode
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -33,7 +32,7 @@ class GameNetworkDataSourceImpl @Inject constructor(
 
     override suspend fun getGamesByTournamentId(tournamentId: Int): List<Game> {
         try {
-            return gameApiService.getGames(tournamentId)
+            return gameApiService.getGamesByTournamentId(tournamentId)
         } catch (e: HttpException) {
             if (e.code() == HttpURLConnection.HTTP_NO_CONTENT)
                 throw GBException(GBException.NO_RESOURCES_MESSAGE)
@@ -43,8 +42,14 @@ class GameNetworkDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getGamesByPlayerId(playerId: Int): List<Game> {
-         // TODO("not yet implemented")
-        return listOf()
+        try {
+            return gameApiService.getGamesByPlayerId(playerId)
+        } catch (e: HttpException) {
+            if (e.code() == HttpURLConnection.HTTP_NO_CONTENT)
+                throw GBException(GBException.NO_RESOURCES_MESSAGE)
+            else
+                throw UnknownError("status code is ${e.code()}")
+        }
     }
 
     override suspend fun postGame(postGame: PostGameNetworkEntity): GameDetails {
