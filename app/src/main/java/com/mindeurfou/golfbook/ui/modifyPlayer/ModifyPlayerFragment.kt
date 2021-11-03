@@ -14,6 +14,8 @@ import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.databinding.FragmentCreatePlayerBinding
 import com.mindeurfou.golfbook.interactors.modifyPlayer.ModifyPlayerEvent
+import com.mindeurfou.golfbook.ui.HillActivity
+import com.mindeurfou.golfbook.ui.MainActivity
 import com.mindeurfou.golfbook.ui.createPlayer.AvatarImageClickListener
 import com.mindeurfou.golfbook.ui.playerDetails.PlayerConfigFragment
 import com.mindeurfou.golfbook.utils.DataState
@@ -34,7 +36,7 @@ class ModifyPlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
     private val viewModel: ModifyPlayerViewModel by viewModels()
 
     override var backdropShown = false
-    override val activity: StartActivity by lazy { requireActivity() as StartActivity }
+    override val activity: HillActivity by lazy { requireActivity() as HillActivity }
 
     override fun onCreateView(
         inflater: LayoutInflater,

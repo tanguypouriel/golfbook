@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HillActivity {
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         _binding = null
     }
 
-    fun getAnimatorToHillPosition(hillPosition: HillPosition, startDelay: Long = 0) : ValueAnimator? =
+    override fun getAnimatorToHillPosition(hillPosition: HillPosition, startDelay: Long) : ValueAnimator? =
             binding.hillView.getAnimatorToHillPosition(hillPosition, startDelay)
 
 }

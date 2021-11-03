@@ -1,8 +1,8 @@
 package com.mindeurfou.golfbook.ui.playerDetails
 
-import com.mindeurfou.golfbook.ui.StartActivity
+import com.mindeurfou.golfbook.ui.HillActivity
 
 interface PlayerConfigFragment {
     var backdropShown: Boolean
-    val activity: StartActivity
+    val activity: HillActivity
 }

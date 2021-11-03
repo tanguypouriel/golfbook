@@ -17,7 +17,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class StartActivity : AppCompatActivity() {
+class StartActivity : AppCompatActivity(), HillActivity {
 
     private var _binding: ActivityStartBinding? = null
     private val binding: ActivityStartBinding
@@ -67,7 +67,7 @@ class StartActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun getAnimatorToHillPosition(hillPosition: HillPosition, startDelay: Long = 0) : ValueAnimator? =
+    override fun getAnimatorToHillPosition(hillPosition: HillPosition, startDelay: Long) : ValueAnimator? =
             binding.hillView.getAnimatorToHillPosition(hillPosition, startDelay)
 
 }
