@@ -46,7 +46,7 @@ class ConnectionInteractors
             token?.let { tokenMap ->
                 saveToken(tokenMap["token"])
 
-                if (sharedPreferences.getString(PLAYER_ID_KEY, null) == null)
+                if (sharedPreferences.getInt(PLAYER_ID_KEY, 0) == 0)
                     sharedPreferences.edit().putInt(PLAYER_ID_KEY, tokenMap["playerId"]!!.toInt()).apply()
 
                 emit(DataState.Success(true))
