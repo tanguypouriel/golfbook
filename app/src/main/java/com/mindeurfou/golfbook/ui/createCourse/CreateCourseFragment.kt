@@ -120,7 +120,7 @@ class CreateCourseFragment : Fragment(R.layout.fragment_create_course){
     private fun inflateHoleInputs() {
         holeInputs = mutableListOf()
         for (i in 1..18) {
-            val item = HoleInputItem(requireContext(), i) { par -> holes[i] = par }
+            val item = HoleInputItem(requireContext(), i) { par -> holes[i-1] = par }
             binding.createHolesLayout.addView(item)
             holeInputs.add(item)
         }
