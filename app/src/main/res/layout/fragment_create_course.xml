@@ -1,7 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/createCourseTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/createCourse"
+        style="@style/TextAppearance.Golfbook.Title"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/courseNameInputLayout"
+        style="@style/Widget.Golfbook.TextInputLayout.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/courseName"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/createCourseTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/courseNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleButtonNbHoles"
+        app:singleSelection="true"
+        app:selectionRequired="true"
+        app:checkedButton="@id/btn18Holes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/courseNameInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btn18Holes"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:theme="@style/ThemeOverlay.Golfbook.greenPrimary"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btn18holes"/>
+
+        <Button
+            android:id="@+id/btn9Holes"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:theme="@style/ThemeOverlay.Golfbook.greenPrimary"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btn9holes"
+            />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <ScrollView
+        android:id="@+id/createHolesContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="8dp"
+        android:layout_marginTop="16dp"
+        android:paddingEnd="8dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/btnValidateCourse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toggleButtonNbHoles">
+
+        <LinearLayout
+            android:id="@+id/createHolesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/progressBarSize"
+        android:layout_height="@dimen/progressBarSize"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/btnValidateCourse"
+        app:layout_constraintEnd_toStartOf="@+id/btnValidateCourse"
+        app:layout_constraintTop_toTopOf="@+id/btnValidateCourse" />
+
+    <Button
+        android:id="@+id/btnValidateCourse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/validate"
+        style="@style/Widget.Golfbook.Button.dark"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@id/createHolesContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

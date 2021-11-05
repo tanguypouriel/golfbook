@@ -22,4 +22,10 @@
     <string name="numberOfHoles">%1$d trous</string>
     <string name="play">Jouer</string>
     <string name="bulletPointString">\u2022 %1$s</string>
+    <string name="createCourse">Création de parcours</string>
+    <string name="courseName">Nom du parcours</string>
+    <string name="btn18holes">18 trous</string>
+    <string name="btn9holes">9 trous</string>
+    <string name="validate">valider</string>
+    <string name="holeNumber">Trou n° %1$d : </string>
 </resources>

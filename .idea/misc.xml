@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/drawable/iwoman_7.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/man_1.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/man_4.xml" value="0.371875" />
+        <entry key="app/src/main/res/drawable/stroke_color_selector.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/woman_6.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/woman_7.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/woman_8.xml" value="0.371875" />
@@ -24,7 +25,7 @@
         <entry key="app/src/main/res/layout/fragment_connection.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_course_details.xml" value="0.34148550724637683" />
         <entry key="app/src/main/res/layout/fragment_courses.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_create_course.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/fragment_create_course.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_create_game.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/fragment_create_player.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_create_tournament.xml" value="0.35572916666666665" />
@@ -46,6 +47,7 @@
         <entry key="app/src/main/res/layout/item_game_main.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/item_game_second.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_game_third.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/item_hole_input.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_player.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/item_player_first.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_player_fourth.xml" value="0.184375" />
