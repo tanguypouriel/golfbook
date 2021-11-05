@@ -22,7 +22,11 @@
         android:id="@+id/createGameFragment"
         android:name="com.mindeurfou.golfbook.ui.createGame.CreateGameFragment"
         android:label="CreateGameFragment"
-        tools:layout="@layout/fragment_create_game"/>
+        tools:layout="@layout/fragment_create_game">
+        <action
+            android:id="@+id/action_createGameFragment_to_prepareGameFragment"
+            app:destination="@id/prepareGameFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/onboardGameFragment"
@@ -32,6 +36,9 @@
         <action
             android:id="@+id/action_onboardGameFragment_to_createGameFragment"
             app:destination="@id/createGameFragment" />
+        <action
+            android:id="@+id/action_onboardGameFragment_to_prepareGameFragment"
+            app:destination="@id/prepareGameFragment" />
     </fragment>
 
     <fragment
@@ -43,5 +50,11 @@
             android:name="gameId"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/prepareGameFragment"
+        android:name="com.mindeurfou.golfbook.ui.prepareGame.PrepareGameFragment"
+        android:label="PrepareGameFragment"
+        tools:layout="@layout/fragment_prepare_game"/>
 
 </navigation>

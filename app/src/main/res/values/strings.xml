@@ -28,4 +28,6 @@
     <string name="btn9holes">9 trous</string>
     <string name="validate">valider</string>
     <string name="holeNumber">Trou n° %1$d : </string>
+    <string name="createGame">Créer une nouvelle partie</string>
+    <string name="or">OU</string>
 </resources>
