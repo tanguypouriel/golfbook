@@ -9,4 +9,5 @@
     <dimen name="marginWithbottomNav">8dp</dimen>
     <dimen name="cards_padding">8dp</dimen>
     <dimen name="default_margin">16dp</dimen>
+    <dimen name="largeButtonHeight">64dp</dimen>
 </resources>

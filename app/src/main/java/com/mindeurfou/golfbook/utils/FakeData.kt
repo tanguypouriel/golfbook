@@ -94,4 +94,9 @@ object FakeData {
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7 )
         ), "Parcours de la peugot 207", LocalDate.now()))
 
+    fun game() = Game(2, "Partie du 24/06/21", GBState.PENDING, listOf(
+            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_2 ),
+            Player(1, "Roro", "Pouriel", "Frere le boss", R.drawable.woman_2 ),
+            Player(1, "Lisa", "Pouriel", "Frere le boss", R.drawable.woman_4 )
+        ), "Parcours de la peugot 207", LocalDate.now())
 }

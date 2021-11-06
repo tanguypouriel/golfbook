@@ -76,7 +76,7 @@ class OnboardGameFragment : Fragment(R.layout.fragment_onboard_game) {
     }
 
     private fun navigateToPrepareGameFragment(gameId: Int) {
-        val action = OnboardGameFragmentDirections.actionOnboardGameFragmentToPrepareGameFragment()
+        val action = OnboardGameFragmentDirections.actionOnboardGameFragmentToPrepareGameFragment(gameId)
         findNavController().navigate(action)
     }
 

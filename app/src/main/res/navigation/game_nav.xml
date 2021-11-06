@@ -25,7 +25,9 @@
         tools:layout="@layout/fragment_create_game">
         <action
             android:id="@+id/action_createGameFragment_to_prepareGameFragment"
-            app:destination="@id/prepareGameFragment" />
+            app:destination="@id/prepareGameFragment"
+            app:popUpTo="@id/createGameFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -55,6 +57,10 @@
         android:id="@+id/prepareGameFragment"
         android:name="com.mindeurfou.golfbook.ui.prepareGame.PrepareGameFragment"
         android:label="PrepareGameFragment"
-        tools:layout="@layout/fragment_prepare_game"/>
+        tools:layout="@layout/fragment_prepare_game">
+        <argument
+            android:name="gameId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

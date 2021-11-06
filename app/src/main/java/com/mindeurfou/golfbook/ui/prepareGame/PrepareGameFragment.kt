@@ -22,9 +22,28 @@ class PrepareGameFragment : Fragment() {
     ): View {
         _binding = FragmentPrepareGameBinding.inflate(inflater, container, false)
 
+        setupUI()
+        subscribeObservers()
+
         return binding.root
     }
 
+
+    private fun setupUI() {
+        binding.startGameBtn.setOnClickListener { onClickStartBtn() }
+    }
+
+    private fun onClickStartBtn() {
+
+    }
+
+    private fun subscribeObservers() {
+
+    }
+
+    private fun navigateToSomeGameScreen(){
+
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -106,7 +106,11 @@
     <style name="Widget.Golfbook.TextInputLayout.Colored" parent="Widget.Golfbook.TextInputLayout">
         <item name="boxStrokeColor">@color/stroke_color_selector</item>
         <item name="hintTextColor">@color/colorSecondaryVariant</item>
+    </style>
 
+    <style name="Widget.Golfbook.TextInputLayout.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/stroke_color_selector</item>
+        <item name="hintTextColor">@color/colorSecondaryVariant</item>
     </style>
 
     <style name="TextAppearance.Golfbook.TextInputLayout.HintText" parent="TextAppearance.Golfbook.baseGlacial">

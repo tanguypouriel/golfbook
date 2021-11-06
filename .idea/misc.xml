@@ -26,7 +26,7 @@
         <entry key="app/src/main/res/layout/fragment_course_details.xml" value="0.34148550724637683" />
         <entry key="app/src/main/res/layout/fragment_courses.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_create_course.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_create_game.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/fragment_create_game.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_create_player.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_create_tournament.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/fragment_game_details.xml" value="0.35520833333333335" />
@@ -41,6 +41,7 @@
         <entry key="app/src/main/res/layout/item_course_first.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_course_fourth.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/item_course_main.xml" value="0.29672045809474235" />
+        <entry key="app/src/main/res/layout/item_course_name.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/item_course_second.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/item_course_third.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/item_game_first.xml" value="0.5987394957983193" />
@@ -49,7 +50,7 @@
         <entry key="app/src/main/res/layout/item_game_second.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_game_third.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/item_hole_input.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/item_onboard_game.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_onboard_game.xml" value="0.75" />
         <entry key="app/src/main/res/layout/item_player.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/item_player_first.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_player_fourth.xml" value="0.184375" />
