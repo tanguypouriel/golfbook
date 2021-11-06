@@ -8,6 +8,7 @@ import kotlinx.serialization.Serializable
 data class GameDetails(
     val id : Int,
     val state: GBState,
+    val scoringSystem: ScoringSystem,
     val courseName: String,
     val courseId: Int,
     val currentHole: Int,

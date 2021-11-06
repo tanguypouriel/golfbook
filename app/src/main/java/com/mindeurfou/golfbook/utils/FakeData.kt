@@ -5,6 +5,7 @@ import com.mindeurfou.golfbook.data.GBState
 import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.course.local.CourseDetails
 import com.mindeurfou.golfbook.data.game.local.Game
+import com.mindeurfou.golfbook.data.game.local.ScoringSystem
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.data.player.remote.GetPlayersResponse
 import com.mindeurfou.golfbook.data.tournament.local.Tournament
@@ -53,48 +54,48 @@ object FakeData {
     fun courseDetails() = CourseDetails(1, "Parcours du chêne", 18, 72, 3, 4, LocalDate.now(), listOf())
 
     fun games() = listOf(
-        Game(1, "Parcours du 17/08/21", GBState.DONE, listOf(
+        Game(1, "Parcours du 17/08/21", GBState.DONE, ScoringSystem.STROKE_PLAY, listOf(
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_4 )
         ), "Parcours de la belette des sables", LocalDate.now()),
-        Game(2, "Parcours du 24/06/21", GBState.PENDING, listOf(
+        Game(2, "Parcours du 24/06/21", GBState.PENDING, ScoringSystem.STROKE_PLAY, listOf(
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_2 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7 )
         ), "Parcours de la peugot 207", LocalDate.now()),
-        Game(1, "Parcours du 17/08/21", GBState.DONE, listOf(
+        Game(1, "Parcours du 17/08/21", GBState.DONE, ScoringSystem.STROKE_PLAY, listOf(
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_4 ),
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5 )
         ), "Parcours trop court", LocalDate.now()),
-        Game(2, "Parcours du 17/08/21", GBState.PENDING, listOf(
+        Game(2, "Parcours du 17/08/21", GBState.PENDING, ScoringSystem.STROKE_PLAY, listOf(
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_2 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7 )
         ), "Parcours", LocalDate.now()),
-        Game(2, "Parcours du 17/08/21", GBState.PENDING, listOf(
+        Game(2, "Parcours du 17/08/21", GBState.PENDING, ScoringSystem.STROKE_PLAY, listOf(
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_2 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7 )
         ), "Parcours", LocalDate.now()),
-        Game(1, "Parcours du 17/08/21", GBState.DONE, listOf(
+        Game(1, "Parcours du 17/08/21", GBState.DONE, ScoringSystem.STROKE_PLAY, listOf(
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_4 ),
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5 )
         ), "Parcours", LocalDate.now())
     )
     fun pendingGames() = listOf(
-        Game(1, "Partie du 17/08/21", GBState.DONE, listOf(
+        Game(1, "Partie du 17/08/21", GBState.DONE, ScoringSystem.STROKE_PLAY, listOf(
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_4 )
         ), "Parcours de la belette des sables", LocalDate.now()),
-        Game(2, "Partie du 24/06/21", GBState.PENDING, listOf(
+        Game(2, "Partie du 24/06/21", GBState.PENDING, ScoringSystem.STROKE_PLAY, listOf(
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_2 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7 )
         ), "Parcours de la peugot 207", LocalDate.now()))
 
-    fun game() = Game(2, "Partie du 24/06/21", GBState.PENDING, listOf(
+    fun game() = Game(2, "Partie du 24/06/21", GBState.PENDING, ScoringSystem.STROKE_PLAY, listOf(
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_2 ),
             Player(1, "Roro", "Pouriel", "Frere le boss", R.drawable.woman_2 ),
             Player(1, "Lisa", "Pouriel", "Frere le boss", R.drawable.woman_4 )

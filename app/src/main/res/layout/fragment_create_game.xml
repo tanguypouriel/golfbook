@@ -38,6 +38,28 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputScoring"
+        style="@style/Widget.Golfbook.TextInputLayout.Dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:hint="@string/scoringSystem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameNameInputLayout">
+
+        <AutoCompleteTextView
+            android:id="@+id/editTextScoring"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputCourse"
         style="@style/Widget.Golfbook.TextInputLayout.Dropdown"
         android:layout_width="match_parent"
@@ -48,13 +70,12 @@
         android:hint="@string/courses"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameNameInputLayout">
+        app:layout_constraintTop_toBottomOf="@+id/textInputScoring">
 
         <AutoCompleteTextView
             android:id="@+id/editTextCourse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
             android:inputType="none"
             android:maxLines="1" />
 
@@ -65,10 +86,11 @@
         android:layout_width="@dimen/progressBarSize"
         android:layout_height="@dimen/progressBarSize"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/createGameBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/textInputCourse"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/createGameBtn"

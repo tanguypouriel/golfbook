@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.game.local.Game
+import com.mindeurfou.golfbook.data.game.local.ScoringSystem
 import com.mindeurfou.golfbook.databinding.FragmentCreateGameBinding
 import com.mindeurfou.golfbook.interactors.createGame.CreateGameEvent
 import com.mindeurfou.golfbook.utils.DataState
@@ -73,14 +74,21 @@ class CreateGameFragment : Fragment(R.layout.fragment_create_game){
     private fun setupUI() {
         val defaultGameName = getString(R.string.defautlGameName, LocalDate.now().toString())
         binding.gameNameEditText.setText(defaultGameName)
+
+        val defaultScoringSystem = getString(R.string.strokePlay)
+        binding.editTextScoring.setText(defaultScoringSystem)
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_course_name, ScoringSystem.toList(requireContext()))
+        binding.editTextScoring.setAdapter(adapter)
+
         binding.createGameBtn.setOnClickListener { createGameOnClick() }
     }
 
     private fun createGameOnClick() {
         val name = binding.gameNameEditText.text.toString()
         val courseName = binding.editTextCourse.text.toString()
+        val scoringSystem = binding.editTextScoring.text.toString()
 
-        viewModel.setEventState(CreateGameEvent.SendGameEvent(name, courseName))
+        viewModel.setEventState(CreateGameEvent.SendGameEvent(name, courseName, scoringSystem))
     }
 
     private fun navigateToPrepareGameFragment(gameId: Int) {

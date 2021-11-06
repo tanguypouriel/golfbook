@@ -12,6 +12,7 @@ data class Game(
     val id : Int,
     val name: String,
     val state: GBState,
+    val scoringSystem: ScoringSystem,
     val players: List<Player>?,
     val courseName: String,
     @Serializable(with = DateAsLongSerializer::class)

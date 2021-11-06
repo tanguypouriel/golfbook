@@ -30,7 +30,7 @@ class CreateGameViewModel
     fun setEventState(stateEvent: CreateGameEvent) {
         when (stateEvent) {
             is CreateGameEvent.SendGameEvent -> {
-                createGameInteractors.sendGame(stateEvent.name, stateEvent.courseName).onEach {
+                createGameInteractors.sendGame(stateEvent.name, stateEvent.courseName, stateEvent.scoringSystem).onEach {
                     _createdGame.value = it
                 }.launchIn(viewModelScope)
             }

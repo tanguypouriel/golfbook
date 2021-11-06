@@ -2,6 +2,7 @@ package com.mindeurfou.golfbook.interactors.createGame
 
 import com.mindeurfou.golfbook.BuildConfig
 import com.mindeurfou.golfbook.data.game.local.Game
+import com.mindeurfou.golfbook.data.game.local.ScoringSystem
 import com.mindeurfou.golfbook.datasource.network.game.GameNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.FakeData
@@ -15,7 +16,7 @@ class CreateGameInteractors @Inject constructor(
     private val gameNetworkDataSourceImpl: GameNetworkDataSourceImpl
 ) {
 
-    fun sendGame(name: String, courseName: String) : Flow<DataState<Game>> = flow {
+    fun sendGame(name: String, courseName: String, scoringSystem: String) : Flow<DataState<Game>> = flow {
 
         emit(DataState.Loading)
 
