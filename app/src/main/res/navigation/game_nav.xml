@@ -61,6 +61,15 @@
         <argument
             android:name="gameId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_prepareGameFragment_to_inGameFragment"
+            app:destination="@id/inGameFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/inGameFragment"
+        android:name="com.mindeurfou.golfbook.ui.inGame.InGameFragment"
+        android:label="InGameFragment"
+        tools:layout="@layout/fragment_score_card"/>
 
 </navigation>
