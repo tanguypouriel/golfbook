@@ -3,6 +3,7 @@ package com.mindeurfou.golfbook.ui.onboardGame
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,7 @@ import com.mindeurfou.golfbook.utils.setAvatarResource
 class OnBoardGameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val gameName: TextView = itemView.findViewById(R.id.titleGame)
-    private val gameCourse: TextView = itemView.findViewById(R.id.courseName)
+    private val joinGame: TextView = itemView.findViewById(R.id.joinGameBtn)
 
     private val player1Avatar: ImageView = itemView.findViewById(R.id.imageAvatar1)
     private val player2Avatar: ImageView = itemView.findViewById(R.id.imageAvatar2)
@@ -28,11 +29,9 @@ class OnBoardGameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     fun bind(item: Game, onClick: (Game) -> Unit) {
 
         gameName.text =  item.name
-        gameCourse.text = itemView.context.getString(R.string.bulletPointString, item.courseName)
-
         item.players?.forEachIndexed { i, player -> setPlayer(i, player) }
 
-        itemView.setOnClickListener { onClick(item) }
+        joinGame.setOnClickListener { onClick(item) }
     }
 
     private fun setPlayer(index : Int, player: Player) {

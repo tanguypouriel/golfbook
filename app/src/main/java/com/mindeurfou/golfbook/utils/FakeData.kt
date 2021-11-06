@@ -84,11 +84,11 @@ object FakeData {
         ), "Parcours", LocalDate.now())
     )
     fun pendingGames() = listOf(
-        Game(1, "Parcours du 17/08/21", GBState.DONE, listOf(
+        Game(1, "Partie du 17/08/21", GBState.DONE, listOf(
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_4 )
         ), "Parcours de la belette des sables", LocalDate.now()),
-        Game(2, "Parcours du 24/06/21", GBState.PENDING, listOf(
+        Game(2, "Partie du 24/06/21", GBState.PENDING, listOf(
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_2 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7 ),
             Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7 )

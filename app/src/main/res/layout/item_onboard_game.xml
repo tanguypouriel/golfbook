@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorSecondary">
+        android:background="@color/white">
 
         <GridLayout
             android:id="@+id/playersLayout"
@@ -30,8 +30,7 @@
                 tools:src="@drawable/man_4"
                 android:layout_rowWeight="3"
                 android:layout_columnWeight="1"
-                android:padding="4dp"
-                />
+                android:padding="4dp"/>
 
             <ImageView
                 android:id="@+id/imageAvatar2"
@@ -68,7 +67,6 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 style="@style/TextAppearance.Golfbook.subtitle3"
-                android:textColor="@color/white"
                 tools:text="Frere le boss"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
@@ -80,7 +78,6 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 style="@style/TextAppearance.Golfbook.subtitle3"
-                android:textColor="@color/white"
                 tools:text="Frere le boss"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
@@ -92,7 +89,6 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 style="@style/TextAppearance.Golfbook.subtitle3"
-                android:textColor="@color/white"
                 tools:text="Frere le boss"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
@@ -104,12 +100,10 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 style="@style/TextAppearance.Golfbook.subtitle3"
-                android:textColor="@color/white"
                 tools:text="Frere le boss"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                android:padding="4dp"
-                />
+                android:padding="4dp"/>
         </GridLayout>
 
         <LinearLayout
@@ -118,9 +112,7 @@
             android:layout_height="@dimen/cardInfoLayoutHeight"
             android:background="@color/white"
             android:orientation="vertical"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="16dp"
+            android:gravity="center_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -128,19 +120,19 @@
             <TextView
                 android:id="@+id/titleGame"
                 style="@style/TextAppearance.Golfbook.h2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                tools:text="Partie du 16/07/21" />
+                android:paddingBottom="8dp"
+                tools:text="Partie du 16/07/21"/>
 
             <TextView
-                android:id="@+id/courseName"
-                style="@style/TextAppearance.Golfbook.subtitle2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="16dp"
-                tools:text="Parcours du chêne" />
+                android:id="@+id/joinGameBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/TextAppearance.Golfbook.h2"
+                android:background="@color/colorSecondary"
+                android:textColor="@color/white"
+                android:text="@string/joinGame" />
 
         </LinearLayout>
 

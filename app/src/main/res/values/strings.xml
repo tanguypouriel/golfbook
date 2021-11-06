@@ -30,4 +30,5 @@
     <string name="holeNumber">Trou n° %1$d : </string>
     <string name="createGame">Créer une nouvelle partie</string>
     <string name="or">OU</string>
+    <string name="joinGame">Rejoindre la partie</string>
 </resources>

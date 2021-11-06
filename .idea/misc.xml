@@ -49,7 +49,7 @@
         <entry key="app/src/main/res/layout/item_game_second.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_game_third.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/item_hole_input.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/item_onboard_game.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/item_onboard_game.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_player.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/item_player_first.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_player_fourth.xml" value="0.184375" />
