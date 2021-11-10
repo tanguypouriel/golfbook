@@ -41,4 +41,9 @@
     <string name="strokePlay">Stroke Play</string>
     <string name="stableFord">Stableford</string>
     <string name="matchPlay">Match Play</string>
+    <string name="hole">Trou</string>
+    <string name="out">Out</string>
+    <string name="par">Par</string>
+    <string name="net">Net</string>
+    <string name="inString">In</string>
 </resources>

@@ -48,22 +48,22 @@ class PrepareGameFragment : Fragment() {
     }
 
     private fun subscribeObservers() {
-        viewModel.gameLaunched.observe(viewLifecycleOwner) { observeGameLaunched(it) }
+        viewModel.gameLaunchedId.observe(viewLifecycleOwner) { observeGameLaunched(it) }
     }
 
-    private fun observeGameLaunched(dataState: DataState<Boolean>) {
+    private fun observeGameLaunched(dataState: DataState<Int>) {
         when (dataState) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Failure -> binding.progressBar.hide()
             is DataState.Success -> {
                 binding.progressBar.hide()
-                navigateToSomeGameScreen()
+                navigateToInGameFragments(dataState.data)
             }
         }
     }
 
-    private fun navigateToSomeGameScreen(){
-        val action = PrepareGameFragmentDirections.actionPrepareGameFragmentToInGameFragment()
+    private fun navigateToInGameFragments(gameId: Int){
+        val action = PrepareGameFragmentDirections.actionPrepareGameFragmentToInGameFragment(gameId)
         findNavController().navigate(action)
     }
 

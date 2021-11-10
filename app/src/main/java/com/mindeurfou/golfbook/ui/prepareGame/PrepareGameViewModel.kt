@@ -21,14 +21,14 @@ class PrepareGameViewModel
     private val prepareGameInteractors: PrepareGameInteractors
 ) : ViewModel() {
 
-    private val _gameLaunched: MutableLiveData<DataState<Boolean>> = MutableLiveData()
-    val gameLaunched: LiveData<DataState<Boolean>> = _gameLaunched
+    private val _gameLaunchedId: MutableLiveData<DataState<Int>> = MutableLiveData()
+    val gameLaunchedId: LiveData<DataState<Int>> = _gameLaunchedId
 
     fun setStateEvent(stateEvent: PrepareGameEvent) {
         when(stateEvent) {
             is PrepareGameEvent.LaunchGameEvent -> {
                 prepareGameInteractors.launchGame().onEach {
-                    _gameLaunched.value = it
+                    _gameLaunchedId.value = it
                 }.launchIn(viewModelScope)
             }
         }

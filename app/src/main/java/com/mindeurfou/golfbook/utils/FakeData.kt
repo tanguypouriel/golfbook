@@ -4,8 +4,7 @@ import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.GBState
 import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.course.local.CourseDetails
-import com.mindeurfou.golfbook.data.game.local.Game
-import com.mindeurfou.golfbook.data.game.local.ScoringSystem
+import com.mindeurfou.golfbook.data.game.local.*
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.data.player.remote.GetPlayersResponse
 import com.mindeurfou.golfbook.data.tournament.local.Tournament
@@ -100,4 +99,68 @@ object FakeData {
             Player(1, "Roro", "Pouriel", "Frere le boss", R.drawable.woman_2 ),
             Player(1, "Lisa", "Pouriel", "Frere le boss", R.drawable.woman_4 )
         ), "Parcours de la peugot 207", LocalDate.now())
+
+    fun emptyScoreBook() = ScoreBook(
+        par = listOf(2, 4, 3, 5, 3, 4, 2, 4, 3, 5, 3, 4, 3, 3, 5, 3, 4, 3),
+        playerScores = listOf(
+            PlayerScore("Tanguy", List(18) { null }, null, ""),
+            PlayerScore("Romane", List(18) { null }, null, ""),
+        )
+    )
+
+    fun scoreBook() = ScoreBook(
+        par = listOf(2, 4, 3, 5, 3, 4, 2, 4, 3, 5, 3, 4, 3, 3, 5, 3, 4, 3),
+        playerScores = listOf(
+            PlayerScore(
+                "Tanguy",
+                listOf(
+                    ScoreDetails(3, ScoreType.BIRDIE,"2"),
+                    ScoreDetails(4, ScoreType.PAR, "4"),
+                    ScoreDetails(4, ScoreType.PAR, "4"),
+                    ScoreDetails(4, ScoreType.BOGEY,"3"),
+                    ScoreDetails(4, ScoreType.DOUBLE_BOGEY, "3"),
+                    ScoreDetails(4, ScoreType.PAR, "5"),
+                    ScoreDetails(4, ScoreType.PAR,"4"),
+                    ScoreDetails(4, ScoreType.PAR, "2"),
+                    ScoreDetails(4, ScoreType.BIRDIE,"3"),
+                    ScoreDetails(4, ScoreType.EAGLE, "4"),
+                    ScoreDetails(4, ScoreType.PAR,"2"),
+                    ScoreDetails(4, ScoreType.PAR,"4"),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                ),
+                72,
+                "-4"
+            ),
+            PlayerScore(
+                "Tanguy",
+                listOf(
+                    ScoreDetails(3, ScoreType.PAR,"2"),
+                    ScoreDetails(4, ScoreType.BIRDIE, "4"),
+                    ScoreDetails(4, ScoreType.PAR, "4"),
+                    ScoreDetails(4, ScoreType.BIRDIE,"3"),
+                    ScoreDetails(4, ScoreType.PAR, "3"),
+                    ScoreDetails(4, ScoreType.PAR, "5"),
+                    ScoreDetails(4, ScoreType.BOGEY,"4"),
+                    ScoreDetails(4, ScoreType.PAR, "2"),
+                    ScoreDetails(4, ScoreType.BIRDIE,"3"),
+                    ScoreDetails(4, ScoreType.DOUBLE_BOGEY, "4"),
+                    ScoreDetails(4, ScoreType.PAR,"2"),
+                    ScoreDetails(4, ScoreType.PAR,"4"),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                ),
+                73,
+                "-3"
+            )
+        )
+    )
 }

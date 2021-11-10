@@ -4,5 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ScoreBook(
-    val value : Map<String, List<Int?>>
+    val par: List<Int>, // TODO sortir du scoreBook minimiserait t il les données réseaux ?
+    val playerScores : List<PlayerScore>
 )

@@ -1,4 +1,4 @@
-package com.mindeurfou.golfbook.ui
+package com.mindeurfou.golfbook.ui.customViews
 
 import android.content.Context
 import androidx.constraintlayout.widget.ConstraintLayout

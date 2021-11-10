@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.SavedStateHandle
 import com.mindeurfou.golfbook.R
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mindeurfou.golfbook.databinding.FragmentInGameBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.serialization.ExperimentalSerializationApi
 
+@ExperimentalSerializationApi
 class InGameFragment : Fragment(R.layout.fragment_in_game) {
 
     private var _binding: FragmentInGameBinding? = null
