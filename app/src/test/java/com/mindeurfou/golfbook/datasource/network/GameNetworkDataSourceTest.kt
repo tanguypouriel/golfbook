@@ -27,29 +27,29 @@ class GameNetworkDataSourceTest : BaseApiTest(){
         mockWebServer.shutdown()
     }
 
-    @Test
-    fun getGame() = runBlocking {
-        mockWebServer.enqueueResponse("gameDetails.json", 200)
-
-        val result = gameNetworkDataSource.getGame(1)
-        val expected = GameDetails(
-            1,
-            GBState.WAITING,
-            "Parcours du test",
-            1,
-            1,
-            listOf(Player(1, "Tanguy", "Pouriel", "MindeurFou", 1)),
-            ScoreBook(mapOf("MindeurFou" to listOf(null, null, null, null, null, null, null, null, null)))
-        )
-        assertEquals(expected, result)
-    }
-
-    @Test
-    fun getScoreBook() = runBlocking {
-        mockWebServer.enqueueResponse("scorebook.json", 200)
-
-        val result = gameNetworkDataSource.getScoreBook(1)
-        val expected = ScoreBook(mapOf("MindeurFou" to listOf(null, null, null, null, null, null, null, null, null)))
-        assertEquals(expected, result)
-    }
+//    @Test
+//    fun getGame() = runBlocking {
+//        mockWebServer.enqueueResponse("gameDetails.json", 200)
+//
+//        val result = gameNetworkDataSource.getGame(1)
+//        val expected = GameDetails(
+//            1,
+//            GBState.WAITING,
+//            "Parcours du test",
+//            1,
+//            1,
+//            listOf(Player(1, "Tanguy", "Pouriel", "MindeurFou", 1)),
+//            ScoreBook(mapOf("MindeurFou" to listOf(null, null, null, null, null, null, null, null, null)))
+//        )
+//        assertEquals(expected, result)
+//    }
+//
+//    @Test
+//    fun getScoreBook() = runBlocking {
+//        mockWebServer.enqueueResponse("scorebook.json", 200)
+//
+//        val result = gameNetworkDataSource.getScoreBook(1)
+//        val expected = ScoreBook(mapOf("MindeurFou" to listOf(null, null, null, null, null, null, null, null, null)))
+//        assertEquals(expected, result)
+//    }
 }

@@ -126,12 +126,12 @@ object FakeData {
                     ScoreDetails(4, ScoreType.EAGLE, "4"),
                     ScoreDetails(4, ScoreType.PAR,"2"),
                     ScoreDetails(4, ScoreType.PAR,"4"),
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
+                    ScoreDetails(4, ScoreType.PAR,"4"),
+                    ScoreDetails(4, ScoreType.PAR, "2"),
+                    ScoreDetails(4, ScoreType.BIRDIE,"3"),
+                    ScoreDetails(4, ScoreType.EAGLE, "4"),
+                    ScoreDetails(4, ScoreType.PAR,"2"),
+                    ScoreDetails(4, ScoreType.PAR,"4")
                 ),
                 72,
                 "-4"
@@ -151,16 +151,30 @@ object FakeData {
                     ScoreDetails(4, ScoreType.DOUBLE_BOGEY, "4"),
                     ScoreDetails(4, ScoreType.PAR,"2"),
                     ScoreDetails(4, ScoreType.PAR,"4"),
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
+                    ScoreDetails(4, ScoreType.BIRDIE, "4"),
+                    ScoreDetails(4, ScoreType.PAR, "4"),
+                    ScoreDetails(4, ScoreType.BIRDIE,"3"),
+                    ScoreDetails(4, ScoreType.PAR, "3"),
+                    ScoreDetails(4, ScoreType.PAR, "5"),
+                    ScoreDetails(4, ScoreType.BOGEY,"4"),
                 ),
                 73,
                 "-3"
             )
         )
+    )
+
+    fun gameDetails() = GameDetails(
+        1,
+        "Partie du swag",
+        GBState.DONE,
+        ScoringSystem.STROKE_PLAY,
+        "Parcours du tube",
+        1,
+        listOf(
+            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5),
+            Player(1, "Romane", "Philbert", "Roro", R.drawable.woman_2)
+        ),
+        scoreBook = scoreBook()
     )
 }

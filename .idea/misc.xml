@@ -32,7 +32,7 @@
         <entry key="app/src/main/res/layout/fragment_create_game.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_create_player.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_create_tournament.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/fragment_game_details.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/fragment_game_details.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_games.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/fragment_in_game.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_individual_score.xml" value="0.35572916666666665" />

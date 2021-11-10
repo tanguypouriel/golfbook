@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mindeurfou.golfbook.R
+import com.mindeurfou.golfbook.data.game.local.PlayerScore
 import com.mindeurfou.golfbook.data.game.local.ScoreBook
 import com.mindeurfou.golfbook.data.game.local.ScoreDetails
 import com.mindeurfou.golfbook.data.game.local.ScoreType
@@ -39,30 +41,25 @@ class ScoreBookView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-    var scoreBook: LiveData<DataState<ScoreBook>>? = null
 ) : AbstractComposeView(context, attrs, defStyleAttr){
+
+    var scoreBook: ScoreBook
+        get() = scoreBookState.value
+        set(value) {
+            scoreBookState.value = value
+        }
+
+    private val scoreBookState = mutableStateOf(
+        ScoreBook(
+            par = listOf(),
+            playerScores = listOf()
+        )
+    )
+
 
     @Composable
     override fun Content() {
-        ScoreBookProcessing(scoreBook)
-    }
-}
-
-@Composable
-private fun ScoreBookProcessing(
-    scoreBook: LiveData<DataState<ScoreBook>>?
-) {
-
-    val observedScoreBook = scoreBook ?: MutableLiveData()
-
-    val data by observedScoreBook.observeAsState(null)
-
-    data?.let{ dataState ->
-        when (dataState) {
-            is DataState.Loading -> ProgressBarCircular()
-            is DataState.Success ->  ScoreBook(scoreBook = dataState.data)
-        }
-
+        ScoreBook(scoreBookState.value)
     }
 }
 
@@ -73,10 +70,7 @@ private fun ScoreBook(
     val lightGrey = colorResource(id = R.color.lightGrey)
     val lighterGrey = colorResource(id = R.color.lighterGrey)
 
-    val parOut = scoreBook.par.dropLast(9)
-    val parOutSum = parOut.reduce { acc, i ->  acc + i }
-    val parIn = scoreBook.par.drop(9)
-    val parInSum = parIn.reduce { acc, i ->  acc + i } + parOutSum
+    var parOutSum: Int? = null
 
     Surface(
         shape = RoundedCornerShape(10.dp),
@@ -87,14 +81,22 @@ private fun ScoreBook(
             Modifier.fillMaxWidth()
         ) {
             HeaderRow(true)
-            ParRow(parOut, parOutSum, lighterGrey)
+            if (scoreBook.par.isNotEmpty()){
+                val parOut = scoreBook.par.dropLast(9)
+                parOutSum = parOut.reduce { acc, i ->  acc + i }
+                ParRow(parOut, parOutSum!!, lighterGrey)
+            }
             scoreBook.playerScores.forEachIndexed { index, playerScore ->
                 val scoreOut = playerScore.scores.dropLast(9)
                 val withBottomDivider = index != scoreBook.playerScores.size - 1
                 PlayerData(playerScore.name, scoreOut, playerScore.scoreSum, playerScore.netSum, withBottomDivider)
             }
             HeaderRow(false)
-            ParRow(parIn, parInSum, lighterGrey)
+            if (scoreBook.par.isNotEmpty()){
+                val parIn = scoreBook.par.drop(9)
+                val parInSum = parIn.reduce { acc, i ->  acc + i } + parOutSum!!
+                ParRow(parIn, parInSum, lighterGrey)
+            }
             scoreBook.playerScores.forEachIndexed { index, playerScore ->
                 val scoreIn = playerScore.scores.drop(9)
                 val withBottomDivider = index != scoreBook.playerScores.size - 1
