@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.mindeurfou.golfbook.R
+import com.mindeurfou.golfbook.data.game.local.GameDetails
 import com.mindeurfou.golfbook.data.game.local.ScoreBook
 import com.mindeurfou.golfbook.databinding.FragmentScoreBookBinding
 import com.mindeurfou.golfbook.interactors.scoreBook.ScoreBookEvent
+import com.mindeurfou.golfbook.ui.customViews.HoleInputItem
+import com.mindeurfou.golfbook.ui.customViews.ScoreSummaryItem
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.hide
 import com.mindeurfou.golfbook.utils.show
@@ -18,13 +21,17 @@ import kotlinx.serialization.ExperimentalSerializationApi
 
 @ExperimentalSerializationApi
 @AndroidEntryPoint
-class ScoreBookFragment : Fragment(R.layout.fragment_score_book) {
+class ScoreBookFragment(
+    private val gameId: Int
+) : Fragment(R.layout.fragment_score_book) {
 
     private var _binding: FragmentScoreBookBinding? = null
     private val binding
         get() = _binding!!
 
     private val viewModel: ScoreBookViewModel by viewModels()
+
+    private var scoreSummaries: MutableList<ScoreSummaryItem> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +43,7 @@ class ScoreBookFragment : Fragment(R.layout.fragment_score_book) {
         setupUI()
         subscribeObservers()
 
-        viewModel.setStateEvent(ScoreBookEvent.GetScoreBookEvent)
+        viewModel.setStateEvent(ScoreBookEvent.GetGameDetailsEvent(gameId))
 
         return binding.root
     }
@@ -46,17 +53,25 @@ class ScoreBookFragment : Fragment(R.layout.fragment_score_book) {
     }
 
     private fun subscribeObservers() {
-        viewModel.scoreBook.observe(viewLifecycleOwner) { observeScoreBook(it) }
+        viewModel.gameDetails.observe(viewLifecycleOwner) { observeGameDetails(it) }
     }
 
-    private fun observeScoreBook(dataState: DataState<ScoreBook>) {
+    private fun observeGameDetails(dataState: DataState<GameDetails>) {
         when(dataState) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Failure -> binding.progressBar.hide()
             is DataState.Success -> {
                 binding.progressBar.hide()
-                binding.scoreBookView.scoreBook = dataState.data
+                binding.scoreBookView.scoreBook = dataState.data.scoreBook!!
+                binding.scoreBookView.par = dataState.data.par
                 binding.scoreBookView.visibility = View.VISIBLE
+
+                dataState.data.scoreSummaries.forEach { scoreSummary ->
+                    val scoreSummaryItem = ScoreSummaryItem(requireContext())
+                    scoreSummaryItem.scoreSummary = scoreSummary
+                    binding.playersSummaryContainer.addView(scoreSummaryItem)
+                    scoreSummaries.add(scoreSummaryItem)
+                }
             }
         }
     }

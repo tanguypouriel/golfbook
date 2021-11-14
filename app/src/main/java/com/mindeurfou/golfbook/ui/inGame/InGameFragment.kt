@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.fragment.navArgs
 import com.mindeurfou.golfbook.R
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mindeurfou.golfbook.databinding.FragmentInGameBinding
@@ -19,6 +20,8 @@ class InGameFragment : Fragment(R.layout.fragment_in_game) {
     private val binding
         get() = _binding!!
 
+    private val args: InGameFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,7 +29,7 @@ class InGameFragment : Fragment(R.layout.fragment_in_game) {
     ): View {
         _binding = FragmentInGameBinding.inflate(inflater, container, false)
 
-        val adapter = InGameAdapter(this)
+        val adapter = InGameAdapter(this, args.gameId)
         binding.viewPager.adapter = adapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

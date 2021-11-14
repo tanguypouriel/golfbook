@@ -1,6 +1,7 @@
 package com.mindeurfou.golfbook.ui.scoreBook
 
 import androidx.lifecycle.*
+import com.mindeurfou.golfbook.data.game.local.GameDetails
 import com.mindeurfou.golfbook.data.game.local.ScoreBook
 import com.mindeurfou.golfbook.interactors.scoreBook.ScoreBookEvent
 import com.mindeurfou.golfbook.interactors.scoreBook.ScoreBookInteractors
@@ -15,20 +16,18 @@ import javax.inject.Inject
 @HiltViewModel
 class ScoreBookViewModel
 @Inject constructor(
-    private val scoreBookInteractors: ScoreBookInteractors,
-    state: SavedStateHandle
+    private val scoreBookInteractors: ScoreBookInteractors
 ) : ViewModel() {
 
-    private val _scoreBook: MutableLiveData<DataState<ScoreBook>> = MutableLiveData()
-    val scoreBook: LiveData<DataState<ScoreBook>> = _scoreBook
+    private val _gameDetails: MutableLiveData<DataState<GameDetails>> = MutableLiveData()
+    val gameDetails: LiveData<DataState<GameDetails>> = _gameDetails
 
-    private val gameId: Int = state.get("gameId") ?: 1 // TODO safeargs
 
     fun setStateEvent(stateEvent: ScoreBookEvent) {
         when(stateEvent) {
-            is ScoreBookEvent.GetScoreBookEvent -> {
-                scoreBookInteractors.getScoreBook(gameId).onEach {
-                    _scoreBook.value = it
+            is ScoreBookEvent.GetGameDetailsEvent -> {
+                scoreBookInteractors.getGameDetails(stateEvent.gameId).onEach {
+                    _gameDetails.value = it
                 }.launchIn(viewModelScope)
             }
         }

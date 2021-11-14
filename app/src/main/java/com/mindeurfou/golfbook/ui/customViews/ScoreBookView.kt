@@ -49,23 +49,28 @@ class ScoreBookView @JvmOverloads constructor(
             scoreBookState.value = value
         }
 
-    private val scoreBookState = mutableStateOf(
-        ScoreBook(
-            par = listOf(),
-            playerScores = listOf()
-        )
-    )
+    var par: List<Int>
+        get() = parState.value
+        set(value) {
+            parState.value = value
+        }
 
+    private val parState = mutableStateOf(listOf<Int>())
+    private val scoreBookState = mutableStateOf(ScoreBook(playerScores = listOf()))
 
     @Composable
     override fun Content() {
-        ScoreBook(scoreBookState.value)
+        ScoreBook(
+            scoreBook = scoreBookState.value,
+            par = parState.value
+        )
     }
 }
 
 @Composable
 private fun ScoreBook(
-    scoreBook: ScoreBook
+    scoreBook: ScoreBook,
+    par: List<Int>
 ) {
     val lightGrey = colorResource(id = R.color.lightGrey)
     val lighterGrey = colorResource(id = R.color.lighterGrey)
@@ -81,8 +86,8 @@ private fun ScoreBook(
             Modifier.fillMaxWidth()
         ) {
             HeaderRow(true)
-            if (scoreBook.par.isNotEmpty()){
-                val parOut = scoreBook.par.dropLast(9)
+            if (par.isNotEmpty()){
+                val parOut = par.dropLast(9)
                 parOutSum = parOut.reduce { acc, i ->  acc + i }
                 ParRow(parOut, parOutSum!!, lighterGrey)
             }
@@ -92,8 +97,8 @@ private fun ScoreBook(
                 PlayerData(playerScore.name, scoreOut, playerScore.scoreSum, playerScore.netSum, withBottomDivider)
             }
             HeaderRow(false)
-            if (scoreBook.par.isNotEmpty()){
-                val parIn = scoreBook.par.drop(9)
+            if (par.isNotEmpty()){
+                val parIn = par.drop(9)
                 val parInSum = parIn.reduce { acc, i ->  acc + i } + parOutSum!!
                 ParRow(parIn, parInSum, lighterGrey)
             }
@@ -103,19 +108,6 @@ private fun ScoreBook(
                 PlayerData(playerScore.name, scoreIn, playerScore.scoreSum, playerScore.netSum, withBottomDivider)
             }
         }
-    }
-}
-
-@Composable
-private fun ProgressBarCircular() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CircularProgressIndicator(
-            color = colorResource(id = R.color.colorSecondary),
-            modifier = Modifier.wrapContentWidth(CenterHorizontally))
     }
 }
 

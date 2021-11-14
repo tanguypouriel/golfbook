@@ -1,20 +1,24 @@
 package com.mindeurfou.golfbook.ui.inGame
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.SavedStateHandle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.mindeurfou.golfbook.ui.individualScore.IndividualScoreFragment
 import com.mindeurfou.golfbook.ui.scoreBook.ScoreBookFragment
 import kotlinx.serialization.ExperimentalSerializationApi
 
 @ExperimentalSerializationApi
-class InGameAdapter(fragment: Fragment) : FragmentStateAdapter(fragment){
+class InGameAdapter(
+    fragment: Fragment,
+    private val gameId: Int
+) : FragmentStateAdapter(fragment){
 
     override fun getItemCount() = 2
 
     override fun createFragment(position: Int): Fragment {
         return if (position == 0)
-            ScoreBookFragment()
+            ScoreBookFragment(gameId)
         else
-            IndividualScoreFragment()
+            IndividualScoreFragment(gameId)
     }
 }

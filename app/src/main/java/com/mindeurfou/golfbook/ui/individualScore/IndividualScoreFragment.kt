@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentIndividualScoreBinding
 
-class IndividualScoreFragment : Fragment(R.layout.fragment_individual_score) {
+class IndividualScoreFragment(
+    private val gameId: Int
+) : Fragment(R.layout.fragment_individual_score) {
 
     private var _binding: FragmentIndividualScoreBinding? = null
     private val binding

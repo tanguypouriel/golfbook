@@ -101,7 +101,6 @@ object FakeData {
         ), "Parcours de la peugot 207", LocalDate.now())
 
     fun emptyScoreBook() = ScoreBook(
-        par = listOf(2, 4, 3, 5, 3, 4, 2, 4, 3, 5, 3, 4, 3, 3, 5, 3, 4, 3),
         playerScores = listOf(
             PlayerScore("Tanguy", List(18) { null }, null, ""),
             PlayerScore("Romane", List(18) { null }, null, ""),
@@ -109,7 +108,6 @@ object FakeData {
     )
 
     fun scoreBook() = ScoreBook(
-        par = listOf(2, 4, 3, 5, 3, 4, 2, 4, 3, 5, 3, 4, 3, 3, 5, 3, 4, 3),
         playerScores = listOf(
             PlayerScore(
                 "Tanguy",
@@ -137,31 +135,56 @@ object FakeData {
                 "-4"
             ),
             PlayerScore(
-                "Tanguy",
+                "Romane",
                 listOf(
                     ScoreDetails(3, ScoreType.PAR,"2"),
-                    ScoreDetails(4, ScoreType.BIRDIE, "4"),
+                    ScoreDetails(2, ScoreType.BIRDIE, "4"),
                     ScoreDetails(4, ScoreType.PAR, "4"),
                     ScoreDetails(4, ScoreType.BIRDIE,"3"),
                     ScoreDetails(4, ScoreType.PAR, "3"),
-                    ScoreDetails(4, ScoreType.PAR, "5"),
+                    ScoreDetails(5, ScoreType.PAR, "5"),
                     ScoreDetails(4, ScoreType.BOGEY,"4"),
                     ScoreDetails(4, ScoreType.PAR, "2"),
-                    ScoreDetails(4, ScoreType.BIRDIE,"3"),
+                    ScoreDetails(3, ScoreType.BIRDIE,"3"),
                     ScoreDetails(4, ScoreType.DOUBLE_BOGEY, "4"),
                     ScoreDetails(4, ScoreType.PAR,"2"),
-                    ScoreDetails(4, ScoreType.PAR,"4"),
+                    ScoreDetails(3, ScoreType.PAR,"4"),
                     ScoreDetails(4, ScoreType.BIRDIE, "4"),
                     ScoreDetails(4, ScoreType.PAR, "4"),
                     ScoreDetails(4, ScoreType.BIRDIE,"3"),
-                    ScoreDetails(4, ScoreType.PAR, "3"),
+                    ScoreDetails(3, ScoreType.PAR, "3"),
                     ScoreDetails(4, ScoreType.PAR, "5"),
                     ScoreDetails(4, ScoreType.BOGEY,"4"),
                 ),
                 73,
                 "-3"
-            )
+            ),
+                    PlayerScore(
+                    "Romain",
+            listOf(
+                ScoreDetails(3, ScoreType.PAR,"2"),
+                ScoreDetails(4, ScoreType.BIRDIE, "4"),
+                ScoreDetails(5, ScoreType.PAR, "4"),
+                ScoreDetails(4, ScoreType.BIRDIE,"3"),
+                ScoreDetails(4, ScoreType.PAR, "3"),
+                ScoreDetails(4, ScoreType.PAR, "5"),
+                ScoreDetails(3, ScoreType.BOGEY,"4"),
+                ScoreDetails(4, ScoreType.PAR, "2"),
+                ScoreDetails(4, ScoreType.BIRDIE,"3"),
+                ScoreDetails(4, ScoreType.PAR, "4"),
+                ScoreDetails(4, ScoreType.BOGEY,"2"),
+                ScoreDetails(3, ScoreType.PAR,"4"),
+                ScoreDetails(4, ScoreType.BIRDIE, "4"),
+                ScoreDetails(4, ScoreType.PAR, "4"),
+                ScoreDetails(4, ScoreType.PAR,"3"),
+                ScoreDetails(5, ScoreType.PAR, "3"),
+                ScoreDetails(4, ScoreType.PAR, "5"),
+                ScoreDetails(4, ScoreType.BIRDIE,"4"),
+            ),
+            73,
+            "-3"
         )
+    )
     )
 
     fun gameDetails() = GameDetails(
@@ -170,10 +193,16 @@ object FakeData {
         GBState.DONE,
         ScoringSystem.STROKE_PLAY,
         "Parcours du tube",
-        1,
+        listOf(2, 4, 3, 5, 3, 4, 2, 4, 3, 5, 3, 4, 3, 3, 5, 3, 4, 3),
         listOf(
             Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5),
-            Player(1, "Romane", "Philbert", "Roro", R.drawable.woman_2)
+            Player(1, "Romane", "Philbert", "Roro", R.drawable.woman_2),
+            Player(1, "Romsko", "Prasil", "Bobby", R.drawable.man_8)
+        ),
+        scoreSummaries = listOf(
+            ScoreSummary("1.", "MindeurFou", "2 up"),
+            ScoreSummary("T2.", "Bobby", "1 up"),
+            ScoreSummary("T2.", "Roro", "1 up"),
         ),
         scoreBook = scoreBook()
     )

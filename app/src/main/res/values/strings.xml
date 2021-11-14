@@ -16,7 +16,7 @@
     <string name="username">Pseudo</string>
     <string name="name_and_dots">Prénom :</string>
     <string name="change_profile">Modifier mon profil</string>
-    <string name="lastname_and_dots">Nom de famille :</string>
+    <string name="lastname_and_dots">Nom :</string>
     <string name="myStats">Mes statistiques</string>
     <string name="modify">Modification</string>
     <string name="numberOfHoles">%1$d trous</string>
@@ -46,4 +46,6 @@
     <string name="par">Par</string>
     <string name="net">Net</string>
     <string name="inString">In</string>
+    <string name="hashtag">#</string>
+    <string name="scoreNet">Score net</string>
 </resources>

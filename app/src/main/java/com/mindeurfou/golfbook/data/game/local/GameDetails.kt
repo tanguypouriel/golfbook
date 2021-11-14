@@ -11,8 +11,9 @@ data class GameDetails(
     val state: GBState,
     val scoringSystem: ScoringSystem,
     val courseName: String,
-    val courseId: Int,
+    val par: List<Int>,
     val players: List<Player>,
     //                  name  , list of scores (null if not played yet)
+    val scoreSummaries: List<ScoreSummary>,
     val scoreBook : ScoreBook? // TODO changer pour scorebookId ?
 )
