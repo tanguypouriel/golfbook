@@ -1,9 +1,8 @@
 package com.mindeurfou.golfbook.ui.inGame
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.SavedStateHandle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.mindeurfou.golfbook.ui.individualScore.IndividualScoreFragment
+import com.mindeurfou.golfbook.ui.scoreInput.ScoreInputFragment
 import com.mindeurfou.golfbook.ui.scoreBook.ScoreBookFragment
 import kotlinx.serialization.ExperimentalSerializationApi
 
@@ -19,6 +18,6 @@ class InGameAdapter(
         return if (position == 0)
             ScoreBookFragment(gameId)
         else
-            IndividualScoreFragment(gameId)
+            ScoreInputFragment(gameId)
     }
 }

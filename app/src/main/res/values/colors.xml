@@ -14,4 +14,7 @@
     <color name="lighterGrey">#EBEBEB</color>
     <color name="lightGrey">#DBDBDB</color>
     <color name="red">#BF2C2C</color>
+    <color name="scoreInputPlayerBottom">#EFEAEA</color>
+    <color name="scoreInputScoreCell">#F4EEEE</color>
+    <color name="scoreInputScoreBottom">#E6E2E2</color>
 </resources>

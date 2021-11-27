@@ -40,7 +40,7 @@ import com.mindeurfou.golfbook.utils.DataState
 class ScoreBookView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
+    defStyleAttr: Int = 0
 ) : AbstractComposeView(context, attrs, defStyleAttr){
 
     var scoreBook: ScoreBook
@@ -72,7 +72,6 @@ private fun ScoreBook(
     scoreBook: ScoreBook,
     par: List<Int>
 ) {
-    val lightGrey = colorResource(id = R.color.lightGrey)
     val lighterGrey = colorResource(id = R.color.lighterGrey)
 
     var parOutSum: Int? = null

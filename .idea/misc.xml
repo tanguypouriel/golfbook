@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/compose-model-1636372721915.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1636903008436.xml" value="0.2998310810810811" />
+        <entry key="../../../../layout/compose-model-1636903374587.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1638024171160.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1638028555320.xml" value="0.5" />
         <entry key="../../../../layout/custom_preview.xml" value="0.337037037037037" />
         <entry key="app/src/main/res/drawable/bogey_shape.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/bottom_wave.xml" value="0.67" />
@@ -42,6 +46,7 @@
         <entry key="app/src/main/res/layout/fragment_prepare_game.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_score_book.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_score_card.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_score_input.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_tournament_details.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/fragment_tournaments.xml" value="0.22" />
@@ -84,5 +89,8 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="SuppressKotlinCodeStyleNotification">
+    <option name="disableForAll" value="true" />
   </component>
 </project>

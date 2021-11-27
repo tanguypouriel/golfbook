@@ -201,8 +201,8 @@ object FakeData {
         ),
         scoreSummaries = listOf(
             ScoreSummary("1.", "MindeurFou", "2 up"),
-            ScoreSummary("T2.", "Bobby", "1 up"),
             ScoreSummary("T2.", "Roro", "1 up"),
+            ScoreSummary("T2.", "Boby", "1 up"),
         ),
         scoreBook = scoreBook()
     )
