@@ -48,7 +48,7 @@ class ScoreInputFragment(
     private fun setupUI() {
         binding.scoreInputView.scoreInputListener = object : ScoreInputListener {
 
-            override fun onScoreCellClick(scoreCellData: ScoreCellData) {
+            override fun onScoreEntered(scoreCellData: ScoreCellData) {
                 Toast.makeText(requireContext(), "$scoreCellData", Toast.LENGTH_SHORT).show()
                 //            viewModel.setStateEvent(ScoreInputEvent.ScoreDialogEvent())
             }

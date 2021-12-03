@@ -17,4 +17,5 @@
     <color name="scoreInputPlayerBottom">#EFEAEA</color>
     <color name="scoreInputScoreCell">#F4EEEE</color>
     <color name="scoreInputScoreBottom">#E6E2E2</color>
+    <color name="scoreKeyboardbackgroundColor">#992C2A2A</color>
 </resources>
