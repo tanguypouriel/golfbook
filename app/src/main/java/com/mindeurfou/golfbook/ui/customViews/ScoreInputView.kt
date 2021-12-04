@@ -4,6 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.animation.*
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,6 +36,7 @@ import com.mindeurfou.golfbook.data.game.local.ScoreBook
 import com.mindeurfou.golfbook.data.game.local.ScoreSummary
 import com.mindeurfou.golfbook.utils.FakeData
 
+@ExperimentalAnimationApi
 class ScoreInputView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -93,6 +97,7 @@ private val rowHeight = 64.dp
 private val headerRowSize = 48.dp
 private val fontFamily =  FontFamily(Font(R.font.glacial_indif))
 
+@ExperimentalAnimationApi
 @Composable
 private fun ScoreInput(
     scoreBook: ScoreBook,
@@ -108,10 +113,20 @@ private fun ScoreInput(
             border = BorderStroke(1.dp, color = colorResource(id = R.color.colorSecondary)),
             color = showedScoreCellData?.let { colorResource(id = R.color.scoreInputPlayerBottom) } ?: colorResource(id = R.color.grey)
     ) {
-        Box {
-            if (showedScoreCellData == null) {
+
+        AnimatedContent(
+            targetState = showedScoreCellData,
+            transitionSpec = {
+                fadeIn(
+                    animationSpec = tween(durationMillis = 800, easing = LinearOutSlowInEasing)
+                ) with fadeOut(
+                    animationSpec = tween(durationMillis  = 800, easing = LinearOutSlowInEasing)
+                )
+            }
+        ) { targetShowedScoreCellData ->
+            if (targetShowedScoreCellData == null) {
                 Row(
-                        Modifier.fillMaxSize()
+                    Modifier.fillMaxSize()
                 ) {
                     PlayerColumn(scoreSummaries = scoreSummaries, modifier = Modifier.weight(1.5f))
                     ScoreColumn(scoreBook = scoreBook, par = par, modifier = Modifier.weight(1f)) { scoreCellData ->
@@ -119,17 +134,46 @@ private fun ScoreInput(
                     }
                 }
             } else {
-                ScoreContextView(scoreCellData = showedScoreCellData!!, modifier = Modifier.align(Alignment.TopCenter))
-                ScoreKeyboard(par = showedScoreCellData!!.par, modifier = Modifier.align(Alignment.BottomCenter)) { score ->
-                    scoreInputListener.onScoreEntered(
-                            scoreCellData = showedScoreCellData!!.copy(score = score)
+                Column(
+                    verticalArrangement = Arrangement.SpaceBetween,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+
+                    ScoreContextView(
+                        scoreCellData = targetShowedScoreCellData,
+                        modifier = Modifier.animateEnterExit(
+                            enter = slideInVertically(
+                                animationSpec = tween(durationMillis = 800, easing = LinearOutSlowInEasing)
+                            ),
+                            exit = slideOutVertically(
+                                animationSpec = tween(durationMillis = 800, easing = LinearOutSlowInEasing)
+                            )
+                        )
                     )
-                    showedScoreCellData = null
+
+                    ScoreKeyboard(
+                        par = targetShowedScoreCellData.par,
+                        modifier = Modifier.animateEnterExit(
+                            enter = slideInVertically(
+                                initialOffsetY = {it / 2},
+                                animationSpec = tween(durationMillis = 800, easing = LinearOutSlowInEasing)
+                            ),
+                            exit = slideOutVertically(
+                                targetOffsetY = {it / 2},
+                                animationSpec = tween(durationMillis = 800, easing = LinearOutSlowInEasing)
+                            )
+                        )
+                    ) { score ->
+                        scoreInputListener.onScoreEntered(
+                            scoreCellData = targetShowedScoreCellData.copy(score = score)
+                        )
+                        showedScoreCellData = null
+                    }
                 }
             }
         }
     }
-
 }
 
 @Composable
@@ -141,8 +185,8 @@ private fun PlayerColumn(scoreSummaries: List<ScoreSummary>, modifier: Modifier 
         Surface(
                 color = colorResource(id = R.color.colorSecondaryVariant),
                 modifier = Modifier
-                        .height(headerRowSize)
-                        .fillMaxWidth()
+                    .height(headerRowSize)
+                    .fillMaxWidth()
         ) {
             Spacer(modifier = Modifier.fillMaxSize())
         }
@@ -150,8 +194,8 @@ private fun PlayerColumn(scoreSummaries: List<ScoreSummary>, modifier: Modifier 
             PlayerCell(scoreSummary = scoreSummary)
         }
         Spacer(modifier = Modifier
-                .background(colorResource(id = R.color.scoreInputPlayerBottom))
-                .fillMaxSize()
+            .background(colorResource(id = R.color.scoreInputPlayerBottom))
+            .fillMaxSize()
         )
     }
 }
@@ -162,10 +206,10 @@ private fun PlayerCell(scoreSummary: ScoreSummary, modifier: Modifier = Modifier
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = modifier
-                    .padding(bottom = 1.dp)
-                    .background(color = Color.White)
-                    .height(rowHeight)
-                    .fillMaxWidth()
+                .padding(bottom = 1.dp)
+                .background(color = Color.White)
+                .height(rowHeight)
+                .fillMaxWidth()
     ) {
         Text(
                 text = scoreSummary.name,
@@ -175,8 +219,8 @@ private fun PlayerCell(scoreSummary: ScoreSummary, modifier: Modifier = Modifier
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
-                        .padding(start = 16.dp)
-                        .wrapContentSize()
+                    .padding(start = 16.dp)
+                    .wrapContentSize()
         )
         Text(
                 text = scoreSummary.score,
@@ -187,8 +231,8 @@ private fun PlayerCell(scoreSummary: ScoreSummary, modifier: Modifier = Modifier
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
-                        .padding(end = 16.dp)
-                        .wrapContentSize()
+                    .padding(end = 16.dp)
+                    .wrapContentSize()
         )
     }
 }
@@ -217,8 +261,8 @@ private fun ScoreColumnItem(scoreData: ScoreColumnItemData, names: List<String>,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier
-                        .size(rowHeight, headerRowSize)
-                        .background(color = colorResource(id = R.color.colorSecondaryVariant))
+                    .size(rowHeight, headerRowSize)
+                    .background(color = colorResource(id = R.color.colorSecondaryVariant))
 
         ) {
             Text(
@@ -231,8 +275,8 @@ private fun ScoreColumnItem(scoreData: ScoreColumnItemData, names: List<String>,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
-                            .padding(top = 2.dp)
-                            .wrapContentSize()
+                        .padding(top = 2.dp)
+                        .wrapContentSize()
             )
             Text(
                     text = "Par ${scoreData.par}",
@@ -260,9 +304,9 @@ private fun ScoreColumnItem(scoreData: ScoreColumnItemData, names: List<String>,
 
             Spacer(
                     modifier = Modifier
-                            .background(color = colorResource(id = R.color.scoreInputScoreBottom))
-                            .fillMaxHeight()
-                            .width(rowHeight)
+                        .background(color = colorResource(id = R.color.scoreInputScoreBottom))
+                        .fillMaxHeight()
+                        .width(rowHeight)
             )
         }
     }
@@ -273,9 +317,9 @@ private fun ScoreCell(scoreCellData: ScoreCellData, onCellClick: (scoreCellData:
     Surface(
             color = colorResource(id = R.color.lighterGrey),
             modifier = Modifier
-                    .padding(bottom = 1.dp)
-                    .size(rowHeight, rowHeight)
-                    .clickable { onCellClick(scoreCellData) }
+                .padding(bottom = 1.dp)
+                .size(rowHeight, rowHeight)
+                .clickable { onCellClick(scoreCellData) }
     ) {
 
         Text(
@@ -354,9 +398,9 @@ private fun ValueInput(value: Int, parContext: String?, modifier: Modifier, onKe
             color = colorResource(id = R.color.colorSecondaryVariant),
             shape = RoundedCornerShape(8.dp),
             modifier = modifier
-                    .fillMaxHeight()
-                    .padding(2.dp)
-                    .clickable { onKeyClick(value) }
+                .fillMaxHeight()
+                .padding(2.dp)
+                .clickable { onKeyClick(value) }
     ) {
         Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -383,8 +427,8 @@ private fun ValueInput(value: Int, parContext: String?, modifier: Modifier, onKe
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
-                                .wrapContentSize()
-                                .padding(top = 4.dp)
+                            .wrapContentSize()
+                            .padding(top = 4.dp)
                 )
             }
         }
@@ -392,20 +436,20 @@ private fun ValueInput(value: Int, parContext: String?, modifier: Modifier, onKe
 }
 
 @Composable
-fun ScoreContextView(scoreCellData: ScoreCellData, modifier: Modifier) {
+fun ScoreContextView(scoreCellData: ScoreCellData, modifier: Modifier = Modifier) {
 
     Column(
             modifier = modifier
-                    .background(color = colorResource(id = R.color.scoreInputScoreBottom))
-                    .fillMaxWidth()
+                .background(color = colorResource(id = R.color.scoreInputScoreBottom))
+                .fillMaxWidth()
     ) {
         Row (
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                        .background(Color.White)
-                        .fillMaxWidth()
-                        .height(headerRowSize)
+                    .background(Color.White)
+                    .fillMaxWidth()
+                    .height(headerRowSize)
         ){
             Text(
                     text = "Trou ${scoreCellData.holeNumber}",
@@ -420,9 +464,9 @@ fun ScoreContextView(scoreCellData: ScoreCellData, modifier: Modifier) {
             Divider(
                     color = Color.Black,
                     modifier = Modifier
-                            .fillMaxHeight()
-                            .width(1.dp)
-                            .padding(vertical = 8.dp)
+                        .fillMaxHeight()
+                        .width(1.dp)
+                        .padding(vertical = 8.dp)
             )
             Text(
                     text = "Par ${scoreCellData.par}",
@@ -440,8 +484,8 @@ fun ScoreContextView(scoreCellData: ScoreCellData, modifier: Modifier) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 24.dp)
+                    .fillMaxWidth()
+                    .padding(vertical = 24.dp)
         ) {
             Text(
                     text = scoreCellData.playerName,
@@ -459,8 +503,8 @@ fun ScoreContextView(scoreCellData: ScoreCellData, modifier: Modifier) {
                     color = colorResource(id = R.color.colorSecondaryVariant),
                     shape = RoundedCornerShape(50),
                     modifier = Modifier
-                            .padding(horizontal = 32.dp)
-                            .size(64.dp, 64.dp)
+                        .padding(horizontal = 32.dp)
+                        .size(64.dp, 64.dp)
             ) {
                 Text(
                         text = scoreCellData.score?.toString() ?: "-",
@@ -503,6 +547,7 @@ private fun ScoreContextViewPreview() {
             modifier = Modifier)
 }
 
+@ExperimentalAnimationApi
 @Preview
 @Composable
 private fun ScoreInputPreview() {
