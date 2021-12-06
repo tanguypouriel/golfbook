@@ -47,6 +47,10 @@ class MainActivity : AppCompatActivity(), HillActivity {
                         binding.hillView.animateToHillPosition(HillPosition.POSITION_FLAT)
                         bottomNavigation.visibility = View.GONE
                     }
+                    R.id.courseDetailsFragment -> {
+                        binding.hillView.animateToHillPosition(HillPosition.POSITION_MEDIUM)
+                        bottomNavigation.visibility = View.VISIBLE
+                    }
                     else -> {
                         binding.hillView.animateToHillPosition(HillPosition.POSITION_FLAT)
                         bottomNavigation.visibility = View.VISIBLE

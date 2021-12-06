@@ -5,6 +5,7 @@ import com.mindeurfou.golfbook.data.GBState
 import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.course.local.CourseDetails
 import com.mindeurfou.golfbook.data.game.local.*
+import com.mindeurfou.golfbook.data.hole.local.Hole
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.data.player.remote.GetPlayersResponse
 import com.mindeurfou.golfbook.data.tournament.local.Tournament
@@ -50,7 +51,26 @@ object FakeData {
         Course(1, "Parcours du chêne", 18, 72, 3, 2, LocalDate.now()),
     )
 
-    fun courseDetails() = CourseDetails(1, "Parcours du chêne", 18, 72, 3, 4, LocalDate.now(), listOf())
+    fun courseDetails() = CourseDetails(1, "Parcours du chêne", 18, 72, 3, 4, LocalDate.now(), listOf(
+        Hole(1, 1, 3),
+        Hole(2, 2, 4),
+        Hole(3, 3, 4),
+        Hole(4, 4, 3),
+        Hole(5, 5, 3),
+        Hole(6, 6, 5),
+        Hole(7, 7, 3),
+        Hole(8, 8, 3),
+        Hole(9, 9, 5),
+        Hole(10, 10, 3),
+        Hole(11, 11, 3),
+        Hole(12, 12, 3),
+        Hole(13, 13, 4),
+        Hole(14, 14, 3),
+        Hole(15, 15, 4),
+        Hole(16, 16, 3),
+        Hole(17, 17, 5),
+        Hole(18, 18, 3)
+    ))
 
     fun games() = listOf(
         Game(1, "Parcours du 17/08/21", GBState.DONE, ScoringSystem.STROKE_PLAY, listOf(

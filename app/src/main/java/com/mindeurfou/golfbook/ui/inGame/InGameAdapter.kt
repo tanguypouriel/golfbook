@@ -1,11 +1,13 @@
 package com.mindeurfou.golfbook.ui.inGame
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.mindeurfou.golfbook.ui.scoreInput.ScoreInputFragment
 import com.mindeurfou.golfbook.ui.scoreBook.ScoreBookFragment
 import kotlinx.serialization.ExperimentalSerializationApi
 
+@ExperimentalAnimationApi
 @ExperimentalSerializationApi
 class InGameAdapter(
     fragment: Fragment,

@@ -16,4 +16,9 @@ data class CourseDetails(
     @Serializable(with = DateAsLongSerializer::class)
     val createdAt : LocalDate,
     val holes : List<Hole>
-)
+) {
+
+    fun getParList() : List<Int> {
+        return holes.map { it.par }
+    }
+}

@@ -26,4 +26,7 @@ enum class HillPosition (
     POSITION_CREATE_PLAYER_HIGH(
         listOf(PointF(0f, 30f), PointF(60f, 29.5f), PointF(55f, 10f), PointF(100f, 30f)),
     ),
+    POSITION_MEDIUM(
+        listOf(PointF(0f, 43f), PointF(50f, 52.5f), PointF(55f, 35f), PointF(100f, 47f)),
+    )
 }

@@ -36,6 +36,7 @@ import com.mindeurfou.golfbook.data.game.local.ScoreBook
 import com.mindeurfou.golfbook.data.game.local.ScoreDetails
 import com.mindeurfou.golfbook.data.game.local.ScoreType
 import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.FakeData
 
 class ScoreBookView @JvmOverloads constructor(
     context: Context,
@@ -121,7 +122,7 @@ private fun PlayerData(name: String, scores: List<ScoreDetails?>, scoreSum: Int?
 }
 
 @Composable
-private fun HeaderRow(out: Boolean) {
+fun HeaderRow(out: Boolean) {
 
     val holeList = if (out) List(9) {(it+1).toString()} else List(9) {(it+10).toString()}
     val endText = if (out) stringResource(id = R.string.out) else stringResource(id = R.string.inString)
@@ -141,7 +142,7 @@ private fun HeaderRow(out: Boolean) {
 }
 
 @Composable
-private fun ParRow(par: List<Int?>, parSum: Int, backgroundColor: Color) {
+fun ParRow(par: List<Int?>, parSum: Int, backgroundColor: Color, withBottomDivider: Boolean = true) {
     BaseRow(
         startText = stringResource(id = R.string.par),
         values = par.map { it.toString() },
@@ -150,7 +151,7 @@ private fun ParRow(par: List<Int?>, parSum: Int, backgroundColor: Color) {
         textColor = colorResource(id = R.color.black),
         backgroundColor = backgroundColor,
         withDivider = true,
-        withBottomDivider = true,
+        withBottomDivider = withBottomDivider,
         headerTypo = CellTypo.HEADER_TYPO,
         valuesTypo = CellTypo.VALUE_TYPO
     )
@@ -354,41 +355,15 @@ private fun Rectangle(padding: Dp) {
     }
 }
 
-//@Preview()
+@Preview()
 @Composable
 private fun PreviewScoreCard() {
-    val par = List(9) {
+    val par = List(18) {
         if (it % 2 == 0)
             3
         else
             4
     }
 
-    val score = List(18) {
-        if (it <= 12) {
-            if (it % 2 == 0)
-                4
-            else
-                3
-        } else
-            0
-    }
-
-    val scoreTypes = List(18) {
-        when (it) {
-            2 -> ScoreType.BIRDIE
-            6 -> ScoreType.BOGEY
-            7 -> ScoreType.HIGHER_THAN_DB
-            10 -> ScoreType.EAGLE
-            9 -> ScoreType.DOUBLE_BOGEY
-            else -> {
-                if (it <= 12)
-                    ScoreType.PAR
-                else
-                    null
-            }
-        }
-    }
-
-//    ScoreCard(par, 36, score, scoreTypes, 34)
+    ScoreBook(scoreBook = FakeData.scoreBook(), par = par)
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.navArgs
@@ -13,6 +14,7 @@ import com.mindeurfou.golfbook.databinding.FragmentInGameBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.ExperimentalSerializationApi
 
+@ExperimentalAnimationApi
 @ExperimentalSerializationApi
 class InGameFragment : Fragment(R.layout.fragment_in_game) {
 

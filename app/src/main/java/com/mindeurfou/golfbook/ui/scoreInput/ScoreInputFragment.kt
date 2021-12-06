@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.mindeurfou.golfbook.R
@@ -19,6 +20,7 @@ import com.mindeurfou.golfbook.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.ExperimentalSerializationApi
 
+@ExperimentalAnimationApi
 @ExperimentalSerializationApi
 @AndroidEntryPoint
 class ScoreInputFragment(

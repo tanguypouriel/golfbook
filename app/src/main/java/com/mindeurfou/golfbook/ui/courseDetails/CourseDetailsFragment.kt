@@ -53,7 +53,28 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
             is DataState.Failure -> binding.progressBar.hide()
             is DataState.Success -> {
                 binding.progressBar.hide()
-                // TODO
+
+                val courseDetails = dataState.data
+
+                binding.title.text = courseDetails.name
+                binding.coursePar.text =  getString(R.string.coursePar, courseDetails.par)
+                binding.numberOfHoles.text = getString(R.string.numberOfHoles, courseDetails.numberOfHOles)
+                binding.createdAt.text = getString(R.string.createdAt, courseDetails.createdAt.toString())
+                binding.gamesPlayed.text = getString(R.string.gamesPlayed, courseDetails.gamesPlayed)
+                bindStars(courseDetails.stars)
+                binding.courseParView.par = courseDetails.getParList()
+                binding.courseParView.visibility = View.VISIBLE
+            }
+        }
+    }
+    private fun bindStars(stars: Int) {
+        for (i in 1..stars) {
+            when (i) {
+                1 -> binding.starBall1.setImageResource(R.drawable.ic_ball_full)
+                2 -> binding.starBall2.setImageResource(R.drawable.ic_ball_full)
+                3 -> binding.starBall3.setImageResource(R.drawable.ic_ball_full)
+                4 -> binding.starBall4.setImageResource(R.drawable.ic_ball_full)
+                5 -> binding.starBall5.setImageResource(R.drawable.ic_ball_full)
             }
         }
     }

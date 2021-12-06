@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/title"
+        style="@style/TextAppearance.Golfbook.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
@@ -14,5 +24,145 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.mindeurfou.golfbook.ui.customViews.CourseParView
+        android:id="@+id/courseParView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <TextView
+        android:id="@+id/coursePar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.Golfbook.h2"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/numberOfHoles"
+        app:layout_constraintBottom_toTopOf="@id/gamesPlayed"
+        android:layout_marginBottom="24dp"
+        tools:text="Par 72"
+        />
+
+    <TextView
+        android:id="@+id/numberOfHoles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.Golfbook.h2"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/coursePar"
+        app:layout_constraintBottom_toTopOf="@id/gamesPlayed"
+        android:layout_marginBottom="24dp"
+        tools:text="18 trous"
+        />
+
+    <TextView
+        android:id="@+id/gamesPlayed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.Golfbook.h3"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/createdAt"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        tools:text="Joué 47 fois"
+        />
+
+    <TextView
+        android:id="@+id/createdAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.Golfbook.h3"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/courseStaringLayout"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        tools:text="Créé le 15/06/2021"
+        />
+
+    <GridLayout
+        android:id="@+id/courseStaringLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:columnCount="5"
+        android:rowCount="1"
+        android:padding="24dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/modifyCourseButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/starBall1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_ball_full"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            />
+
+        <ImageView
+            android:id="@+id/starBall2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_ball_empty"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            />
+
+        <ImageView
+            android:id="@+id/starBall3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_ball_empty"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            />
+
+        <ImageView
+            android:id="@+id/starBall4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_ball_empty"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            />
+
+        <ImageView
+            android:id="@+id/starBall5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_ball_empty"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            />
+
+    </GridLayout>
+
+    <Button
+        android:id="@+id/modifyCourseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.Golfbook.Button.bright"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/change_course"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

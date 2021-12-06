@@ -57,7 +57,7 @@
             android:textSize="16sp"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="@string/btn18holes"/>
+            android:text="@string/holes18"/>
 
         <Button
             android:id="@+id/btn9Holes"
@@ -65,7 +65,7 @@
             android:theme="@style/ThemeOverlay.Golfbook.greenPrimary"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="@string/btn9holes"
+            android:text="@string/holes9"
             />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
