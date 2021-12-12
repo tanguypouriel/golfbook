@@ -38,6 +38,24 @@
         <argument
             android:name="courseId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_courseDetailsFragment_to_modifyCourseFragment"
+            app:destination="@id/modifyCourseFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/modifyCourseFragment"
+        android:name="com.mindeurfou.golfbook.ui.modifyCourse.ModifyCourseFragment"
+        android:label="ModifyCourseFragment"
+        tools:layout="@layout/fragment_create_course">
+        <action
+            android:id="@+id/action_modifyCourseFragment_to_courseDetailsFragment"
+            app:destination="@id/courseDetailsFragment"
+            app:popUpTo="@id/courseDetailsFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="courseDetails"
+            app:argType="com.mindeurfou.golfbook.data.course.local.CourseDetails" />
     </fragment>
 
 </navigation>

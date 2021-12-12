@@ -10,6 +10,7 @@ import com.mindeurfou.golfbook.R
 class HoleInputItem (
     context: Context,
     holeNumber: Int,
+    par: Int = 0,
     private val setPar: (par: Int) -> Unit
 ) : ConstraintLayout(context){
 
@@ -23,6 +24,9 @@ class HoleInputItem (
         holeInputLayout = view.findViewById(R.id.holeInputLayout)
 
         holeInputLayout.hint = context.getString(R.string.holeNumber, holeNumber)
+
+        if (par != 0)
+            holeEditText.setText(par.toString())
 
         holeEditText.doOnTextChanged { text, _, _, _ ->
             setPar(text.toString().toInt())

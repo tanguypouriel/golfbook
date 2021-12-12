@@ -51,4 +51,5 @@
     <string name="createdAt">Créé le %1$s</string>
     <string name="gamesPlayed">Joué %1$d fois</string>
     <string name="coursePar">Par %1$d</string>
+    <string name="modifyCourse">Modification de parcours</string>
 </resources>

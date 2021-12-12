@@ -17,16 +17,7 @@ import com.mindeurfou.golfbook.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreateCourseFragment : Fragment(R.layout.fragment_create_course){
-
-    private var _binding: FragmentCreateCourseBinding? = null
-    private val binding
-        get() = _binding!!
-
-    private var checkedButton = R.id.btn18Holes
-
-    private lateinit var holeInputs: MutableList<HoleInputItem>
-    private val holes: MutableList<Int> = MutableList(18) { 0 }
+class CreateCourseFragment : CourseConfigFragment() {
 
     private val viewModel: CreateCourseViewModel by viewModels()
 
@@ -89,40 +80,6 @@ class CreateCourseFragment : Fragment(R.layout.fragment_create_course){
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun display18Holes() {
-
-        if (!::holeInputs.isInitialized)
-            inflateHoleInputs()
-
-        else {
-            for (i in 10..18) {
-                val item = HoleInputItem(requireContext(), i) { par -> holes[i] = par }
-                binding.createHolesLayout.addView(item)
-                holeInputs.add(item)
-            }
-        }
-
-    }
-
-    private fun display9Holes() {
-        holeInputs.forEachIndexed { index, holeInputItem ->
-            if (index >= 9) {
-                binding.createHolesLayout.removeView(holeInputItem)
-            }
-        }
-        holeInputs.dropLast(9)
-        holes.dropLast(9)
-    }
-
-    private fun inflateHoleInputs() {
-        holeInputs = mutableListOf()
-        for (i in 1..18) {
-            val item = HoleInputItem(requireContext(), i) { par -> holes[i-1] = par }
-            binding.createHolesLayout.addView(item)
-            holeInputs.add(item)
-        }
     }
 
 

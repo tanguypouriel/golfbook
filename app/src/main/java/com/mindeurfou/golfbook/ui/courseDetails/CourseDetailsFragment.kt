@@ -8,8 +8,10 @@ import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.course.local.CourseDetails
 import com.mindeurfou.golfbook.databinding.FragmentCourseDetailsBinding
@@ -72,6 +74,8 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
                 bindStars(courseDetails.stars)
                 binding.courseParView.par = courseDetails.getParList()
                 showData()
+
+                binding.modifyCourseButton.setOnClickListener { navigateToModifyCourseFragment(courseDetails) }
             }
             is DataState.Loading -> {}
         }
@@ -133,5 +137,10 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(set)
         animatorSet.start()
+    }
+
+    private fun navigateToModifyCourseFragment(courseDetails: CourseDetails) {
+        val action = CourseDetailsFragmentDirections.actionCourseDetailsFragmentToModifyCourseFragment(courseDetails)
+        findNavController().navigate(action)
     }
 }
