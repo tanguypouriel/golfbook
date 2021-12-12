@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@color/colorSecondary"
-    android:alpha="0.0"
-    tools:alpha="1">
+    tools:background="@color/colorSecondary">
 
     <TextView
         android:id="@+id/playerUsername"
         style="@style/TextAppearance.Golfbook.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0.0"
+        tools:alpha="1"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,13 +23,15 @@
         android:id="@+id/imageAvatar"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:padding="20dp"
-        tools:src="@drawable/man_4"
-        android:background="@drawable/circle_shape"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="20dp"
+        android:background="@drawable/circle_shape"
+        android:padding="20dp"
+        android:alpha="0.0"
+        tools:alpha="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/man_4" />
 
     <TextView
         android:id="@+id/nameHint"
@@ -40,6 +42,8 @@
         android:layout_marginTop="24dp"
         android:text="@string/name_and_dots"
         android:textColor="@color/white"
+        android:alpha="0.0"
+        tools:alpha="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageAvatar" />
 
@@ -50,6 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:textColor="@color/white"
+        android:alpha="0.0"
+        tools:alpha="1"
         app:layout_constraintBottom_toBottomOf="@id/nameHint"
         app:layout_constraintStart_toEndOf="@id/nameHint"
         app:layout_constraintTop_toTopOf="@id/nameHint"
@@ -63,6 +69,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:text="@string/lastname_and_dots"
+        android:alpha="0.0"
+        tools:alpha="1.0"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameHint" />
@@ -74,10 +82,25 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:textColor="@color/white"
+        android:alpha="0.0"
+        tools:alpha="1.0"
         app:layout_constraintBottom_toBottomOf="@id/lastNameHint"
         app:layout_constraintStart_toEndOf="@id/lastNameHint"
         app:layout_constraintTop_toTopOf="@id/lastNameHint"
         tools:text="Pouriel" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/progressBarSize"
+        android:layout_height="@dimen/progressBarSize"
+        android:indeterminateTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.7"
+        android:alpha="0.0"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/myStats"
@@ -87,30 +110,37 @@
         android:layout_marginTop="32dp"
         android:text="@string/myStats"
         android:textColor="@color/white"
+        android:alpha="0.0"
+        tools:alpha="1.0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lastNameHint" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="24dp"
-        app:cardCornerRadius="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/modifyProfileButton"
         android:backgroundTint="@color/colorPrimaryVariant"
+        app:cardCornerRadius="25dp"
+        android:alpha="0.0"
+        tools:alpha="1.0"
+        app:layout_constraintBottom_toTopOf="@+id/modifyProfileButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myStats" />
 
     <Button
         android:id="@+id/modifyProfileButton"
+        style="@style/Widget.Golfbook.Button.bright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Widget.Golfbook.Button.bright"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         android:text="@string/change_profile"
         android:visibility="gone"
+        android:alpha="0.0"
+        tools:alpha="1.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="visible" />

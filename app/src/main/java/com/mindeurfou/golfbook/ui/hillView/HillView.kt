@@ -17,6 +17,8 @@ class HillView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
+    private val animDuration = 1000L
+
     private val borderPaint: Paint
     private val paint: Paint
     private val valueAnimator : ValueAnimator
@@ -34,7 +36,7 @@ class HillView @JvmOverloads constructor(
         isClickable = false
 
         valueAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
-            duration = 1000
+            duration = animDuration
         }
 
         paint = Paint().apply {

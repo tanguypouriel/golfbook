@@ -21,6 +21,7 @@ class PlayerDetailsInteractors
         emit(DataState.Loading)
 
         if (BuildConfig.fakeData) {
+            kotlinx.coroutines.delay(2000)
             emit(DataState.Success(FakeData.player()))
             return@flow
         }
