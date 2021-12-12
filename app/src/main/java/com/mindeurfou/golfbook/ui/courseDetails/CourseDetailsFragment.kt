@@ -1,6 +1,10 @@
 package com.mindeurfou.golfbook.ui.courseDetails
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +28,8 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
 
     private val viewModel: CourseDetailsViewModel by viewModels()
 
+    private var startInstant: Long? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,6 +41,9 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
         subscribeObservers()
 
         viewModel.setStateEvent(CourseDetailsEvent.GetCourseDetails)
+
+        showProgressBar()
+        startInstant = SystemClock.elapsedRealtime()
 
         return binding.root
     }
@@ -49,7 +58,6 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
 
     private fun observeCourseDetails(dataState: DataState<CourseDetails>) {
         when (dataState) {
-            is DataState.Loading -> binding.progressBar.show()
             is DataState.Failure -> binding.progressBar.hide()
             is DataState.Success -> {
                 binding.progressBar.hide()
@@ -63,8 +71,9 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
                 binding.gamesPlayed.text = getString(R.string.gamesPlayed, courseDetails.gamesPlayed)
                 bindStars(courseDetails.stars)
                 binding.courseParView.par = courseDetails.getParList()
-                binding.courseParView.visibility = View.VISIBLE
+                showData()
             }
+            is DataState.Loading -> {}
         }
     }
     private fun bindStars(stars: Int) {
@@ -82,5 +91,47 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showProgressBar() {
+        binding.progressBar.show()
+        AnimatorInflater.loadAnimator(requireContext(), R.animator.alpha_show_animator).apply {
+            setTarget(binding.progressBar)
+            startDelay = 1000
+            start()
+        }
+    }
+
+    private fun showData() {
+        val now = SystemClock.elapsedRealtime()
+        val delay = if (now - startInstant!! < 1000)
+            1000L
+        else
+            0L
+        val set: MutableList<Animator> = mutableListOf()
+
+        val animatedViews : List<View> = listOf(
+            binding.numberOfHoles,
+            binding.title,
+            binding.courseParView,
+            binding.coursePar,
+            binding.numberOfHoles,
+            binding.gamesPlayed,
+            binding.createdAt,
+            binding.courseStaringLayout,
+            binding.modifyCourseButton
+        )
+
+        animatedViews.forEach {
+            AnimatorInflater.loadAnimator(requireContext(), R.animator.alpha_show_animator).apply {
+                setTarget(it)
+                startDelay = delay
+                set.add(this)
+            }
+        }
+
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(set)
+        animatorSet.start()
     }
 }

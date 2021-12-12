@@ -17,7 +17,7 @@ class CourseDetailsInteractors @Inject constructor(
         emit(DataState.Loading)
 
         if (BuildConfig.fakeData) {
-            kotlinx.coroutines.delay(500)
+            kotlinx.coroutines.delay(2000)
             emit(DataState.Success(FakeData.courseDetails()))
         }
 
