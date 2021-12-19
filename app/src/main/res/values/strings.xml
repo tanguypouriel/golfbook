@@ -52,4 +52,6 @@
     <string name="gamesPlayed">Joué %1$d fois</string>
     <string name="coursePar">Par %1$d</string>
     <string name="modifyCourse">Modification de parcours</string>
+    <string name="date">Date</string>
+    <string name="addPlayer">Ajouter un joueur</string>
 </resources>

@@ -19,6 +19,7 @@
         <entry key="../../../../layout/compose-model-1638823569991.xml" value="0.24444444444444444" />
         <entry key="../../../../layout/compose-model-1638823594892.xml" value="0.5833333333333334" />
         <entry key="../../../../layout/compose-model-1638824319429.xml" value="0.11320754716981132" />
+        <entry key="../../../../layout/compose-model-1639930564249.xml" value="0.41203703703703703" />
         <entry key="../../../../layout/custom_preview.xml" value="0.337037037037037" />
         <entry key="app/src/main/res/drawable/bogey_shape.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/bottom_wave.xml" value="0.67" />
@@ -27,12 +28,18 @@
         <entry key="app/src/main/res/drawable/hill_bottom.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/ic_ball.xml" value="0.2755208333333333" />
         <entry key="app/src/main/res/drawable/ic_ball_empty.xml" value="0.37135416666666665" />
+        <entry key="app/src/main/res/drawable/ic_ball_empty_green.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/ic_ball_full.xml" value="0.37135416666666665" />
+        <entry key="app/src/main/res/drawable/ic_ball_full_green.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/ic_flag.xml" value="0.24444444444444444" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.4171875" />
+        <entry key="app/src/main/res/drawable/ic_player.xml" value="0.4107692307692308" />
+        <entry key="app/src/main/res/drawable/ic_player_add.xml" value="0.4107692307692308" />
         <entry key="app/src/main/res/drawable/iwoman_7.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/man_1.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/man_4.xml" value="0.371875" />
+        <entry key="app/src/main/res/drawable/rounded_corner.xml" value="0.40520833333333334" />
+        <entry key="app/src/main/res/drawable/rounded_corner_bordered.xml" value="0.287962962962963" />
         <entry key="app/src/main/res/drawable/rounded_shape.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/stroke_color_selector.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/woman_6.xml" value="0.371875" />
@@ -54,7 +61,7 @@
         <entry key="app/src/main/res/layout/fragment_onboard_game.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_player_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_players.xml" value="0.4010416666666667" />
-        <entry key="app/src/main/res/layout/fragment_prepare_game.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_prepare_game.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_score_book.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_score_card.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_score_input.xml" value="0.35572916666666665" />

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="@color/colorHill">
 
     <TextView
         android:id="@+id/title"
@@ -49,14 +50,14 @@
         android:id="@+id/coursePar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TextAppearance.Golfbook.h2"
+        style="@style/TextAppearance.Golfbook.h1"
         android:textColor="@color/white"
         android:alpha="0.0"
         tools:alpha="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/numberOfHoles"
         app:layout_constraintBottom_toTopOf="@id/gamesPlayed"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="36dp"
         tools:text="Par 72"
         />
 
@@ -64,14 +65,14 @@
         android:id="@+id/numberOfHoles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TextAppearance.Golfbook.h2"
+        style="@style/TextAppearance.Golfbook.h1"
         android:textColor="@color/white"
         android:alpha="0.0"
         tools:alpha="1.0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/coursePar"
         app:layout_constraintBottom_toTopOf="@id/gamesPlayed"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="36dp"
         tools:text="18 trous"
         />
 
@@ -114,7 +115,9 @@
         android:padding="24dp"
         android:alpha="0.0"
         tools:alpha="1.0"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/modifyCourseButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
