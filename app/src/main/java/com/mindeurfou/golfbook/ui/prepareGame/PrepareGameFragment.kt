@@ -4,11 +4,12 @@ import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -34,6 +35,9 @@ class PrepareGameFragment : Fragment() {
 
     private val viewModel: PrepareGameViewModel by viewModels()
 
+    private var playersReadyDialog : PlayersReadyDialog? = null
+    private var addPlayerDialog : AddPlayerDialog? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,6 +56,16 @@ class PrepareGameFragment : Fragment() {
 
     private fun setupUI() {
         binding.startGameBtn.setOnClickListener { onClickStartBtn() }
+
+        addPlayerDialog = AddPlayerDialog(object : DialogListener {
+
+            override fun onDialogPositiveClick(dialog: DialogFragment) {
+            }
+
+            override fun onDialogNegativeClick(dialog: DialogFragment) {
+            }
+
+        })
     }
 
     private fun onClickStartBtn() {
@@ -88,11 +102,25 @@ class PrepareGameFragment : Fragment() {
 
     private fun observeGameLaunched(dataState: DataState<Int>) {
         when (dataState) {
-            is DataState.Loading -> binding.progressBar.show()
-            is DataState.Failure -> binding.progressBar.hide()
+            is DataState.Loading -> {} // binding.progressBar.show()
+            is DataState.Failure -> {} // binding.progressBar.hide()
             is DataState.Success -> {
-                binding.progressBar.hide()
-                navigateToInGameFragments(dataState.data)
+//                binding.progressBar.hide()
+                playersReadyDialog = PlayersReadyDialog(object : DialogListener {
+
+                    override fun onDialogPositiveClick(dialog: DialogFragment) {
+                         navigateToInGameFragments(dataState.data)
+                    }
+
+                    override fun onDialogNegativeClick(dialog: DialogFragment) {
+                        viewModel.setStateEvent(PrepareGameEvent.RejectGameStart)
+                    }
+
+                }).apply {
+                    isCancelable = false
+                }
+
+                playersReadyDialog !!.show(parentFragmentManager, "playersReady")
             }
         }
     }
@@ -129,6 +157,26 @@ class PrepareGameFragment : Fragment() {
                 else -> {}
             }
         }
+
+        val nbPlayers = players.size
+        if (4 - nbPlayers > 0) {
+            for (i in (nbPlayers+1)..4)
+                setOnPlayerContainerClick(i)
+        }
+    }
+
+    private fun setOnPlayerContainerClick(num: Int) {
+        when(num) {
+            1 -> binding.containerPlayer1.setOnClickListener { showAddPlayerDialog() }
+            2 -> binding.containerPlayer2.setOnClickListener { showAddPlayerDialog() }
+            3 -> binding.containerPlayer3.setOnClickListener { showAddPlayerDialog() }
+            4 -> binding.containerPlayer4.setOnClickListener { showAddPlayerDialog() }
+            else -> {}
+        }
+    }
+
+    private fun showAddPlayerDialog() {
+        addPlayerDialog?.show(parentFragmentManager, "addPlayer")
     }
 
     private fun bindStars(stars: Int) {
@@ -165,4 +213,5 @@ class PrepareGameFragment : Fragment() {
         animatorSet.playTogether(set)
         animatorSet.start()
     }
+
 }

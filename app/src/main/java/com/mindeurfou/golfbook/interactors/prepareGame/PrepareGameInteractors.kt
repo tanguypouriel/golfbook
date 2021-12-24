@@ -21,7 +21,7 @@ class PrepareGameInteractors
         emit(DataState.Loading)
 
         if (BuildConfig.fakeData) {
-            kotlinx.coroutines.delay(1000)
+            kotlinx.coroutines.delay(500)
             emit(DataState.Success(1))
             return@flow
         }

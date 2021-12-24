@@ -54,4 +54,9 @@
     <string name="modifyCourse">Modification de parcours</string>
     <string name="date">Date</string>
     <string name="addPlayer">Ajouter un joueur</string>
+    <string name="gameStarting">La partie va commencer</string>
+    <string name="accept">Accepter</string>
+    <string name="refuse">Refuser</string>
+    <string name="confirm">Confirmer</string>
+    <string name="cancel">Annuler</string>
 </resources>

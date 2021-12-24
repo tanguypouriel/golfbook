@@ -14,6 +14,8 @@
         <!-- Customize your theme here. -->
         <item name="android:navigationBarColor">@color/colorSecondaryVariant</item>
         <item name="bottomNavigationStyle">@style/Widget.Golfbook.BottomNavigation</item>
+
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
     </style>
     
     <style name="ThemeOverlay.Golfbook.greenPrimary" parent="">
@@ -154,4 +156,18 @@
     <style name="Widget.Golfbook.extendedFloatingActionButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="backgroundTint">@color/colorSecondaryVariant</item>
     </style>
+
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorSecondary</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorSecondary</item>
+    </style>
+
 </resources>

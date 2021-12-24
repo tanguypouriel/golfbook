@@ -40,6 +40,12 @@ class PrepareGameViewModel
                     _gameDetails.value = it
                 }.launchIn(viewModelScope)
             }
+            is PrepareGameEvent.AcceptGameStart -> {
+
+            }
+            is PrepareGameEvent.RejectGameStart -> {
+
+            }
         }
     }
 }
