@@ -1,13 +1,15 @@
 package com.mindeurfou.golfbook.data
 
 enum class GBState {
-    WAITING,
+    INIT,
+    STARTING,
     PENDING,
     DONE;
 
     override fun toString(): String {
         return when(name) {
-            WAITING.name -> "Démarre"
+            INIT.name -> "Etat initial"
+            STARTING.name -> "Démarre"
             PENDING.name -> "En cours"
             DONE.name -> "Terminé"
             else -> "Etat inconnu"

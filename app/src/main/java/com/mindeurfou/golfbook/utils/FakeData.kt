@@ -207,10 +207,10 @@ object FakeData {
     )
     )
 
-    fun gameDetails() = GameDetails(
+    fun gameDetails(state: GBState? = null, playersReady: List<String>? = null) = GameDetails(
         1,
         "Partie du swag",
-        GBState.DONE,
+        state ?: GBState.DONE,
         ScoringSystem.STROKE_PLAY,
         "Parcours du tube",
         listOf(2, 4, 3, 5, 3, 4, 2, 4, 3, 5, 3, 4, 3, 3, 5, 3, 4, 3),
@@ -219,6 +219,7 @@ object FakeData {
             Player(1, "Romane", "Philbert", "Roro", R.drawable.woman_2),
             Player(1, "Romsko", "Prasil", "Bobby", R.drawable.man_8)
         ),
+        playersReady ?: listOf("Roro", "MindeurFou"),
         scoreSummaries = listOf(
             ScoreSummary("1.", "MindeurFou", "2 up"),
             ScoreSummary("T2.", "Roro", "1 up"),

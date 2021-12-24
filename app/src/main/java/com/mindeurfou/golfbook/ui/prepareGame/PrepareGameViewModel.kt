@@ -30,9 +30,9 @@ class PrepareGameViewModel
 
     fun setStateEvent(stateEvent: PrepareGameEvent) {
         when(stateEvent) {
-            is PrepareGameEvent.LaunchGameEvent -> {
-                prepareGameInteractors.launchGame().onEach {
-                    _gameLaunchedId.value = it
+            is PrepareGameEvent.CheckPlayerReady -> {
+                prepareGameInteractors.tryStartingGame().onEach {
+                    _gameDetails.value = it
                 }.launchIn(viewModelScope)
             }
             is PrepareGameEvent.GetGameDetailsEvent -> {

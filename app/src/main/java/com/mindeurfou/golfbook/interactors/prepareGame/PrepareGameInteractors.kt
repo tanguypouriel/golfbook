@@ -1,6 +1,7 @@
 package com.mindeurfou.golfbook.interactors.prepareGame
 
 import com.mindeurfou.golfbook.BuildConfig
+import com.mindeurfou.golfbook.data.GBState
 import com.mindeurfou.golfbook.data.game.local.GameDetails
 import com.mindeurfou.golfbook.datasource.network.game.GameNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
@@ -16,13 +17,17 @@ class PrepareGameInteractors
     private val gameNetworkDataSourceImpl: GameNetworkDataSourceImpl
 ){
 
-    fun launchGame(): Flow<DataState<Int>> = flow {
+    fun tryStartingGame(): Flow<DataState<GameDetails>> = flow {
 
         emit(DataState.Loading)
 
         if (BuildConfig.fakeData) {
             kotlinx.coroutines.delay(500)
-            emit(DataState.Success(1))
+            emit(DataState.Success(FakeData.gameDetails(state = GBState.STARTING, playersReady = listOf("Roro"))))
+            kotlinx.coroutines.delay(2000)
+            emit(DataState.Success(FakeData.gameDetails(state = GBState.STARTING, playersReady = listOf("Roro", "MindeurFou"))))
+            kotlinx.coroutines.delay(2000)
+            emit(DataState.Success(FakeData.gameDetails(state = GBState.STARTING, playersReady = listOf("Roro", "MindeurFou", "Bobby"))))
             return@flow
         }
 
@@ -35,7 +40,7 @@ class PrepareGameInteractors
 
         if (BuildConfig.fakeData) {
             kotlinx.coroutines.delay(1000)
-            emit(DataState.Success(FakeData.gameDetails()))
+            emit(DataState.Success(FakeData.gameDetails(state = GBState.INIT)))
             return@flow
         }
 

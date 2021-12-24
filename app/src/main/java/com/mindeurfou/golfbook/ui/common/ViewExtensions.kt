@@ -6,6 +6,7 @@ import android.graphics.Path
 import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -13,6 +14,7 @@ import androidx.core.animation.doOnEnd
 import androidx.core.view.drawToBitmap
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.ui.common.CustomEdgeTreatment
@@ -88,6 +90,19 @@ fun ProgressBar.hide() {
     if (visibility != View.GONE)
         visibility = View.GONE
 }
+fun LinearProgressIndicator.setSmoothProgress(progress: Int) {
+    val start = this.progress
+    ValueAnimator.ofInt(start, progress).apply {
+        duration = 300L
+        interpolator = AccelerateDecelerateInterpolator()
+        addUpdateListener {
+            this@setSmoothProgress.progress = it.animatedValue as Int
+        }
+
+        start()
+    }
+}
+
 fun Path.scale(width: Int, height: Int) {
     val drawMatrix = Matrix()
     drawMatrix.setScale(width / 100f, height / 100f)
