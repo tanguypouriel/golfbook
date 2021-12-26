@@ -19,15 +19,15 @@ class PrepareGameInteractors
 
     fun tryStartingGame(): Flow<DataState<GameDetails>> = flow {
 
-        emit(DataState.Loading)
-
         if (BuildConfig.fakeData) {
             kotlinx.coroutines.delay(500)
-            emit(DataState.Success(FakeData.gameDetails(state = GBState.STARTING, playersReady = listOf("Roro"))))
+            emit(DataState.Success(FakeData.gameDetails(state = GBState.STARTING, playersReady = listOf("MindeurFou"))))
             kotlinx.coroutines.delay(2000)
             emit(DataState.Success(FakeData.gameDetails(state = GBState.STARTING, playersReady = listOf("Roro", "MindeurFou"))))
             kotlinx.coroutines.delay(2000)
             emit(DataState.Success(FakeData.gameDetails(state = GBState.STARTING, playersReady = listOf("Roro", "MindeurFou", "Bobby"))))
+            kotlinx.coroutines.delay(2000)
+            emit(DataState.Success(FakeData.gameDetails(state = GBState.PENDING, playersReady = listOf("Roro", "MindeurFou", "Bobby"))))
             return@flow
         }
 

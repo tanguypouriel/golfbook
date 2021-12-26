@@ -1,7 +1,9 @@
 package com.mindeurfou.golfbook.ui.prepareGame
 
+import android.content.SharedPreferences
 import androidx.lifecycle.*
 import com.mindeurfou.golfbook.data.game.local.GameDetails
+import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.USERNAME_KEY
 import com.mindeurfou.golfbook.interactors.prepareGame.PrepareGameEvent
 import com.mindeurfou.golfbook.interactors.prepareGame.PrepareGameInteractors
 import com.mindeurfou.golfbook.utils.DataState
@@ -17,14 +19,14 @@ import javax.inject.Inject
 class PrepareGameViewModel
 @Inject constructor(
     private val prepareGameInteractors: PrepareGameInteractors,
+    sharedPreferences: SharedPreferences,
     state: SavedStateHandle
 ) : ViewModel() {
 
-    private val _gameLaunchedId: MutableLiveData<DataState<Int>> = MutableLiveData()
-    val gameLaunchedId: LiveData<DataState<Int>> = _gameLaunchedId
-
     private val _gameDetails: MutableLiveData<DataState<GameDetails>> = MutableLiveData()
     val gameDetails: LiveData<DataState<GameDetails>> = _gameDetails
+
+    val selfName: String? = sharedPreferences.getString(USERNAME_KEY, null)
 
     private val gameId: Int = state.get("gameId")!!
 

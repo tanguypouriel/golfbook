@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -19,6 +20,8 @@ class PlayersReadyDialog(
     var progressLinear: LinearProgressIndicator? = null
     var progressCircular: ProgressBar? = null
     var dialogText: TextView? = null
+    var positiveButton: TextView? = null
+    var negativeButton: TextView? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity!!)
@@ -29,15 +32,22 @@ class PlayersReadyDialog(
         progressLinear = root.findViewById(R.id.progressLinear)
         progressCircular = root.findViewById(R.id.progressCircular)
 
+        positiveButton = root.findViewById(R.id.positiveBtn)
+        negativeButton = root.findViewById(R.id.negativeBtn)
+
+        positiveButton!!.setOnClickListener {
+            listener.onDialogPositiveClick(this)
+            it.visibility = View.GONE
+            negativeButton!!.visibility = View.GONE
+        }
+        negativeButton!!.setOnClickListener {
+            listener.onDialogNegativeClick(this)
+            this.dismiss()
+        }
+
         builder
             .setTitle(R.string.gameStarting)
             .setView(root)
-            .setPositiveButton(R.string.accept) { _, _ ->
-                listener.onDialogPositiveClick(this)
-            }
-            .setNegativeButton(R.string.refuse) { _, _ ->
-                listener.onDialogNegativeClick(this)
-            }
 
         return builder.create()
     }

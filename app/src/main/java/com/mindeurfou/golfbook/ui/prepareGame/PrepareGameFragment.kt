@@ -99,7 +99,6 @@ class PrepareGameFragment : Fragment() {
     }
 
     private fun subscribeObservers() {
-        viewModel.gameLaunchedId.observe(viewLifecycleOwner) { observeGameLaunched(it) }
         viewModel.gameDetails.observe(viewLifecycleOwner) { observeGameDetails(it) }
     }
 
@@ -139,6 +138,11 @@ class PrepareGameFragment : Fragment() {
                 else if (gameDetails.state == GBState.INIT && playersReadyDialogShown) {
                     playersReadyDialog.dismiss()
                     playersReadyDialogShown = false
+                } else if (gameDetails.state == GBState.PENDING) {
+                    if (playersReadyDialogShown) playersReadyDialog.dismiss()
+                    if (addPlayerDialogShown) addPlayerDialog.dismiss()
+
+                    navigateToInGameFragments(gameId = gameDetails.id)
                 }
             }
         }
@@ -150,6 +154,14 @@ class PrepareGameFragment : Fragment() {
         val progress = (sizeReady * 100) / sizeAll
         playersReadyDialog.progressLinear!!.setSmoothProgress(progress)
 
+        if (playersReadyDialog.positiveButton?.visibility == View.VISIBLE ||
+                playersReadyDialog.negativeButton?.visibility == View.VISIBLE) {
+
+            if (gameDetails.playersReady.contains(viewModel.selfName)) {
+                playersReadyDialog.positiveButton?.visibility = View.GONE
+                playersReadyDialog.negativeButton?.visibility = View.GONE
+            }
+        }
 
         if (progress == 100) {
             CoroutineScope(Dispatchers.Main).launch {
@@ -161,16 +173,6 @@ class PrepareGameFragment : Fragment() {
         }
 
         playersReadyDialog.dialogText?.text = getString(R.string.playersReady, sizeReady, sizeAll)
-    }
-
-    private fun observeGameLaunched(dataState: DataState<Int>) {
-        when (dataState) {
-            is DataState.Loading -> {} // binding.progressBar.show()
-            is DataState.Failure -> {} // binding.progressBar.hide()
-            is DataState.Success -> {
-//                binding.progressBar.hide()
-            }
-        }
     }
 
     private fun navigateToInGameFragments(gameId: Int){
