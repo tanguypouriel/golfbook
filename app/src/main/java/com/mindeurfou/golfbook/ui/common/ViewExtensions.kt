@@ -1,6 +1,7 @@
 package com.mindeurfou.golfbook.utils
 
 import android.animation.ValueAnimator
+import android.content.res.Resources
 import android.graphics.Matrix
 import android.graphics.Path
 import android.graphics.drawable.BitmapDrawable
@@ -122,3 +123,8 @@ fun MaterialCardView.cropTopEdge() {
         .setTopEdge(CustomEdgeTreatment())
         .build()
 }
+
+val Int.dp: Int
+    get() = (this / Resources.getSystem().displayMetrics.density).toInt()
+val Int.px: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).toInt()

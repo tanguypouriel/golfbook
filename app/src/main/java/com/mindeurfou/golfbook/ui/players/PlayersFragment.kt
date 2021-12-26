@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mindeurfou.golfbook.R
-import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.data.player.remote.GetPlayersResponse
 import com.mindeurfou.golfbook.databinding.FragmentPlayersBinding
 import com.mindeurfou.golfbook.utils.*

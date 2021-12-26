@@ -2,13 +2,15 @@ package com.mindeurfou.golfbook.ui.common
 
 import com.google.android.material.shape.EdgeTreatment
 import com.google.android.material.shape.ShapePath
+import com.mindeurfou.golfbook.utils.dp
+import com.mindeurfou.golfbook.utils.px
 import kotlin.math.atan
 import kotlin.math.sqrt
 
 class CustomEdgeTreatment: EdgeTreatment() {
 
-    private val cradleRoundedCornerRadius: Float = 75f
-    private val radius: Float = 45f
+    private val cradleRoundedCornerRadius: Float = 25.px.toFloat()
+    private val radius: Float = 25.px.toFloat()
 
     override fun getEdgePath(
         length: Float,
@@ -19,7 +21,7 @@ class CustomEdgeTreatment: EdgeTreatment() {
 
 
         val roundedCornerOffset = interpolation * cradleRoundedCornerRadius
-        val middle = length * 0.805f  //horizontalBias
+        val middle = length - 60.px  //horizontalBias
         val verticalOffset = (1.0f - interpolation) * radius
 
         val verticalOffsetRatio = verticalOffset / radius
