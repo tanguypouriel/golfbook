@@ -32,4 +32,10 @@ class HoleInputItem (
             setPar(text.toString().toInt())
         }
     }
+
+    fun isEmpty() = holeEditText.text == null || holeEditText.text.toString().isBlank()
+
+    fun displayError(message : String) {
+        holeInputLayout.error = message
+    }
 }

@@ -21,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.shape.ShapeAppearanceModel
+import com.google.android.material.snackbar.Snackbar
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.ui.common.CustomEdgeTreatment
 
@@ -142,6 +143,17 @@ fun List<View>.reveal(context: Context, startDelay: Long = 0) {
     val animatorSet = AnimatorSet()
     animatorSet.playTogether(set)
     animatorSet.start()
+}
+
+fun makeSnackbar(view: View, errors: List<ErrorMessages>) {
+    var message = ""
+    errors.forEachIndexed { index, errorMessage ->
+        message += if (index == 0)
+            "$errorMessage"
+        else
+            "\n $errorMessage"
+    }
+    Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
 }
 
 val Int.dp: Int

@@ -5,6 +5,8 @@ import android.util.Log
 import com.mindeurfou.golfbook.BuildConfig
 import com.mindeurfou.golfbook.datasource.network.player.PlayerNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.ErrorMessages
+import com.mindeurfou.golfbook.utils.GBException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,11 +18,9 @@ class ConnectionInteractors
     private val sharedPreferences: SharedPreferences
 ) {
 
-    fun connect(username: String, password: String, rememberMe: Boolean) : Flow<DataState<Boolean>> = flow {
+    fun connect(username: String, password: String, rememberMe: Boolean) : Flow<DataState<Unit>> = flow {
 
         emit(DataState.Loading)
-
-        delay(1000)
 
         // manage credentials cache
         if (rememberMe) {
@@ -37,22 +37,27 @@ class ConnectionInteractors
         }
 
         if (BuildConfig.fakeData) {
-            emit(DataState.Success(true))
+            delay(1000)
+            emit(DataState.Success(Unit))
             return@flow
         }
 
         try {
             val token = playerNetworkDataSourceImpl.login(username, password)
-            token?.let { tokenMap ->
-                saveToken(tokenMap["token"])
+            saveToken(token["token"])
 
-                if (sharedPreferences.getInt(PLAYER_ID_KEY, 0) == 0)
-                    sharedPreferences.edit().putInt(PLAYER_ID_KEY, tokenMap["playerId"]!!.toInt()).apply()
+            if (sharedPreferences.getInt(PLAYER_ID_KEY, 0) == 0)
+                sharedPreferences.edit().putInt(PLAYER_ID_KEY, token["playerId"]!!.toInt()).apply()
 
-                emit(DataState.Success(true))
-            } ?: emit(DataState.Success(false))
+            emit(DataState.Success(Unit))
         } catch (e: Exception){
-            emit(DataState.Failure(e))
+
+            if (e is GBException) {
+                if (e.message == GBException.BAD_CREDENTIALS)
+                    emit(DataState.Failure(listOf(ErrorMessages.BAD_CREDENTIALS)))
+            }
+            else
+                emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
         }
     }
 

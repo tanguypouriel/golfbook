@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(), HillActivity {
                     else -> {
                         binding.hillView.animateToHillPosition(HillPosition.POSITION_FLAT)
                         bottomNavigation.visibility = View.VISIBLE
-                    } // TODO faire les bails mieux
+                    }
                 }
             }
         }

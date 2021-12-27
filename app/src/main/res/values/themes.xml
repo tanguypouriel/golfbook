@@ -16,6 +16,8 @@
         <item name="bottomNavigationStyle">@style/Widget.Golfbook.BottomNavigation</item>
 
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="snackbarStyle">@style/Widget.Golfbook.Snackbar</item>
+        <item name="snackbarTextViewStyle">@style/TextAppearance.Golfbook.Snackbar</item>
     </style>
     
     <style name="ThemeOverlay.Golfbook.greenPrimary" parent="">
@@ -95,6 +97,13 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="TextAppearance.Golfbook.Snackbar" parent="TextAppearance.Golfbook.baseGlacial">
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">start</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="Widget.Golfbook.Cardview" parent="CardView">
         <item name="cardCornerRadius">25dp</item>
         <item name="cardElevation">1dp</item>
@@ -168,6 +177,10 @@
 
     <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/colorSecondary</item>
+    </style>
+
+    <style name="Widget.Golfbook.Snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="backgroundTint">@color/red</item>
     </style>
 
 </resources>

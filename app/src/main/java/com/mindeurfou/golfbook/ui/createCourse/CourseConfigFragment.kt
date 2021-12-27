@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentCreateCourseBinding
 import com.mindeurfou.golfbook.ui.customViews.HoleInputItem
+import com.mindeurfou.golfbook.utils.ErrorMessages
 
 abstract class CourseConfigFragment : Fragment(R.layout.fragment_create_course) {
 
@@ -47,6 +48,13 @@ abstract class CourseConfigFragment : Fragment(R.layout.fragment_create_course) 
             val item = HoleInputItem(requireContext(), i, holes[i-1]) { par -> holes[i-1] = par }
             binding.createHolesLayout.addView(item)
             holeInputs.add(item)
+        }
+    }
+
+    protected fun showUncompletedHole(errorMessage: String) {
+        holeInputs.forEach {
+            if (it.isEmpty())
+                it.displayError(errorMessage)
         }
     }
 }

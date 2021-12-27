@@ -4,7 +4,9 @@ import com.mindeurfou.golfbook.BuildConfig
 import com.mindeurfou.golfbook.data.tournament.local.Tournament
 import com.mindeurfou.golfbook.datasource.network.tournament.TournamentNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.ErrorMessages
 import com.mindeurfou.golfbook.utils.FakeData
+import com.mindeurfou.golfbook.utils.GBException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -30,7 +32,10 @@ class TournamentsInteractors
             val tournaments = tournamentNetworkDataSource.getTournaments()
             emit(DataState.Success(tournaments))
         } catch (e: Exception) {
-            emit(DataState.Failure(e))
+            if (e is GBException && e.message == GBException.NO_RESOURCES_MESSAGE)
+                emit(DataState.Failure(listOf(ErrorMessages.EMPTY_RESSOURCE)))
+            else
+                emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
         }
     }
 }

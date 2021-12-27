@@ -4,6 +4,7 @@ import com.mindeurfou.golfbook.BuildConfig
 import com.mindeurfou.golfbook.data.course.local.CourseDetails
 import com.mindeurfou.golfbook.datasource.network.course.CourseNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.ErrorMessages
 import com.mindeurfou.golfbook.utils.FakeData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -25,7 +26,7 @@ class CourseDetailsInteractors @Inject constructor(
             val course = courseNetworkDataSourceImpl.getCourse(courseId)
             emit(DataState.Success(course))
         } catch (e: Exception) {
-            emit(DataState.Failure(e))
+            emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
         }
     }
 

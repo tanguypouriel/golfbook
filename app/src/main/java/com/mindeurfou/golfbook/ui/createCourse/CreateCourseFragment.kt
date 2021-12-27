@@ -12,6 +12,7 @@ import com.mindeurfou.golfbook.databinding.FragmentCreateCourseBinding
 import com.mindeurfou.golfbook.interactors.createCourse.CreateCourseEvent
 import com.mindeurfou.golfbook.ui.customViews.HoleInputItem
 import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.ErrorMessages
 import com.mindeurfou.golfbook.utils.hide
 import com.mindeurfou.golfbook.utils.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,10 +61,23 @@ class CreateCourseFragment : CourseConfigFragment() {
     private fun observeCourseCreated(dataState: DataState<Boolean>) {
         when(dataState) {
             is DataState.Loading -> binding.progressBar.show()
-            is DataState.Failure -> binding.progressBar.hide()
+            is DataState.Failure -> {
+                binding.progressBar.hide()
+                dataState.errors?.let { handleErrors(it) }
+            }
             is DataState.Success -> {
                 binding.progressBar.hide()
                 navigateToCoursesFragment()
+            }
+        }
+    }
+
+    private fun handleErrors(errors: List<ErrorMessages>) {
+        errors.forEach {
+            when (it) {
+                ErrorMessages.NAME_EMPTY -> binding.courseNameInputLayout.error = it.toString()
+                ErrorMessages.HOLES_UNCOMPLETED -> showUncompletedHole(it.toString())
+                else -> {}
             }
         }
     }

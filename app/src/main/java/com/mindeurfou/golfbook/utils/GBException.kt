@@ -9,6 +9,7 @@ class GBException(override val message: String) : Exception() {
         const val TOURNAMENT_NOT_FIND_MESSAGE  = "Tournament hasn't been found"
         const val SCOREBOOK_NOT_FIND_MESSAGE   = "Scorebook hasn't been found"
         const val LEADERBOARD_NOT_FIND_MESSAGE = "Leaderboard hasn't been found"
+        const val BAD_CREDENTIALS              = "Bad credentials"
 
         const val INVALID_OPERATION_MESSAGE    = "Invalid operation"
         const val TOURNAMENT_DONE_MESSAGE      = "This tournament is finished"

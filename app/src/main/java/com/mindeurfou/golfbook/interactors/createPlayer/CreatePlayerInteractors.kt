@@ -7,6 +7,8 @@ import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Comp
 import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.TOKEN_KEY
 import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.VALIDITY_KEY
 import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.ErrorMessages
+import com.mindeurfou.golfbook.utils.GBException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -33,7 +35,11 @@ class CreatePlayerInteractors
          }
             emit(DataState.Success(true))
       } catch (e: Exception) {
-         emit(DataState.Failure(e))
+         if (e is GBException) {
+            if (e.message == GBException.USERNAME_ALREADY_TAKEN_MESSAGE)
+                emit(DataState.Failure(listOf(ErrorMessages.USERNAME_TAKEN)))
+         } else
+            emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
       }
    }
 }

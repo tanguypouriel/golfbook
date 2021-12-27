@@ -15,6 +15,7 @@ import com.mindeurfou.golfbook.databinding.FragmentCreateGameBinding
 import com.mindeurfou.golfbook.interactors.createGame.CreateGameEvent
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.hide
+import com.mindeurfou.golfbook.utils.print
 import com.mindeurfou.golfbook.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -72,7 +73,7 @@ class CreateGameFragment : Fragment(R.layout.fragment_create_game){
     }
 
     private fun setupUI() {
-        val defaultGameName = getString(R.string.defautlGameName, LocalDate.now().toString())
+        val defaultGameName = getString(R.string.defautlGameName, LocalDate.now().print())
         binding.gameNameEditText.setText(defaultGameName)
 
         val defaultScoringSystem = getString(R.string.strokePlay)

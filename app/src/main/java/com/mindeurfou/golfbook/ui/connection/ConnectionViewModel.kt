@@ -20,8 +20,8 @@ class ConnectionViewModel
     private val connectionInteractors: ConnectionInteractors
 ) : ViewModel() {
 
-    private val _connected: MutableLiveData<DataState<Boolean>> = MutableLiveData()
-    val connected: LiveData<DataState<Boolean>> = _connected
+    private val _connected: MutableLiveData<DataState<Unit>> = MutableLiveData()
+    val connected: LiveData<DataState<Unit>> = _connected
 
     private val _credentials: MutableLiveData<DataState<Pair<String, String>?>> = MutableLiveData()
     val credentials: LiveData<DataState<Pair<String, String>?>> = _credentials

@@ -60,7 +60,6 @@ class ModifyPlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
             is DataState.Loading -> { binding.progressBar.show() }
             is DataState.Failure -> {
                 binding.progressBar.hide()
-                Toast.makeText(requireContext(), dataState.exception.message, Toast.LENGTH_SHORT).show()
             }
             is DataState.Success -> {
                 binding.progressBar.hide()

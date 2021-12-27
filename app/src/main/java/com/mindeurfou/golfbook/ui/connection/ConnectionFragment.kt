@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentConnectionBinding
 import com.mindeurfou.golfbook.interactors.connection.ConnectionEvent
@@ -20,6 +21,7 @@ import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Comp
 import com.mindeurfou.golfbook.ui.StartActivity
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.hide
+import com.mindeurfou.golfbook.utils.makeSnackbar
 import com.mindeurfou.golfbook.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -97,23 +99,16 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
         viewModel.credentials.observe(viewLifecycleOwner) { observeCredentials(it) }
     }
 
-    private fun observeConnected(dataState: DataState<Boolean>) {
+    private fun observeConnected(dataState: DataState<Unit>) {
         when(dataState) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Success -> {
                 binding.progressBar.hide()
-                if (dataState.data) {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        delay(1000)
-                        startActivity.navigateToMainActivity()
-                    }
-                }
-                else
-                    Toast.makeText(requireContext(), "Identifiants incorrects", Toast.LENGTH_SHORT).show()
+                startActivity.navigateToMainActivity()
             }
             is DataState.Failure -> {
                 binding.progressBar.hide()
-                Toast.makeText(requireContext(), "Un problème est survenu, veuillez réessayer plus tard", Toast.LENGTH_SHORT).show()
+                dataState.errors?.let { makeSnackbar(binding.root, it) }
             }
         }
     }

@@ -49,7 +49,7 @@ class StartActivity : AppCompatActivity(), HillActivity {
                     }
                     else -> {
                         binding.hillView.animateToHillPosition(HillPosition.POSITION_FLAT)
-                    } // TODO faire les bails mieux
+                    }
                 }
             }
         }
