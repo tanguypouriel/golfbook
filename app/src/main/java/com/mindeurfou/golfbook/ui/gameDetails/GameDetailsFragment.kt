@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.game.local.GameDetails
+import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.databinding.FragmentGameDetailsBinding
 import com.mindeurfou.golfbook.interactors.gameDetails.GameDetailsEvent
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.hide
+import com.mindeurfou.golfbook.utils.reveal
 import com.mindeurfou.golfbook.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -60,6 +62,21 @@ class GameDetailsFragment : Fragment(R.layout.fragment_game_details){
                 binding.scoreBookView.par = gameDetails.par
                 binding.scoreBookView.scoreBook = gameDetails.scoreBook!!
                 binding.scoreBookView.visibility = View.VISIBLE
+
+                binding.scoringSystem.text = gameDetails.scoringSystem.toString()
+                binding.courseName.text = gameDetails.courseName
+                bindPlayers(gameDetails.players)
+
+                listOf(
+                        binding.title,
+                        binding.scoringSystem,
+                        binding.scoringSystemHint,
+                        binding.courseName,
+                        binding.courseNameHint,
+                        binding.playersTitle,
+                        binding.playersLayout,
+                        binding.scoreBookView
+                ).reveal(requireContext())
             }
         }
     }
@@ -67,5 +84,29 @@ class GameDetailsFragment : Fragment(R.layout.fragment_game_details){
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun bindPlayers(players: List<Player>) {
+        players.forEachIndexed { index, player ->
+            when (index + 1) {
+                1 -> {
+                    binding.imageAvatar1.setImageResource(player.drawableResourceId)
+                    binding.player1Name.text = player.username
+                }
+                2 -> {
+                    binding.imageAvatar2.setImageResource(player.drawableResourceId)
+                    binding.player2Name.text = player.username
+                }
+                3 -> {
+                    binding.imageAvatar3.setImageResource(player.drawableResourceId)
+                    binding.player3Name.text = player.username
+                }
+                4 -> {
+                    binding.imageAvatar4.setImageResource(player.drawableResourceId)
+                    binding.player4Name.text = player.username
+                }
+                else -> {}
+            }
+        }
     }
 }

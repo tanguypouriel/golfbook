@@ -1,6 +1,10 @@
 package com.mindeurfou.golfbook.utils
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Matrix
 import android.graphics.Path
@@ -122,6 +126,22 @@ fun MaterialCardView.cropTopEdge() {
         .setAllCornerSizes(50f)
         .setTopEdge(CustomEdgeTreatment())
         .build()
+}
+
+fun List<View>.reveal(context: Context, startDelay: Long = 0) {
+    val set: MutableList<Animator> = mutableListOf()
+
+    this.forEach {
+        AnimatorInflater.loadAnimator(context, R.animator.alpha_show_animator).apply {
+            setTarget(it)
+            this.startDelay = startDelay
+            set.add(this)
+        }
+    }
+
+    val animatorSet = AnimatorSet()
+    animatorSet.playTogether(set)
+    animatorSet.start()
 }
 
 val Int.dp: Int

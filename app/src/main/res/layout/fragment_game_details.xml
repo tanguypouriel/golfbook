@@ -1,40 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@color/colorPrimary">
+    android:scrollbars="none">
 
-    <TextView
-        android:id="@+id/title"
-        style="@style/TextAppearance.Golfbook.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="@dimen/progressBarSize"
-        android:layout_height="@dimen/progressBarSize"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <com.mindeurfou.golfbook.ui.customViews.ScoreBookView
-        android:id="@+id/scoreBookView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_margin="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:background="@color/colorPrimary">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextAppearance.Golfbook.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            tools:text="Partie de la partie"
+            android:alpha="0.0"
+            tools:alpha="1.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/scoringSystemHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scoringSystemDots"
+            style="@style/TextAppearance.Golfbook.h2"
+            android:alpha="0.0"
+            tools:alpha="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            android:layout_marginTop="36dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/scoringSystem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.Golfbook.subtitle1"
+            tools:text="Stableford"
+            android:alpha="0.0"
+            tools:alpha="1.0"
+            app:layout_constraintStart_toEndOf="@id/scoringSystemHint"
+            app:layout_constraintTop_toTopOf="@id/scoringSystemHint"
+            app:layout_constraintBottom_toBottomOf="@id/scoringSystemHint"
+            android:layout_marginStart="4dp"/>
+
+        <TextView
+            android:id="@+id/courseNameHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/coursesDots"
+            style="@style/TextAppearance.Golfbook.h2"
+            android:alpha="0.0"
+            tools:alpha="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scoringSystemHint"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/courseName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.Golfbook.subtitle1"
+            tools:text="Parcours de la carotte"
+            android:alpha="0.0"
+            tools:alpha="1.0"
+            app:layout_constraintStart_toEndOf="@id/courseNameHint"
+            app:layout_constraintTop_toTopOf="@id/courseNameHint"
+            app:layout_constraintBottom_toBottomOf="@id/courseNameHint"
+            android:layout_marginStart="4dp"/>
+
+        <TextView
+            android:id="@+id/playersTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/playersDots"
+            style="@style/TextAppearance.Golfbook.h2"
+            android:alpha="0.0"
+            tools:alpha="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/courseNameHint"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"/>
+
+        <GridLayout
+            android:id="@+id/playersLayout"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:padding="4dp"
+            android:layout_marginTop="8dp"
+            android:alpha="0.0"
+            tools:alpha="1.0"
+            app:layout_constraintTop_toBottomOf="@id/playersTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/scoreBookView"
+            android:rowCount="4"
+            android:columnCount="4">
+
+            <ImageView
+                android:id="@+id/imageAvatar1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                tools:src="@drawable/man_4"
+                android:layout_rowWeight="3"
+                android:layout_columnWeight="1"
+                android:padding="4dp"/>
+
+            <ImageView
+                android:id="@+id/imageAvatar2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                tools:src="@drawable/man_4"
+                android:layout_rowWeight="3"
+                android:layout_columnWeight="1"
+                android:padding="4dp"
+                />
+
+            <ImageView
+                android:id="@+id/imageAvatar3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                tools:src="@drawable/man_4"
+                android:layout_rowWeight="3"
+                android:layout_columnWeight="1"
+                android:padding="4dp"
+                />
+
+            <ImageView
+                android:id="@+id/imageAvatar4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                tools:src="@drawable/man_4"
+                android:layout_rowWeight="3"
+                android:layout_columnWeight="1"
+                android:padding="4dp"
+                />
+
+            <TextView
+                android:id="@+id/player1Name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                style="@style/TextAppearance.Golfbook.subtitle2"
+                tools:text="Frere le boss"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:padding="4dp"
+                />
+
+            <TextView
+                android:id="@+id/player2Name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                style="@style/TextAppearance.Golfbook.subtitle2"
+                tools:text="Frere le boss"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:padding="4dp"
+                />
+
+            <TextView
+                android:id="@+id/player3Name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                style="@style/TextAppearance.Golfbook.subtitle2"
+                tools:text="Frere le boss"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:padding="4dp"
+                />
+
+            <TextView
+                android:id="@+id/player4Name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                style="@style/TextAppearance.Golfbook.subtitle2"
+                tools:text="Frere le boss"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:padding="4dp"/>
+        </GridLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/progressBarSize"
+            android:layout_height="@dimen/progressBarSize"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/playersLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.mindeurfou.golfbook.ui.customViews.ScoreBookView
+            android:id="@+id/scoreBookView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:alpha="0.0"
+            tools:alpha="1.0"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/playersLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

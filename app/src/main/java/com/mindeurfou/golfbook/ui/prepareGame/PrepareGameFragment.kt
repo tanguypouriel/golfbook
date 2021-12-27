@@ -121,7 +121,13 @@ class PrepareGameFragment : Fragment() {
 
                 binding.progressBar.hide()
                 if (firstDisplay) {
-                    showData()
+                    listOf(
+                            binding.courseContainer,
+                            binding.gameDetailsContainer,
+                            binding.textInputScoring,
+                            binding.playersContainer,
+                            binding.startGameBtn,
+                    ).reveal(requireContext())
                     firstDisplay = false
                 }
 
@@ -243,28 +249,4 @@ class PrepareGameFragment : Fragment() {
             }
         }
     }
-
-    private fun showData() {
-        val set: MutableList<Animator> = mutableListOf()
-
-        val animatedViews : List<View> = listOf(
-            binding.courseContainer,
-            binding.gameDetailsContainer,
-            binding.textInputScoring,
-            binding.playersContainer,
-            binding.startGameBtn,
-        )
-
-        animatedViews.forEach {
-            AnimatorInflater.loadAnimator(requireContext(), R.animator.alpha_show_animator).apply {
-                setTarget(it)
-                set.add(this)
-            }
-        }
-
-        val animatorSet = AnimatorSet()
-        animatorSet.playTogether(set)
-        animatorSet.start()
-    }
-
 }

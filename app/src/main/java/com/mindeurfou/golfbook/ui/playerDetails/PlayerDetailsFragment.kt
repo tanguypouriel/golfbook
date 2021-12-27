@@ -16,10 +16,7 @@ import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.databinding.FragmentPlayerDetailsBinding
 import com.mindeurfou.golfbook.interactors.playerDetails.PlayerDetailsEvent
-import com.mindeurfou.golfbook.utils.DataState
-import com.mindeurfou.golfbook.utils.hide
-import com.mindeurfou.golfbook.utils.setAvatarResource
-import com.mindeurfou.golfbook.utils.show
+import com.mindeurfou.golfbook.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -121,9 +118,8 @@ class PlayerDetailsFragment : Fragment(R.layout.fragment_player_details){
             1000L
         else
             0L
-        val set: MutableList<Animator> = mutableListOf()
 
-        val animatedViews : List<View> = listOf(
+        listOf(
             binding.playerUsername,
             binding.imageAvatar,
             binding.nameHint,
@@ -133,18 +129,6 @@ class PlayerDetailsFragment : Fragment(R.layout.fragment_player_details){
             binding.myStats,
             binding.cardView,
             binding.modifyProfileButton
-        )
-
-        animatedViews.forEach {
-            AnimatorInflater.loadAnimator(requireContext(), R.animator.alpha_show_animator).apply {
-                setTarget(it)
-                startDelay = delay
-                set.add(this)
-            }
-        }
-
-        val animatorSet = AnimatorSet()
-        animatorSet.playTogether(set)
-        animatorSet.start()
+        ).reveal(requireContext(), delay)
     }
 }

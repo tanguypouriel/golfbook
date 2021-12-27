@@ -61,4 +61,6 @@
     <string name="cancel">Annuler</string>
     <string name="playersReady">Joueurs prêts : %1$d sur %2$d</string>
     <string name="score">Score</string>
+    <string name="scoringSystemDots">Formule de jeu :</string>
+    <string name="playersDots">Joueurs :</string>
 </resources>

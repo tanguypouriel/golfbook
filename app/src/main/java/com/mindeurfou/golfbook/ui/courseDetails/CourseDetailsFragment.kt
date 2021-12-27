@@ -18,6 +18,7 @@ import com.mindeurfou.golfbook.databinding.FragmentCourseDetailsBinding
 import com.mindeurfou.golfbook.interactors.courseDetails.CourseDetailsEvent
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.hide
+import com.mindeurfou.golfbook.utils.reveal
 import com.mindeurfou.golfbook.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -112,9 +113,8 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
             1000L
         else
             0L
-        val set: MutableList<Animator> = mutableListOf()
 
-        val animatedViews : List<View> = listOf(
+        listOf(
             binding.numberOfHoles,
             binding.title,
             binding.courseParView,
@@ -124,19 +124,7 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
             binding.createdAt,
             binding.courseStaringLayout,
             binding.modifyCourseButton
-        )
-
-        animatedViews.forEach {
-            AnimatorInflater.loadAnimator(requireContext(), R.animator.alpha_show_animator).apply {
-                setTarget(it)
-                startDelay = delay
-                set.add(this)
-            }
-        }
-
-        val animatorSet = AnimatorSet()
-        animatorSet.playTogether(set)
-        animatorSet.start()
+        ).reveal(requireContext(), delay)
     }
 
     private fun navigateToModifyCourseFragment(courseDetails: CourseDetails) {
