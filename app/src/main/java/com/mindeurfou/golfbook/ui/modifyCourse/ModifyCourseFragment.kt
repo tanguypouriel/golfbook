@@ -10,12 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.course.local.CourseDetails
+import com.mindeurfou.golfbook.data.hole.local.Hole
 import com.mindeurfou.golfbook.databinding.FragmentCreateCourseBinding
 import com.mindeurfou.golfbook.interactors.modifyCourse.ModifyCourseEvent
 import com.mindeurfou.golfbook.ui.createCourse.CourseConfigFragment
-import com.mindeurfou.golfbook.utils.DataState
-import com.mindeurfou.golfbook.utils.hide
-import com.mindeurfou.golfbook.utils.show
+import com.mindeurfou.golfbook.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,7 +53,7 @@ class ModifyCourseFragment : CourseConfigFragment() {
                 }
             }
         }
-        if (navArgs.courseDetails.numberOfHOles == 9)
+        if (navArgs.courseDetails.numberOfHoles == 9)
             binding.toggleButtonNbHoles.check(R.id.btn9Holes)
         else
             binding.toggleButtonNbHoles.check(R.id.btn18Holes)
@@ -69,11 +68,12 @@ class ModifyCourseFragment : CourseConfigFragment() {
         viewModel.modificationAccepted.observe(viewLifecycleOwner) { observeModificationAccepted(it) }
     }
 
-    private fun observeModificationAccepted(dataState: DataState<Boolean>) {
+    private fun observeModificationAccepted(dataState: DataState<Unit>) {
         when (dataState) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Failure -> {
                 binding.progressBar.hide()
+                dataState.errors?.let { handleErrors(it) }
             }
             is DataState.Success -> {
                 binding.progressBar.hide()
@@ -82,18 +82,25 @@ class ModifyCourseFragment : CourseConfigFragment() {
         }
     }
 
+    private fun handleErrors(errors: List<ErrorMessages>) {
+        val sorted = ErrorMessages.sort(errors)
+        sorted[ErrorMessages.specific]?.forEach {
+            when (it) {
+                ErrorMessages.NAME_EMPTY -> binding.courseNameInputLayout.error = it.toString()
+                ErrorMessages.HOLES_UNCOMPLETED -> showUncompletedHole(it.toString())
+                else -> {}
+            }
+        }
+        sorted[ErrorMessages.snack]?.let { makeSnackbar(binding.root, it) }
+    }
+
     private fun onBtnValidateClick() {
-        val courseDetails = CourseDetails(
-            id = navArgs.courseDetails.id,
-            name = binding.courseNameEditText.text.toString(),
-            numberOfHOles = 18, // TODO
-            par = 72, // TODO
-            gamesPlayed = navArgs.courseDetails.gamesPlayed,
-            stars = 4, // TODO
-            createdAt = navArgs.courseDetails.createdAt,
-            holes = navArgs.courseDetails.holes // TODO
-        )
-        viewModel.setStateEvent(ModifyCourseEvent.SendModificationEvent(courseDetails))
+        val name = binding.courseNameEditText.text.toString()
+        val holesOut: MutableList<Hole> = mutableListOf()
+        navArgs.courseDetails.holes.forEachIndexed { index, hole ->
+            holesOut.add(hole.copy(par = holes[index]))
+        }
+        viewModel.setStateEvent(ModifyCourseEvent.SendModificationEvent(id, name, navArgs.courseDetails.gamesPlayed, navArgs.courseDetails.stars, navArgs.courseDetails.createdAt, holesOut))
     }
 
     private fun navigateToCourseDetailsFragment(courseId: Int) {

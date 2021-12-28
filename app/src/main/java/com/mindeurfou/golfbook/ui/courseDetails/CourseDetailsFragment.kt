@@ -69,7 +69,7 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
 
                 binding.title.text = courseDetails.name
                 binding.coursePar.text =  getString(R.string.coursePar, courseDetails.par)
-                binding.numberOfHoles.text = getString(R.string.numberOfHoles, courseDetails.numberOfHOles)
+                binding.numberOfHoles.text = getString(R.string.numberOfHoles, courseDetails.numberOfHoles)
                 binding.createdAt.text = getString(R.string.createdAt, courseDetails.createdAt.toString())
                 binding.gamesPlayed.text = getString(R.string.gamesPlayed, courseDetails.gamesPlayed)
                 bindStars(courseDetails.stars)

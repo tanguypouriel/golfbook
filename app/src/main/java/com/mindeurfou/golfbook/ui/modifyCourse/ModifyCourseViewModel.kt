@@ -18,13 +18,20 @@ class ModifyCourseViewModel
     private val modifyCourseInteractors: ModifyCourseInteractors
 ) : ViewModel() {
 
-    private val _modificationAccepted: MutableLiveData<DataState<Boolean>> = MutableLiveData()
-    val modificationAccepted: LiveData<DataState<Boolean>> = _modificationAccepted
+    private val _modificationAccepted: MutableLiveData<DataState<Unit>> = MutableLiveData()
+    val modificationAccepted: LiveData<DataState<Unit>> = _modificationAccepted
 
     fun setStateEvent(stateEvent: ModifyCourseEvent) {
         when(stateEvent) {
             is ModifyCourseEvent.SendModificationEvent -> {
-                modifyCourseInteractors.sendModification(stateEvent.courseDetails).onEach {
+                modifyCourseInteractors.sendModification(
+                    id = stateEvent.id,
+                    name = stateEvent.name,
+                    gamesPlayed = stateEvent.gamesPlayed,
+                    stars = stateEvent.stars,
+                    createdAt = stateEvent.createdAt,
+                    holes = stateEvent.holes
+                ).onEach {
                     _modificationAccepted.value = it
                 }.launchIn(viewModelScope)
             }

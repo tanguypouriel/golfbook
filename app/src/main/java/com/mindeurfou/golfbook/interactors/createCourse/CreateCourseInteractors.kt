@@ -2,6 +2,7 @@ package com.mindeurfou.golfbook.interactors.createCourse
 
 import com.mindeurfou.golfbook.BuildConfig
 import com.mindeurfou.golfbook.data.course.remote.PostCourseNetworkEntity
+import com.mindeurfou.golfbook.data.hole.local.Hole
 import com.mindeurfou.golfbook.datasource.network.course.CourseNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.ErrorMessages
@@ -38,15 +39,10 @@ fun sendCourseInfo(name: String, holes: List<Int>): Flow<DataState<Unit>> = flow
             return@flow
         }
 
-        var par = 0
-        holes.forEach {
-            par += it
-        }
-
         val postCourse = PostCourseNetworkEntity(
             name = name,
             numberOfHOles = holes.size,
-            par = par,
+            par = Hole.computePar(holes),
             stars = 5,
             holes = holes
         )
