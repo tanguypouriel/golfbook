@@ -1,5 +1,4 @@
 package com.mindeurfou.golfbook.ui.createCourse
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,8 +17,8 @@ class CreateCourseViewModel
     private val createCourseInteractors: CreateCourseInteractors
 ) : ViewModel(){
 
-    private val _courseCreated: MutableLiveData<DataState<Boolean>> = MutableLiveData()
-    val courseCreated: LiveData<DataState<Boolean>> = _courseCreated
+    private val _courseCreated: MutableLiveData<DataState<Unit>> = MutableLiveData()
+    val courseCreated: LiveData<DataState<Unit>> = _courseCreated
 
     fun setStateEvent(stateEvent : CreateCourseEvent) {
         when(stateEvent) {

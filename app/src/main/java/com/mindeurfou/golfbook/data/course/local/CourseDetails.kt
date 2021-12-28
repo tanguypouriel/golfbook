@@ -1,6 +1,7 @@
 package com.mindeurfou.golfbook.data.course.local
 
 import android.os.Parcelable
+import com.mindeurfou.golfbook.data.course.remote.PostCourseNetworkEntity
 import com.mindeurfou.golfbook.data.hole.local.Hole
 import com.mindeurfou.golfbook.utils.DateAsLongSerializer
 import kotlinx.parcelize.Parcelize
@@ -24,4 +25,23 @@ data class CourseDetails(
     fun getParList() : List<Int> {
         return holes.map { it.par }
     }
+
+    fun equalsPostCourse(postCourse: PostCourseNetworkEntity) : Boolean {
+        val baseIsEqual = name == postCourse.name &&
+                numberOfHOles == postCourse.numberOfHOles &&
+                par == postCourse.par &&
+                stars == postCourse.stars
+
+        var holesAreEqual = true
+        postCourse.holes.forEachIndexed  { index, par ->
+            if (par != holes[index].par) {
+                holesAreEqual = false
+                return@forEachIndexed
+            }
+        }
+
+        return baseIsEqual && holesAreEqual
+    }
+
+
 }

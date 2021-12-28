@@ -11,10 +11,9 @@ import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentCreateCourseBinding
 import com.mindeurfou.golfbook.interactors.createCourse.CreateCourseEvent
 import com.mindeurfou.golfbook.ui.customViews.HoleInputItem
-import com.mindeurfou.golfbook.utils.DataState
-import com.mindeurfou.golfbook.utils.ErrorMessages
-import com.mindeurfou.golfbook.utils.hide
-import com.mindeurfou.golfbook.utils.show
+import com.mindeurfou.golfbook.utils.*
+import com.mindeurfou.golfbook.utils.ErrorMessages.Companion.snack
+import com.mindeurfou.golfbook.utils.ErrorMessages.Companion.specific
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,7 +57,7 @@ class CreateCourseFragment : CourseConfigFragment() {
         viewModel.courseCreated.observe(viewLifecycleOwner) { observeCourseCreated(it) }
     }
 
-    private fun observeCourseCreated(dataState: DataState<Boolean>) {
+    private fun observeCourseCreated(dataState: DataState<Unit>) {
         when(dataState) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Failure -> {
@@ -73,13 +72,15 @@ class CreateCourseFragment : CourseConfigFragment() {
     }
 
     private fun handleErrors(errors: List<ErrorMessages>) {
-        errors.forEach {
+        val sorted = ErrorMessages.sort(errors)
+        sorted[specific]?.forEach {
             when (it) {
                 ErrorMessages.NAME_EMPTY -> binding.courseNameInputLayout.error = it.toString()
                 ErrorMessages.HOLES_UNCOMPLETED -> showUncompletedHole(it.toString())
                 else -> {}
             }
         }
+        sorted[snack]?.let { makeSnackbar(binding.root, it) }
     }
 
     private fun navigateToCoursesFragment() {
