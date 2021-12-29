@@ -64,4 +64,5 @@
     <string name="scoringSystemDots">Formule de jeu :</string>
     <string name="playersDots">Joueurs :</string>
     <string name="what">Que souhaitez-vous voir ici ?</string>
+    <string name="noGames">Vous n\'avez joué aucune partie pour l\'instant</string>
 </resources>

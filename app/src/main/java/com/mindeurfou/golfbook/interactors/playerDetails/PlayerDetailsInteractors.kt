@@ -37,8 +37,10 @@ class PlayerDetailsInteractors
 
     fun checkIfIsSelf(playerId: Int): Flow<DataState<Boolean>> = flow {
         val selfId = sharedPreferences.getInt(PLAYER_ID_KEY, 0)
-        if (selfId == 0)
-            emit(DataState.Failure())
+        if (selfId == 0) {
+            emit(DataState.Failure(listOf(ErrorMessages.INTERNAL_ERROR)))
+            return@flow
+        }
 
         emit(DataState.Success(selfId == playerId))
     }

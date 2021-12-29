@@ -11,9 +11,9 @@ import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.game.local.Game
 import com.mindeurfou.golfbook.databinding.FragmentGamesBinding
 import com.mindeurfou.golfbook.interactors.games.GamesEvent
-import com.mindeurfou.golfbook.utils.DataState
-import com.mindeurfou.golfbook.utils.hide
-import com.mindeurfou.golfbook.utils.show
+import com.mindeurfou.golfbook.utils.*
+import com.mindeurfou.golfbook.utils.ErrorMessages.Companion.snack
+import com.mindeurfou.golfbook.utils.ErrorMessages.Companion.specific
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.ExperimentalSerializationApi
 
@@ -55,7 +55,20 @@ class GamesFragment : Fragment(R.layout.fragment_games) {
     private fun observeGames(dataState: DataState<List<Game>>) {
         when (dataState) {
             is DataState.Loading -> binding.progressBar.show()
-            is DataState.Failure -> binding.progressBar.hide()
+            is DataState.Failure -> {
+                binding.progressBar.hide()
+                dataState.errors?.let { errors ->
+                    val sorted = ErrorMessages.sort(errors)
+                    sorted[snack]?.let { makeSnackbar(binding.root, it) }
+                    sorted[specific]?.forEach {
+                        when (it) {
+                            ErrorMessages.NO_GAMES -> showNoGames()
+                            else -> {}
+                        }
+                    }
+
+                }
+            }
             is DataState.Success -> {
                 binding.progressBar.hide()
                 binding.recyclerGames.adapter = GamesAdapter(dataState.data) { game ->
@@ -63,6 +76,11 @@ class GamesFragment : Fragment(R.layout.fragment_games) {
                 }
             }
         }
+    }
+
+    private fun showNoGames() {
+        binding.noGamesImage.show()
+        binding.noGamesText.show()
     }
 
     private fun navigateToOnboardGameFragment() {

@@ -11,7 +11,9 @@ enum class ErrorMessages(
     NETWORK_ERROR(ErrorTag.SNACK),
     USERNAME_TAKEN(ErrorTag.SPECIFIC),
     EMPTY_RESSOURCE(ErrorTag.SNACK),
-    BAD_INPUT(ErrorTag.SNACK);
+    NO_GAMES(ErrorTag.SPECIFIC),
+    BAD_INPUT(ErrorTag.SNACK),
+    INTERNAL_ERROR(ErrorTag.SNACK);
 
     override fun toString(): String {
         return when(name){
@@ -22,6 +24,8 @@ enum class ErrorMessages(
             USERNAME_TAKEN.name -> "Ce pseudo est déjà pris"
             EMPTY_RESSOURCE.name -> "La ressource est vide pour l'instant"
             BAD_INPUT.name -> "Les informations rentrées sont incorrectes"
+            INTERNAL_ERROR.name -> "Erreur interne"
+            NO_GAMES.name -> "Aucune partie a été trouvée"
             else -> "Erreur"
         }
     }

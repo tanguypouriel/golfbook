@@ -146,14 +146,28 @@ fun List<View>.reveal(context: Context, startDelay: Long = 0) {
 }
 
 fun makeSnackbar(view: View, errors: List<ErrorMessages>) {
-    var message = ""
-    errors.forEachIndexed { index, errorMessage ->
-        message += if (index == 0)
-            "$errorMessage"
-        else
-            "\n $errorMessage"
+    if (errors.isNotEmpty()) {
+        var message = ""
+        errors.forEachIndexed { index, errorMessage ->
+            message += if (index == 0)
+                "$errorMessage"
+            else
+                "\n $errorMessage"
+        }
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
     }
-    Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+}
+
+fun View.show() {
+    alpha = 0f
+    visibility = View.VISIBLE
+
+    ValueAnimator.ofFloat(0f, 1f).apply {
+        duration = 400
+        interpolator = AccelerateDecelerateInterpolator()
+        addUpdateListener { alpha = it.animatedValue as Float }
+        start()
+    }
 }
 
 val Int.dp: Int
