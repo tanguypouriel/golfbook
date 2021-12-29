@@ -63,4 +63,5 @@
     <string name="score">Score</string>
     <string name="scoringSystemDots">Formule de jeu :</string>
     <string name="playersDots">Joueurs :</string>
+    <string name="what">Que souhaitez-vous voir ici ?</string>
 </resources>

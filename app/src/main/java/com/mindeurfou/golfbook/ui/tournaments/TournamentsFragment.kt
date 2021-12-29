@@ -36,8 +36,6 @@ class TournamentsFragment : Fragment(R.layout.fragment_tournaments) {
         setupUI()
         subscribeObservers()
 
-        viewModel.setStateEvent(TournamentsEvent.GetTournamentsEvent())
-
         return binding.root
     }
 
@@ -47,34 +45,9 @@ class TournamentsFragment : Fragment(R.layout.fragment_tournaments) {
     }
 
     private fun setupUI() {
-        binding.floatingActionButton.setOnClickListener {
-            navigateToCreateTournament()
-        }
     }
 
     private fun subscribeObservers() {
-        viewModel.tournaments.observe(viewLifecycleOwner) { observeTournaments(it) }
-    }
-
-    private fun observeTournaments(dataState: DataState<List<Tournament>>) {
-        when(dataState) {
-            is DataState.Loading -> binding.progressBar.show()
-            is DataState.Success -> {
-                binding.progressBar.hide()
-                binding.recyclerTournaments.adapter = TournamentAdapter(dataState.data) { tournament ->
-                    navigateToTournamentDetails(tournament.id)
-                }
-            }
-            is DataState.Failure -> binding.progressBar.hide()
-        }
-    }
-
-    private fun navigateToTournamentDetails(tournamentId: Int) {
-        findNavController().navigate(R.id.action_tournamentsFragment_to_tournamentDetailsFragment)
-    }
-
-    private fun navigateToCreateTournament() {
-        findNavController().navigate(R.id.action_tournamentsFragment_to_createTournamentFragment)
     }
 
 }
