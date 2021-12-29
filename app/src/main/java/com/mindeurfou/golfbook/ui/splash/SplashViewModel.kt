@@ -23,7 +23,7 @@ class SplashViewModel
     private val _validToken: MutableLiveData<DataState<Boolean>> = MutableLiveData()
     val validToken: LiveData<DataState<Boolean>> = _validToken
 
-    fun setStateEvent(stateEvent: StateEvent) {
+    fun setStateEvent(stateEvent: SplashEvent) {
         when (stateEvent) {
             is SplashEvent.CheckToken -> {
                 splashInteractors.checkToken().onEach {

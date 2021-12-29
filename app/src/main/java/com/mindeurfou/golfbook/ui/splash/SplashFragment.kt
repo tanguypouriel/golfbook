@@ -13,6 +13,7 @@ import com.mindeurfou.golfbook.databinding.FragmentSplashBinding
 import com.mindeurfou.golfbook.interactors.splash.SplashEvent
 import com.mindeurfou.golfbook.ui.StartActivity
 import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.makeSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -65,7 +66,12 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                 else
                     navigateToConnectionFragment()
             }
-            is DataState.Failure -> navigateToConnectionFragment()
+            is DataState.Failure -> {
+                dataState.errors?.let {
+                    makeSnackbar(binding.root, it)
+                }
+            }
+            is DataState.Loading -> {}
         }
     }
 
