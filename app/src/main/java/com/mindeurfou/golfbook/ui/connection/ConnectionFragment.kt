@@ -115,6 +115,8 @@ class ConnectionFragment : Fragment(R.layout.fragment_splash) {
 
     private fun observeCredentials(dataState: DataState<Pair<String, String>?>) {
         when(dataState) {
+            is DataState.Loading -> {}
+            is DataState.Failure -> {}
             is DataState.Success -> {
                 val credentials = dataState.data
                 credentials?.let {

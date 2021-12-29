@@ -26,7 +26,7 @@ class ConnectionViewModel
     private val _credentials: MutableLiveData<DataState<Pair<String, String>?>> = MutableLiveData()
     val credentials: LiveData<DataState<Pair<String, String>?>> = _credentials
 
-    fun setStateEvent(stateEvent: StateEvent) {
+    fun setStateEvent(stateEvent: ConnectionEvent) {
         when(stateEvent) {
             is ConnectionEvent.ConnectEvent -> {
                 connectionInteractors.connect(stateEvent.username, stateEvent.password, stateEvent.rememberMe).onEach {
