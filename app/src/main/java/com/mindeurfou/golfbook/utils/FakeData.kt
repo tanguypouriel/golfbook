@@ -51,6 +51,8 @@ object FakeData {
         Course(1, "Parcours du chêne", 18, 72, 3, 2, LocalDate.now()),
     )
 
+    fun course() = Course(1, "Parcours du chêne", 18, 72, 3, 4, LocalDate.now())
+
     fun courseDetails() = CourseDetails(1, "Parcours du chêne", 18, 72, 3, 4, LocalDate.now(), listOf(
         Hole(1, 1, 3),
         Hole(2, 2, 4),
@@ -211,6 +213,7 @@ object FakeData {
         1,
         "Partie du swag",
         state ?: GBState.DONE,
+        LocalDate.now(),
         ScoringSystem.STROKE_PLAY,
         "Parcours du tube",
         listOf(2, 4, 3, 5, 3, 4, 2, 4, 3, 5, 3, 4, 3, 3, 5, 3, 4, 3),

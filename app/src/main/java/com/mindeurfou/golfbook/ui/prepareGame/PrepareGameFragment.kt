@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.GBState
+import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.game.local.GameDetails
 import com.mindeurfou.golfbook.data.game.local.ScoringSystem
 import com.mindeurfou.golfbook.data.player.local.Player
@@ -100,6 +101,25 @@ class PrepareGameFragment : Fragment() {
 
     private fun subscribeObservers() {
         viewModel.gameDetails.observe(viewLifecycleOwner) { observeGameDetails(it) }
+        viewModel.course.observe(viewLifecycleOwner) { observeCourse(it) }
+    }
+
+    private fun observeCourse(dataState: DataState<Course>) {
+        when (dataState) {
+            is DataState.Loading -> binding.progressBarCircular.show()
+            is DataState.Failure -> {
+                binding.progressBarCircular.hide()
+                dataState.errors?.let {
+                    makeSnackbar(binding.courseContainer, it)
+                }
+            }
+            is DataState.Success -> {
+                binding.progressBarCircular.hide()
+                binding.courseName.text = dataState.data.name
+                bindStars(dataState.data.stars)
+                binding.numberOfHoles.text = getString(R.string.numberOfHoles, dataState.data.numberOfHoles)
+            }
+        }
     }
 
     private fun observeGameDetails(dataState: DataState<GameDetails>) {
@@ -108,11 +128,8 @@ class PrepareGameFragment : Fragment() {
             is DataState.Failure -> binding.progressBar.hide()
             is DataState.Success -> {
                 val gameDetails: GameDetails = dataState.data
-                binding.courseName.text = gameDetails.courseName
-                bindStars(3) // TODO
-                binding.numberOfHoles.text = getString(R.string.numberOfHoles, 18)
                 binding.name.text = gameDetails.name
-                binding.date.text = "18/06/2021" // TODO
+                binding.date.text = gameDetails.date.print()
 
                 val adapter = ArrayAdapter(requireContext(), R.layout.item_course_name, ScoringSystem.toList(requireContext()))
                 binding.editTextScoring.setAdapter(adapter)

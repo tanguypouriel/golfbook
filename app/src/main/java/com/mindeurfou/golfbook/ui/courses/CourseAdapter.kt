@@ -20,7 +20,7 @@ class CourseViewHolder(itemView: View) : BaseViewHolder<Course>(itemView) {
 
     override fun bind(item: Course, position: Int, onClick: (Course) -> Unit) {
         courseName.text = item.name
-        courseNumberHole.text = itemView.resources.getString(R.string.numberOfHoles, item.numberOfHOles)
+        courseNumberHole.text = itemView.resources.getString(R.string.numberOfHoles, item.numberOfHoles)
         bindStars(item.stars)
         itemView.setOnClickListener { onClick(item) }
     }

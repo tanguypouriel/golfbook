@@ -9,7 +9,7 @@ import java.time.LocalDate
 data class Course(
     val id: Int,
     val name : String,
-    val numberOfHOles : Int,
+    val numberOfHoles : Int,
     val par : Int,
     val gamesPlayed : Int,
     val stars: Int,

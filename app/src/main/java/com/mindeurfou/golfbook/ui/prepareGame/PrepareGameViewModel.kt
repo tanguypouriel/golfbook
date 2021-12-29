@@ -2,6 +2,7 @@ package com.mindeurfou.golfbook.ui.prepareGame
 
 import android.content.SharedPreferences
 import androidx.lifecycle.*
+import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.game.local.GameDetails
 import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.USERNAME_KEY
 import com.mindeurfou.golfbook.interactors.prepareGame.PrepareGameEvent
@@ -26,6 +27,9 @@ class PrepareGameViewModel
     private val _gameDetails: MutableLiveData<DataState<GameDetails>> = MutableLiveData()
     val gameDetails: LiveData<DataState<GameDetails>> = _gameDetails
 
+    private val _course: MutableLiveData<DataState<Course>> = MutableLiveData()
+    val course: LiveData<DataState<Course>> = _course
+
     val selfName: String? = sharedPreferences.getString(USERNAME_KEY, null)
 
     private val gameId: Int = state.get("gameId")!!
@@ -47,6 +51,11 @@ class PrepareGameViewModel
             }
             is PrepareGameEvent.RejectGameStart -> {
 
+            }
+            is PrepareGameEvent.GetCourseEvent -> {
+                prepareGameInteractors.getCourse(stateEvent.courseId).onEach {
+                    _course.value = it
+                }.launchIn(viewModelScope)
             }
         }
     }

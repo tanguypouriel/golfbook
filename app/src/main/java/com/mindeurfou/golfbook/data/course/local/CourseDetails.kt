@@ -43,4 +43,14 @@ data class CourseDetails(
 
         return baseIsEqual && holesAreEqual
     }
+
+    fun toCourse() = Course(
+        id = id,
+        name = name,
+        numberOfHoles = numberOfHoles,
+        par = par,
+        gamesPlayed = gamesPlayed,
+        stars = stars,
+        createdAt = createdAt
+    )
 }

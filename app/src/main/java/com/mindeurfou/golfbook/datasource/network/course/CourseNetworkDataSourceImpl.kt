@@ -14,7 +14,6 @@ class CourseNetworkDataSourceImpl @Inject constructor(
     private val courseApiService: CourseApiService
 ) : CourseNetworkDataSource {
 
-    @Throws(GBException::class)
     override suspend fun getCourse(courseId: Int): CourseDetails {
         try {
             return courseApiService.getCourse(courseId)
