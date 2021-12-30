@@ -8,6 +8,7 @@ import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Comp
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.ErrorMessages
 import com.mindeurfou.golfbook.utils.FakeData
+import com.mindeurfou.golfbook.utils.GBException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

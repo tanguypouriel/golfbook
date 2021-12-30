@@ -84,17 +84,21 @@ class PlayerDetailsFragment : Fragment(R.layout.fragment_player_details){
                 binding.lastNameText.text = player.lastName
                 showData()
             }
-            is DataState.Failure -> binding.progressBar.hide()
+            is DataState.Failure -> {
+                binding.progressBar.hide()
+                dataState.errors?.let { makeSnackbar(binding.root, it) }
+            }
             else -> {}
         }
     }
 
     private fun onModifyBtnClick() {
         viewModel.player.value?.let { dataState ->
-            if (dataState !is DataState.Success)
-                return Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
-
-            navigateToModifyPlayerFragment(dataState.data)
+            if (dataState !is DataState.Success) {
+                binding.modifyProfileButton.visibility = View.GONE
+            } else {
+                navigateToModifyPlayerFragment(dataState.data)
+            }
         }
     }
 
