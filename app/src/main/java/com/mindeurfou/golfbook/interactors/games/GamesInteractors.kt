@@ -26,7 +26,7 @@ class GamesInteractors @Inject constructor(
 
         if (BuildConfig.fakeData) {
             kotlinx.coroutines.delay(500)
-            emit(DataState.Failure(listOf(ErrorMessages.NO_GAMES)))
+            emit(DataState.Success(FakeData.games()))
             return@flow
         }
 

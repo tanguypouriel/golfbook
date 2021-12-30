@@ -61,7 +61,13 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
                     navigateToPlayerDetails(player.id)
                 }
             }
-            is DataState.Failure -> binding.progressBar.hide()
+            is DataState.Failure -> {
+                binding.progressBar.hide()
+                dataState.errors?.let { errors ->
+                    val sorted = ErrorMessages.sort(errors)
+                    sorted[ErrorMessages.snack]?.let { makeSnackbar(binding.root, it) }
+                }
+            }
         }
     }
 
