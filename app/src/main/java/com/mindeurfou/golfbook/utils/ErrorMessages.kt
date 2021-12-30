@@ -13,11 +13,13 @@ enum class ErrorMessages(
     EMPTY_RESSOURCE(ErrorTag.SNACK),
     NO_GAMES(ErrorTag.SPECIFIC),
     BAD_INPUT(ErrorTag.SNACK),
-    INTERNAL_ERROR(ErrorTag.SNACK);
+    INTERNAL_ERROR(ErrorTag.SNACK),
+    LASTNAME_EMPTY(ErrorTag.SPECIFIC),
+    USERNAME_EMPTY(ErrorTag.SPECIFIC);
 
     override fun toString(): String {
         return when(name){
-            NAME_EMPTY.name -> "Le champs nom est vide"
+            NAME_EMPTY.name -> "Le champs prénom est vide"
             HOLES_UNCOMPLETED.name -> "Les trous n'ont pas tous été renseigné"
             BAD_CREDENTIALS.name -> "L'identifiant ou le mot de passe est incorrect"
             NETWORK_ERROR.name -> "Erreur réseau"
@@ -26,6 +28,8 @@ enum class ErrorMessages(
             BAD_INPUT.name -> "Les informations rentrées sont incorrectes"
             INTERNAL_ERROR.name -> "Erreur interne"
             NO_GAMES.name -> "Aucune partie a été trouvée"
+            LASTNAME_EMPTY.name -> "Le champs nom est vide"
+            USERNAME_EMPTY.name -> "Le champs pseudo est vide"
             else -> "Erreur"
         }
     }

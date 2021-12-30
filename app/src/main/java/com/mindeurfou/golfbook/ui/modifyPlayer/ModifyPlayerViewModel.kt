@@ -25,7 +25,13 @@ class ModifyPlayerViewModel
     fun setStateEvent(stateEvent: ModifyPlayerEvent) {
         when(stateEvent) {
             is ModifyPlayerEvent.SendModificationEvent -> {
-                modifyPlayerInteractors.sendModification(stateEvent.player).onEach {
+                modifyPlayerInteractors.sendModification(
+                    stateEvent.id,
+                    stateEvent.name,
+                    stateEvent.lastName,
+                    stateEvent.username,
+                    stateEvent.drawableResourceId
+                ).onEach {
                     _modificationAccepted.value = it
                 }.launchIn(viewModelScope)
             }

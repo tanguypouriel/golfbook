@@ -16,7 +16,13 @@ class ModifyPlayerInteractors
     private val playerNetworkDataSourceImpl: PlayerNetworkDataSourceImpl
 ) {
 
-    fun sendModification(player: Player): Flow<DataState<Boolean>> = flow {
+    fun sendModification(
+        id: Int,
+        name: String,
+        lastName: String,
+        username: String,
+        drawableResourceId: Int
+    ): Flow<DataState<Boolean>> = flow {
         emit(DataState.Loading)
 
         if (BuildConfig.fakeData) {
@@ -24,6 +30,22 @@ class ModifyPlayerInteractors
             emit(DataState.Success(true))
             return@flow
         }
+
+        val errors: MutableList<ErrorMessages> = mutableListOf()
+
+        if (name.isBlank())
+            errors.add(ErrorMessages.NAME_EMPTY)
+        if (lastName.isBlank())
+            errors.add(ErrorMessages.LASTNAME_EMPTY)
+        if (username.isBlank())
+            errors.add(ErrorMessages.USERNAME_EMPTY)
+
+        if (errors.size != 0) {
+            emit(DataState.Failure(errors))
+            return@flow
+        }
+
+        val player = Player(id, name, lastName, username, drawableResourceId)
 
         try {
             val returnedPlayer = playerNetworkDataSourceImpl.updatePlayer(player)

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.mindeurfou.golfbook.ui.StartActivity
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.player.local.Player
@@ -18,10 +19,9 @@ import com.mindeurfou.golfbook.ui.HillActivity
 import com.mindeurfou.golfbook.ui.MainActivity
 import com.mindeurfou.golfbook.ui.createPlayer.AvatarImageClickListener
 import com.mindeurfou.golfbook.ui.playerDetails.PlayerConfigFragment
-import com.mindeurfou.golfbook.utils.DataState
-import com.mindeurfou.golfbook.utils.hide
-import com.mindeurfou.golfbook.utils.setAvatarResource
-import com.mindeurfou.golfbook.utils.show
+import com.mindeurfou.golfbook.utils.*
+import com.mindeurfou.golfbook.utils.ErrorMessages.Companion.snack
+import com.mindeurfou.golfbook.utils.ErrorMessages.Companion.specific
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -57,13 +57,32 @@ class ModifyPlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
 
     private fun observerModificationAccepted(dataState: DataState<Boolean>) {
         when (dataState) {
-            is DataState.Loading -> { binding.progressBar.show() }
+            is DataState.Loading -> binding.progressBar.show()
             is DataState.Failure -> {
                 binding.progressBar.hide()
+                dataState.errors?.let { handleErrors(it) }
             }
             is DataState.Success -> {
                 binding.progressBar.hide()
-                navigateToPlayerDetailsFragment(navArgs.player.id)
+                if (dataState.data)
+                    navigateToPlayerDetailsFragment(navArgs.player.id)
+                else
+                    Snackbar.make(binding.root, getString(R.string.networkError), Snackbar.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun handleErrors(errors: List<ErrorMessages>) {
+        val sorted = ErrorMessages.sort(errors)
+        sorted[snack]?.let { makeSnackbar(binding.root, it) }
+        sorted[specific]?.let {
+            it.forEach { message ->
+                when(message) {
+                    ErrorMessages.NAME_EMPTY -> binding.nameInput.error = message.toString()
+                    ErrorMessages.LASTNAME_EMPTY -> binding.lastNameInput.error = message.toString()
+                    ErrorMessages.USERNAME_EMPTY -> binding.usernameInput.error = message.toString()
+                    else -> {}
+                }
             }
         }
     }
@@ -85,14 +104,14 @@ class ModifyPlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
     }
 
     private fun onOkBtnClick() {
-        val player = Player(
+        viewModel.setStateEvent(ModifyPlayerEvent.SendModificationEvent(
             id = navArgs.player.id,
-            name = binding.nameInput.editText!!.text.toString(),
-            lastName = binding.lastNameInput.editText!!.text.toString(),
-            username = binding.usernameInput.editText!!.text.toString(),
+            name = binding.nameInput.editText!!.text.toString().trim(),
+            lastName = binding.lastNameInput.editText!!.text.toString().trim(),
+            username = binding.usernameInput.editText!!.text.toString().trim(),
             drawableResourceId = binding.imageAvatar.id
+            )
         )
-        viewModel.setStateEvent(ModifyPlayerEvent.SendModificationEvent(player))
     }
 
     private fun navigateToPlayerDetailsFragment(playerId: Int) {
