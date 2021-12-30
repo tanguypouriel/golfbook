@@ -1,16 +1,13 @@
 package com.mindeurfou.golfbook.ui.prepareGame
 
-import android.animation.Animator
-import android.animation.AnimatorInflater
-import android.animation.AnimatorSet
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -22,7 +19,8 @@ import com.mindeurfou.golfbook.data.game.local.ScoringSystem
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.databinding.FragmentPrepareGameBinding
 import com.mindeurfou.golfbook.interactors.prepareGame.PrepareGameEvent
-import com.mindeurfou.golfbook.interactors.splash.SplashEvent
+import com.mindeurfou.golfbook.ui.GameListener
+import com.mindeurfou.golfbook.ui.MainActivityViewModel
 import com.mindeurfou.golfbook.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -40,6 +38,8 @@ class PrepareGameFragment : Fragment() {
         get() = _binding!!
 
     private val viewModel: PrepareGameViewModel by viewModels()
+
+    private val mainViewModel: MainActivityViewModel by activityViewModels()
 
     private lateinit var playersReadyDialog : PlayersReadyDialog
     private lateinit var addPlayerDialog : AddPlayerDialog
@@ -138,6 +138,7 @@ class PrepareGameFragment : Fragment() {
 
                 binding.progressBar.hide()
                 if (firstDisplay) {
+                    firstDisplay = false
                     listOf(
                             binding.courseContainer,
                             binding.gameDetailsContainer,
@@ -145,7 +146,17 @@ class PrepareGameFragment : Fragment() {
                             binding.playersContainer,
                             binding.startGameBtn,
                     ).reveal(requireContext())
-                    firstDisplay = false
+
+                    mainViewModel.observeGame(gameDetails.id, object : GameListener {
+
+                        override fun onGameDetailsNotification() =
+                            viewModel.setStateEvent(PrepareGameEvent.GetGameDetailsEvent)
+
+                        override fun onScoreNotification() {
+//                            viewModel.setStateEvent(?)
+                        }
+
+                    })
                 }
 
                 if (gameDetails.state == GBState.STARTING && !playersReadyDialogShown) {

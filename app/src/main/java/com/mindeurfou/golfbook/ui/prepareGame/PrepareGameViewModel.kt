@@ -4,6 +4,8 @@ import android.content.SharedPreferences
 import androidx.lifecycle.*
 import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.game.local.GameDetails
+import com.mindeurfou.golfbook.datasource.network.GameWebSocketListener
+import com.mindeurfou.golfbook.datasource.network.WebSocketBuilder
 import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.USERNAME_KEY
 import com.mindeurfou.golfbook.interactors.prepareGame.PrepareGameEvent
 import com.mindeurfou.golfbook.interactors.prepareGame.PrepareGameInteractors
@@ -20,6 +22,8 @@ import javax.inject.Inject
 class PrepareGameViewModel
 @Inject constructor(
     private val prepareGameInteractors: PrepareGameInteractors,
+    private val socketBuilder: WebSocketBuilder,
+    private val gameWebSocketListener: GameWebSocketListener,
     sharedPreferences: SharedPreferences,
     state: SavedStateHandle
 ) : ViewModel() {
@@ -56,6 +60,9 @@ class PrepareGameViewModel
                 prepareGameInteractors.getCourse(stateEvent.courseId).onEach {
                     _course.value = it
                 }.launchIn(viewModelScope)
+            }
+            is PrepareGameEvent.ObserveGameEvent -> {
+                val socket = socketBuilder.openSocket(gameWebSocketListener)
             }
         }
     }
