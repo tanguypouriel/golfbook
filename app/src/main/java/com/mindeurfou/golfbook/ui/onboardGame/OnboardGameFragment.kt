@@ -51,7 +51,11 @@ class OnboardGameFragment : Fragment(R.layout.fragment_onboard_game) {
 
     private fun observePendingGames(dataState: DataState<List<Game>?>) {
         when (dataState) {
-            is DataState.Loading -> binding.progressBar.show()
+            is DataState.Loading -> {
+                binding.progressBar.show()
+                if (binding.noGamesText.visibility == View.VISIBLE) binding.noGamesText.visibility = View.GONE
+                if (binding.btnRefresh.visibility == View.VISIBLE) binding.btnRefresh.visibility = View.GONE
+            }
             is DataState.Failure -> binding.progressBar.hide()
             is DataState.Success -> {
                 binding.progressBar.hide()
@@ -60,13 +64,19 @@ class OnboardGameFragment : Fragment(R.layout.fragment_onboard_game) {
                     binding.pendingGameRecycler.adapter = OnBoardGameAdapter(games) { game ->
                         navigateToPrepareGameFragment(game.id)
                     }
-                } ?: Toast.makeText(requireContext(), "no pending games", Toast.LENGTH_SHORT).show()
+                } ?: kotlin.run {
+                    binding.noGamesText.show()
+                    binding.btnRefresh.show()
+                }
             }
         }
     }
 
     private fun setupUI() {
         binding.btnCreateGame.setOnClickListener { navigateToCreateGameFragment() }
+        binding.btnRefresh.setOnClickListener {
+            viewModel.setStateEvent(OnBoardGameEvent.CheckPendingGameEvent)
+        }
         binding.pendingGameRecycler.addItemDecoration(MarginItemDecoration(resources.getDimension(R.dimen.default_margin).toInt()))
     }
 

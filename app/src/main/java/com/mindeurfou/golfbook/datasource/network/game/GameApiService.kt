@@ -14,6 +14,9 @@ interface GameApiService {
     @GET("/game/{gameId}")
     suspend fun getGame(@Path("gameId") gameId: Int): GameDetails
 
+    @GET("/game?state=init")
+    suspend fun getPendingGames(): List<Game>?
+
     @GET("/game")
     suspend fun getGamesByTournamentId(@Query("tournamentId") tournamentId : Int): List<Game>
 

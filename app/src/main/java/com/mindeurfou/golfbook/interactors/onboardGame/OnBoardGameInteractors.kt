@@ -4,6 +4,7 @@ import com.mindeurfou.golfbook.BuildConfig
 import com.mindeurfou.golfbook.data.game.local.Game
 import com.mindeurfou.golfbook.datasource.network.game.GameNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.ErrorMessages
 import com.mindeurfou.golfbook.utils.FakeData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -23,6 +24,13 @@ class OnBoardGameInteractors @Inject constructor(
             kotlinx.coroutines.delay(1000)
             emit(DataState.Success(FakeData.pendingGames()))
             return@flow
+        }
+
+        try {
+            val games = gameNetworkDataSourceImpl.getPendingGames()
+            emit(DataState.Success(games))
+        } catch (e: Exception) {
+            emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
         }
 
     }
