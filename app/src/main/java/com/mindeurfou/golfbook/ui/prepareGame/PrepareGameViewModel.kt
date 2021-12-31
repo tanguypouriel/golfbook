@@ -61,9 +61,6 @@ class PrepareGameViewModel
                     _course.value = it
                 }.launchIn(viewModelScope)
             }
-            is PrepareGameEvent.ObserveGameEvent -> {
-                val socket = socketBuilder.openSocket(gameWebSocketListener)
-            }
         }
     }
 }

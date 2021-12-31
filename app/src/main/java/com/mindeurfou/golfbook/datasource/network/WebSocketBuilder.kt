@@ -21,12 +21,12 @@ class WebSocketBuilder
         .addInterceptor(authInterceptor)
         .build()
 
-    private val request = Request.Builder()
-        .url(BASE_URL)
+    private fun request(gameId: Int) = Request.Builder()
+        .url("$BASE_URL$gameId")
         .build()
 
 
-    fun openSocket(listener: WebSocketListener) : WebSocket =
-        httpClient.newWebSocket(request, listener)
+    fun openSocket(listener: WebSocketListener, gameId: Int) : WebSocket =
+        httpClient.newWebSocket(request(gameId), listener)
 
 }

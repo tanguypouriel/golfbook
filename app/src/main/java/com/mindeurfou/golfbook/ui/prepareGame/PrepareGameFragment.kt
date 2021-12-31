@@ -147,15 +147,12 @@ class PrepareGameFragment : Fragment() {
                             binding.startGameBtn,
                     ).reveal(requireContext())
 
-                    mainViewModel.observeGame(gameDetails.id, object : GameListener {
+                    mainViewModel.openGameSocket(gameDetails.id, object : GameListener {
 
                         override fun onGameDetailsNotification() =
                             viewModel.setStateEvent(PrepareGameEvent.GetGameDetailsEvent)
 
-                        override fun onScoreNotification() {
-//                            viewModel.setStateEvent(?)
-                        }
-
+                        override fun onScoreNotification() {}
                     })
                 }
 
@@ -260,7 +257,7 @@ class PrepareGameFragment : Fragment() {
     }
 
     private fun showAddPlayerDialog() {
-        addPlayerDialog?.let{
+        addPlayerDialog.let{
             it.show(parentFragmentManager, "addPlayer")
             addPlayerDialogShown = true
         }

@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.game.local.GameDetails
 import com.mindeurfou.golfbook.data.game.local.ScoreBook
 import com.mindeurfou.golfbook.databinding.FragmentScoreBookBinding
 import com.mindeurfou.golfbook.interactors.scoreBook.ScoreBookEvent
+import com.mindeurfou.golfbook.ui.GameListener
+import com.mindeurfou.golfbook.ui.MainActivityViewModel
 import com.mindeurfou.golfbook.ui.customViews.HoleInputItem
 import com.mindeurfou.golfbook.ui.customViews.ScoreSummaryItem
 import com.mindeurfou.golfbook.utils.DataState
@@ -30,6 +33,7 @@ class ScoreBookFragment(
         get() = _binding!!
 
     private val viewModel: ScoreBookViewModel by viewModels()
+    private val mainViewModel: MainActivityViewModel by activityViewModels()
 
     private var scoreSummaries: MutableList<ScoreSummaryItem> = mutableListOf()
 
@@ -72,6 +76,16 @@ class ScoreBookFragment(
                     binding.playersSummaryContainer.addView(scoreSummaryItem)
                     scoreSummaries.add(scoreSummaryItem)
                 }
+
+                mainViewModel.observeGameSocket(object : GameListener {
+                    override fun onGameDetailsNotification() {
+                        viewModel.setStateEvent(ScoreBookEvent.GetGameDetailsEvent(gameId))
+                    }
+
+                    override fun onScoreNotification() {
+                        TODO("Not yet implemented")
+                    }
+                })
             }
         }
     }

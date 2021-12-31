@@ -8,5 +8,4 @@ sealed class PrepareGameEvent : StateEvent {
     object GetGameDetailsEvent : PrepareGameEvent()
     object AcceptGameStart : PrepareGameEvent()
     object RejectGameStart : PrepareGameEvent()
-    class ObserveGameEvent(val gameId: Int) : PrepareGameEvent()
 }

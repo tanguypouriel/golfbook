@@ -5,6 +5,7 @@ import com.mindeurfou.golfbook.datasource.network.GameWebSocketListener
 import com.mindeurfou.golfbook.datasource.network.WebSocketBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import okhttp3.WebSocket
+import okio.ByteString
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,10 +17,12 @@ class MainActivityViewModel
 
     private var gameSocket: WebSocket? = null
 
-    fun observeGame(gameId: Int, gameListener: GameListener) {
-        if (gameSocket == null)
-            webSocketBuilder.openSocket(gameWebSocketListener)
+    fun openGameSocket(gameId: Int, gameListener: GameListener) {
+        gameSocket = webSocketBuilder.openSocket(gameWebSocketListener, gameId)
+        gameWebSocketListener.gameListener = gameListener
+    }
 
+    fun observeGameSocket(gameListener: GameListener) {
         gameWebSocketListener.gameListener = gameListener
     }
 }
