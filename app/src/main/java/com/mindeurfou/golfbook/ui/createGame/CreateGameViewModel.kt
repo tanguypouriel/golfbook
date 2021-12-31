@@ -21,8 +21,8 @@ class CreateGameViewModel
     private val createGameInteractors: CreateGameInteractors
 ) : ViewModel() {
 
-    private val _createdGame: MutableLiveData<DataState<Game>> = MutableLiveData()
-    val createdGame: LiveData<DataState<Game>> = _createdGame
+    private val _createdGameId: MutableLiveData<DataState<Int>> = MutableLiveData()
+    val createdGameId: LiveData<DataState<Int>> = _createdGameId
 
     private val _coursesNames: MutableLiveData<DataState<List<String>>> = MutableLiveData()
     val coursesNames: LiveData<DataState<List<String>>> = _coursesNames
@@ -31,7 +31,7 @@ class CreateGameViewModel
         when (stateEvent) {
             is CreateGameEvent.SendGameEvent -> {
                 createGameInteractors.sendGame(stateEvent.name, stateEvent.courseName, stateEvent.scoringSystem).onEach {
-                    _createdGame.value = it
+                    _createdGameId.value = it
                 }.launchIn(viewModelScope)
             }
             is CreateGameEvent.GetCoursesNames -> {

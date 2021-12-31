@@ -15,7 +15,10 @@ enum class ErrorMessages(
     BAD_INPUT(ErrorTag.SNACK),
     INTERNAL_ERROR(ErrorTag.SNACK),
     LASTNAME_EMPTY(ErrorTag.SPECIFIC),
-    USERNAME_EMPTY(ErrorTag.SPECIFIC);
+    USERNAME_EMPTY(ErrorTag.SPECIFIC),
+    COURSE_EMPTY(ErrorTag.SPECIFIC),
+    SCORING_SYSTEM_EMPTY(ErrorTag.SPECIFIC),
+    UNKNOWN_SCORING_SYSTEM(ErrorTag.SPECIFIC);
 
     override fun toString(): String {
         return when(name){
@@ -30,6 +33,9 @@ enum class ErrorMessages(
             NO_GAMES.name -> "Aucune partie a été trouvée"
             LASTNAME_EMPTY.name -> "Le champs nom est vide"
             USERNAME_EMPTY.name -> "Le champs pseudo est vide"
+            COURSE_EMPTY.name -> "Le champs parcours est vide"
+            SCORING_SYSTEM_EMPTY.name -> "Le champs Formule de jeu est vide"
+            UNKNOWN_SCORING_SYSTEM.name -> "La formule de jeu n'a pas été reconnue"
             else -> "Erreur"
         }
     }

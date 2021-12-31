@@ -1,6 +1,7 @@
 package com.mindeurfou.golfbook.data.game.local
 
 import com.mindeurfou.golfbook.data.GBState
+import com.mindeurfou.golfbook.data.game.remote.PostGameNetworkEntity
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.utils.DateAsLongSerializer
 import kotlinx.serialization.Serializable
@@ -21,4 +22,11 @@ data class GameDetails(
     //                  name  , list of scores (null if not played yet)
     val scoreSummaries: List<ScoreSummary>,
     val scoreBook : ScoreBook?
-)
+) {
+
+    fun equalsPostGame(postGame: PostGameNetworkEntity): Boolean {
+        return name == postGame.name &&
+                scoringSystem == postGame.scoringSystem &&
+                courseName == postGame.courseName && state == GBState.INIT
+    }
+}
