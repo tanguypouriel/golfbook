@@ -99,6 +99,29 @@ class GameNetworkDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun getPlayersReady(gameId: Int) : List<String> {
+        try {
+            return gameApiService.getPlayersReady(gameId)
+        } catch (e: HttpException) {
+            if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
+                throw GBException(GBException.GAME_NOT_FIND_MESSAGE)
+            else
+                throw UnknownError("status code is ${e.code()}")
+        }
+    }
+
+    override suspend fun updatePlayersReady(gameId: Int, playersReady: List<String>?) {
+        try {
+            gameApiService.updatePlayersReady(gameId, playersReady)
+        } catch (e: HttpException) {
+            // TODO handle concurrent access
+            if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
+                throw GBException(GBException.GAME_NOT_FIND_MESSAGE)
+            else
+                throw UnknownError("status code is ${e.code()}")
+        }
+    }
+
     override suspend fun putScoreBook(putScoreBook: PutScoreBookNetworkEntity): ScoreBook {
         try {
             return gameApiService.putScoreBook(putScoreBook.gameId, putScoreBook)

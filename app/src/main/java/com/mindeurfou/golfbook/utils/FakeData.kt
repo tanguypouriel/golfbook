@@ -209,7 +209,7 @@ object FakeData {
     )
     )
 
-    fun gameDetails(state: GBState? = null, playersReady: List<String>? = null) = GameDetails(
+    fun gameDetails(state: GBState? = null) = GameDetails(
         1,
         "Partie du swag",
         state ?: GBState.DONE,
@@ -222,7 +222,6 @@ object FakeData {
             Player(1, "Romane", "Philbert", "Roro", R.drawable.woman_2),
             Player(1, "Romsko", "Prasil", "Bobby", R.drawable.man_8)
         ),
-        playersReady ?: listOf("Roro", "MindeurFou"),
         scoreSummaries = listOf(
             ScoreSummary("1.", "MindeurFou", "2 up"),
             ScoreSummary("T2.", "Roro", "1 up"),

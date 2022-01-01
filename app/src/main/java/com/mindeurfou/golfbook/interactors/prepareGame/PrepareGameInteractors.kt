@@ -5,6 +5,7 @@ import com.mindeurfou.golfbook.data.GBState
 import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.game.local.GameDetails
 import com.mindeurfou.golfbook.data.game.remote.PatchGameNetworkEntity
+import com.mindeurfou.golfbook.data.game.remote.PutGameNetworkEntity
 import com.mindeurfou.golfbook.datasource.network.course.CourseNetworkDataSourceImpl
 import com.mindeurfou.golfbook.datasource.network.game.GameNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
@@ -23,19 +24,15 @@ class PrepareGameInteractors
     private val courseNetworkDataSourceImpl: CourseNetworkDataSourceImpl
 ){
 
-    fun tryStartingGame(): Flow<DataState<GameDetails>> = flow {
+    fun tryStartingGame(gameId: Int): Flow<DataState<Unit>> = flow {
 
         if (BuildConfig.fakeData) {
-            kotlinx.coroutines.delay(500)
-            emit(DataState.Success(FakeData.gameDetails(state = GBState.STARTING, playersReady = listOf("MindeurFou"))))
-            kotlinx.coroutines.delay(2000)
-            emit(DataState.Success(FakeData.gameDetails(state = GBState.STARTING, playersReady = listOf("Roro", "MindeurFou"))))
-            kotlinx.coroutines.delay(2000)
-            emit(DataState.Success(FakeData.gameDetails(state = GBState.STARTING, playersReady = listOf("Roro", "MindeurFou", "Bobby"))))
-            kotlinx.coroutines.delay(2000)
-            emit(DataState.Success(FakeData.gameDetails(state = GBState.PENDING, playersReady = listOf("Roro", "MindeurFou", "Bobby"))))
+            kotlinx.coroutines.delay(1000)
+            emit(DataState.Success(Unit))
             return@flow
         }
+
+//        gameNetworkDataSourceImpl.updateGame(PutGameNetworkEntity(gameId, GBState.STARTING,))
 
         // TODO
     }
@@ -93,7 +90,7 @@ class PrepareGameInteractors
 
         if (BuildConfig.fakeData) {
             kotlinx.coroutines.delay(1000)
-            emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+            emit(DataState.Success(Unit))
             return@flow
         }
 
@@ -127,11 +124,58 @@ class PrepareGameInteractors
         }
     }
 
-    fun acceptStart(playerName: String): Flow<DataState<Unit>> = flow {
+
+    fun getPlayersReady(gameId: Int) : Flow<DataState<List<String>>> = flow {
+        emit(DataState.Loading)
+
+        if (BuildConfig.fakeData) {
+            kotlinx.coroutines.delay(500)
+            emit(DataState.Success(listOf("MindeurFou")))
+            return@flow
+        }
+
+        try {
+            val playersReady = gameNetworkDataSourceImpl.getPlayersReady(gameId)
+            emit(DataState.Success(playersReady))
+        } catch (e: Exception) {
+            if (e is GBException && e.message == GBException.GAME_NOT_FIND_MESSAGE)
+                emit(DataState.Failure(listOf(ErrorMessages.EMPTY_RESSOURCE)))
+            else
+                emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+        }
 
     }
 
-    fun rejectStart(playerName: String): Flow<DataState<Unit>> = flow {
+    fun acceptStart(gameId: Int, playerName: String, playersReady: List<String>): Flow<DataState<Unit>> = flow {
+
+        if (playersReady.any { it == playerName }) {
+            emit(DataState.Success(Unit))
+            return@flow
+        }
+
+        val updatedPlayersReady = playersReady.toMutableList()
+        updatedPlayersReady.add(playerName)
+        try {
+            gameNetworkDataSourceImpl.updatePlayersReady(gameId, updatedPlayersReady)
+        } catch (e: Exception) {
+            if (e is GBException && e.message == GBException.GAME_NOT_FIND_MESSAGE)
+                emit(DataState.Failure(listOf(ErrorMessages.EMPTY_RESSOURCE)))
+            else
+                emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+
+        }
+    }
+
+    fun rejectStart(gameId: Int): Flow<DataState<Unit>> = flow {
+        try {
+            gameNetworkDataSourceImpl.updatePlayersReady(gameId, null)
+        } catch (e: Exception) {
+            if (e is GBException && e.message == GBException.GAME_NOT_FIND_MESSAGE)
+                emit(DataState.Failure(listOf(ErrorMessages.EMPTY_RESSOURCE)))
+            else
+                emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+
+        }
 
     }
 }

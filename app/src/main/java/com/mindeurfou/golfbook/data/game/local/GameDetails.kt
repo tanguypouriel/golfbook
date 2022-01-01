@@ -18,7 +18,6 @@ data class GameDetails(
     val courseName: String,
     val par: List<Int>,
     val players: List<Player>,
-    val playersReady: List<String>,
     //                  name  , list of scores (null if not played yet)
     val scoreSummaries: List<ScoreSummary>,
     val scoreBook : ScoreBook?

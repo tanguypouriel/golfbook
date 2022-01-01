@@ -83,8 +83,9 @@ class ScoreBookFragment(
                     }
 
                     override fun onScoreNotification() {
-                        TODO("Not yet implemented")
                     }
+
+                    override fun onPlayersReadyNotification() {}
                 })
             }
         }

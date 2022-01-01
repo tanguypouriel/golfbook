@@ -32,6 +32,12 @@ class PrepareGameViewModel
     private val _course: MutableLiveData<DataState<Course>> = MutableLiveData()
     val course: LiveData<DataState<Course>> = _course
 
+    private val _playersReady: MutableLiveData<DataState<List<String>>> = MutableLiveData()
+    val playersReady: LiveData<DataState<List<String>>> = _playersReady
+
+    private val _tryStartStatus: MutableLiveData<DataState<Unit>> = MutableLiveData()
+    val tryStartStatus: MutableLiveData<DataState<Unit>> = _tryStartStatus
+
     private val _playerAccepted: MutableLiveData<DataState<Unit>> = MutableLiveData()
     val playerAccepted: LiveData<DataState<Unit>> = _playerAccepted
 
@@ -47,23 +53,31 @@ class PrepareGameViewModel
 
     fun setStateEvent(stateEvent: PrepareGameEvent) {
         when(stateEvent) {
-            is PrepareGameEvent.CheckPlayerReady -> {
-                prepareGameInteractors.tryStartingGame().onEach {
-                    _gameDetails.value = it
-                }.launchIn(viewModelScope)
-            }
             is PrepareGameEvent.GetGameDetailsEvent -> {
                 prepareGameInteractors.getGameDetails(gameId).onEach {
                     _gameDetails.value = it
                 }.launchIn(viewModelScope)
             }
+            is PrepareGameEvent.TryStartGameEvent -> {
+                prepareGameInteractors.tryStartingGame(gameId).onEach {
+                    _tryStartStatus.value = it
+                }.launchIn(viewModelScope)
+            }
+            is PrepareGameEvent.CheckPlayerReady -> {
+                prepareGameInteractors.getPlayersReady(gameId).onEach {
+                    _playersReady.value = it
+                }.launchIn(viewModelScope)
+            }
             is PrepareGameEvent.AcceptGameStart -> {
-                prepareGameInteractors.acceptStart(selfName!!).onEach {
+                if (playersReady.value !is DataState.Success) return
+                val playersReadyList = (playersReady.value as DataState.Success<List<String>>).data
+
+                prepareGameInteractors.acceptStart(gameId, selfName!!, playersReadyList).onEach {
                     _acceptStartStatus.value = it
                 }.launchIn(viewModelScope)
             }
             is PrepareGameEvent.RejectGameStart -> {
-                prepareGameInteractors.rejectStart(selfName!!) .onEach {
+                prepareGameInteractors.rejectStart(gameId) .onEach {
                     _rejectStartStatus.value = it
                 }.launchIn(viewModelScope)
             }

@@ -41,4 +41,9 @@ interface GameApiService {
     @PUT("/game/{gameId}/scorebook")
     suspend fun putScoreBook(@Path("gameId") gameId: Int, @Body putScoreBook: PutScoreBookNetworkEntity): ScoreBook
 
+    @GET("/game/{gameId}/playersReady")
+    suspend fun getPlayersReady(@Path("gameId") gameId: Int) : List<String>
+
+    @PUT("/game/{gameId}/playersReady")
+    suspend fun updatePlayersReady(@Path("gameId") gameId: Int, @Body putPlayersReady: List<String>?)
 }

@@ -112,23 +112,14 @@ class PrepareGameFragment : Fragment() {
     private fun subscribeObservers() {
         viewModel.gameDetails.observe(viewLifecycleOwner) { observeGameDetails(it) }
         viewModel.course.observe(viewLifecycleOwner) { observeCourse(it) }
-        viewModel.playerAccepted.observe(viewLifecycleOwner) { observePlayerAccepted(it) }
-        viewModel.acceptStartStatus.observe(viewLifecycleOwner) { observeAcceptStartStatus(it) }
-        viewModel.rejectStartStatus.observe(viewLifecycleOwner) { observeRejectStartStatus(it) }
+        viewModel.playersReady.observe(viewLifecycleOwner) { observePlayersReady(it) }
+        viewModel.playerAccepted.observe(viewLifecycleOwner) { observePlayerAccepted(it) } // from addPlayerDialog
+        viewModel.tryStartStatus.observe(viewLifecycleOwner) { observeStatus(it) }
+        viewModel.acceptStartStatus.observe(viewLifecycleOwner) { observeStatus(it) }
+        viewModel.rejectStartStatus.observe(viewLifecycleOwner) { observeStatus(it) }
     }
 
-    private fun observeAcceptStartStatus(dataState: DataState<Unit>) {
-        when (dataState) {
-            is DataState.Failure -> {
-                dataState.errors?.let { errorMessages ->
-                    makeSnackbar(binding.root, errorMessages)
-                }
-            }
-            else -> {}
-        }
-    }
-
-    private fun observeRejectStartStatus(dataState: DataState<Unit>) {
+    private fun observeStatus(dataState: DataState<Unit>) {
         when (dataState) {
             is DataState.Failure -> {
                 dataState.errors?.let { errorMessages ->
@@ -161,7 +152,10 @@ class PrepareGameFragment : Fragment() {
     private fun observeGameDetails(dataState: DataState<GameDetails>) {
         when (dataState) {
             is DataState.Loading -> binding.progressBar.show()
-            is DataState.Failure -> binding.progressBar.hide()
+            is DataState.Failure -> {
+                binding.progressBar.hide()
+                dataState.errors?.let { makeSnackbar(binding.root, it) }
+            }
             is DataState.Success -> {
                 val gameDetails: GameDetails = dataState.data
                 binding.name.text = gameDetails.name
@@ -192,12 +186,6 @@ class PrepareGameFragment : Fragment() {
                 if (gameDetails.state == GBState.STARTING && !playersReadyDialogShown) {
                     playersReadyDialogShown = true
                     playersReadyDialog.show(parentFragmentManager, "playersReady")
-                    playersReadyDialog.lifecycleScope.launchWhenResumed {
-                        playersReadyDialogDisplay(gameDetails)
-                    }
-                }
-                else if (gameDetails.state == GBState.STARTING) {
-                    playersReadyDialogDisplay(gameDetails)
                 }
                 else if (gameDetails.state == GBState.INIT && playersReadyDialogShown) {
                     playersReadyDialog.dismiss()
@@ -229,7 +217,9 @@ class PrepareGameFragment : Fragment() {
                             }
                         }
 
-                        sorted[snack]?.let { snackErrors -> makeSnackbar(binding.root, snackErrors) }
+                        sorted[snack]?.let { snackErrors ->
+                            makeSnackbar(binding.root, snackErrors)
+                        }
                     }
                 }
             }
@@ -247,34 +237,49 @@ class PrepareGameFragment : Fragment() {
                 viewModel.setStateEvent(PrepareGameEvent.GetGameDetailsEvent)
 
             override fun onScoreNotification() {}
+
+            override fun onPlayersReadyNotification() =
+                viewModel.setStateEvent(PrepareGameEvent.CheckPlayerReady)
+
         })
     }
 
-    private fun playersReadyDialogDisplay(gameDetails: GameDetails) {
-        val sizeReady = gameDetails.playersReady.size
-        val sizeAll = gameDetails.players.size
-        val progress = (sizeReady * 100) / sizeAll
-        playersReadyDialog.progressLinear!!.setSmoothProgress(progress)
+    private fun observePlayersReady(dataState: DataState<List<String>>) {
+        when (dataState) {
+            is DataState.Loading -> {}
+            is DataState.Failure -> {}
+            is DataState.Success -> {
+                val playersReady = dataState.data
 
-        if (playersReadyDialog.positiveButton?.visibility == View.VISIBLE ||
-                playersReadyDialog.negativeButton?.visibility == View.VISIBLE) {
+                if (viewModel.gameDetails.value !is DataState.Success) return
+                val sizeAll = (viewModel.gameDetails.value as DataState.Success<GameDetails>).data.players.size
 
-            if (gameDetails.playersReady.contains(viewModel.selfName)) {
-                playersReadyDialog.positiveButton?.visibility = View.GONE
-                playersReadyDialog.negativeButton?.visibility = View.GONE
+                val sizeReady = playersReady.size
+                val progress = (sizeReady * 100) / sizeAll
+                playersReadyDialog.progressLinear!!.setSmoothProgress(progress)
+
+                if (playersReadyDialog.positiveButton?.visibility == View.VISIBLE ||
+                    playersReadyDialog.negativeButton?.visibility == View.VISIBLE) {
+
+                    if (playersReady.contains(viewModel.selfName)) {
+                        playersReadyDialog.positiveButton?.visibility = View.GONE
+                        playersReadyDialog.negativeButton?.visibility = View.GONE
+                    }
+                }
+
+                if (progress == 100) {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        delay(300)
+                        playersReadyDialog.progressLinear?.visibility = View.GONE
+                        delay(300)
+                        playersReadyDialog.progressCircular?.visibility = View.VISIBLE
+                    }
+                }
+
+                playersReadyDialog.dialogText?.text = getString(R.string.playersReady, sizeReady, sizeAll)
             }
         }
 
-        if (progress == 100) {
-            CoroutineScope(Dispatchers.Main).launch {
-                delay(300)
-                playersReadyDialog.progressLinear?.visibility = View.GONE
-                delay(300)
-                playersReadyDialog.progressCircular?.visibility = View.VISIBLE
-            }
-        }
-
-        playersReadyDialog.dialogText?.text = getString(R.string.playersReady, sizeReady, sizeAll)
     }
 
     private fun navigateToInGameFragments(gameId: Int){

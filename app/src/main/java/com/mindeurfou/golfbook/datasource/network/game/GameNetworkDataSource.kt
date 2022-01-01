@@ -17,6 +17,8 @@ interface GameNetworkDataSource {
     suspend fun updateGame(putGame: PutGameNetworkEntity): GameDetails
     suspend fun deleteGame(gameId: Int)
     suspend fun addOrDeletePlayer(gameId: Int, patchGame: PatchGameNetworkEntity)
+    suspend fun getPlayersReady(gameId: Int) : List<String>
+    suspend fun updatePlayersReady(gameId: Int, playersReady: List<String>?)
     suspend fun getScoreBook(gameId: Int): ScoreBook
     suspend fun putScoreBook(putScoreBook: PutScoreBookNetworkEntity): ScoreBook
 }
