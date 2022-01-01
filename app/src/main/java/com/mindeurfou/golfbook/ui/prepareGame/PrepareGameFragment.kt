@@ -22,6 +22,8 @@ import com.mindeurfou.golfbook.interactors.prepareGame.PrepareGameEvent
 import com.mindeurfou.golfbook.ui.GameListener
 import com.mindeurfou.golfbook.ui.MainActivityViewModel
 import com.mindeurfou.golfbook.utils.*
+import com.mindeurfou.golfbook.utils.ErrorMessages.Companion.snack
+import com.mindeurfou.golfbook.utils.ErrorMessages.Companion.specific
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -66,28 +68,36 @@ class PrepareGameFragment : Fragment() {
     private fun setupUI() {
         binding.startGameBtn.setOnClickListener { onClickStartBtn() }
 
-        addPlayerDialog = AddPlayerDialog(object : DialogListener {
+        addPlayerDialog = AddPlayerDialog(object : AddPlayerDialogListener {
 
-            override fun onDialogPositiveClick(dialog: DialogFragment) {
-                addPlayerDialogShown = false
+            override fun onDialogPositiveClick(dialog: AddPlayerDialog) {
+                val name = dialog.nameInput.editText?.text.toString().trim()
+                val lastName = dialog.lastNameInput.editText?.text.toString().trim()
+                val username = dialog.usernameInput.editText?.text.toString().trim()
+                val avatarId = dialog.imageAvatar.id
+
+                viewModel.setStateEvent(PrepareGameEvent.AddPlayer(
+                    name, lastName, username, avatarId
+                    )
+                )
             }
 
-            override fun onDialogNegativeClick(dialog: DialogFragment) {
+            override fun onDialogNegativeClick(dialog: AddPlayerDialog) {
                 addPlayerDialogShown = false
+                dialog.dismiss()
             }
 
         })
 
         playersReadyDialog = PlayersReadyDialog(object : DialogListener {
 
-            override fun onDialogPositiveClick(dialog: DialogFragment) {
-                navigateToInGameFragments(gameId = 1)
-                playersReadyDialogShown = false
-            }
+            override fun onDialogPositiveClick(dialog: DialogFragment) =
+                viewModel.setStateEvent(PrepareGameEvent.AcceptGameStart)
 
             override fun onDialogNegativeClick(dialog: DialogFragment) {
                 viewModel.setStateEvent(PrepareGameEvent.RejectGameStart)
                 playersReadyDialogShown = false
+                dialog.dismiss()
             }
 
         }).apply {
@@ -102,6 +112,31 @@ class PrepareGameFragment : Fragment() {
     private fun subscribeObservers() {
         viewModel.gameDetails.observe(viewLifecycleOwner) { observeGameDetails(it) }
         viewModel.course.observe(viewLifecycleOwner) { observeCourse(it) }
+        viewModel.playerAccepted.observe(viewLifecycleOwner) { observePlayerAccepted(it) }
+        viewModel.acceptStartStatus.observe(viewLifecycleOwner) { observeAcceptStartStatus(it) }
+        viewModel.rejectStartStatus.observe(viewLifecycleOwner) { observeRejectStartStatus(it) }
+    }
+
+    private fun observeAcceptStartStatus(dataState: DataState<Unit>) {
+        when (dataState) {
+            is DataState.Failure -> {
+                dataState.errors?.let { errorMessages ->
+                    makeSnackbar(binding.root, errorMessages)
+                }
+            }
+            else -> {}
+        }
+    }
+
+    private fun observeRejectStartStatus(dataState: DataState<Unit>) {
+        when (dataState) {
+            is DataState.Failure -> {
+                dataState.errors?.let { errorMessages ->
+                    makeSnackbar(binding.root, errorMessages)
+                }
+            }
+            else -> {}
+        }
     }
 
     private fun observeCourse(dataState: DataState<Course>) {
@@ -118,6 +153,7 @@ class PrepareGameFragment : Fragment() {
                 binding.courseName.text = dataState.data.name
                 bindStars(dataState.data.stars)
                 binding.numberOfHoles.text = getString(R.string.numberOfHoles, dataState.data.numberOfHoles)
+                binding.courseStaringLayout.show()
             }
         }
     }
@@ -131,12 +167,14 @@ class PrepareGameFragment : Fragment() {
                 binding.name.text = gameDetails.name
                 binding.date.text = gameDetails.date.print()
 
+                binding.editTextScoring.setText(gameDetails.scoringSystem.toString())
                 val adapter = ArrayAdapter(requireContext(), R.layout.item_course_name, ScoringSystem.toList(requireContext()))
                 binding.editTextScoring.setAdapter(adapter)
 
                 bindPlayers(gameDetails.players)
 
                 binding.progressBar.hide()
+
                 if (firstDisplay) {
                     firstDisplay = false
                     listOf(
@@ -147,24 +185,19 @@ class PrepareGameFragment : Fragment() {
                             binding.startGameBtn,
                     ).reveal(requireContext())
 
-                    mainViewModel.openGameSocket(gameDetails.id, object : GameListener {
-
-                        override fun onGameDetailsNotification() =
-                            viewModel.setStateEvent(PrepareGameEvent.GetGameDetailsEvent)
-
-                        override fun onScoreNotification() {}
-                    })
+                    viewModel.setStateEvent(PrepareGameEvent.GetCourseEvent(gameDetails.courseName))
+                    subscribeToGameNotification(gameDetails.id)
                 }
 
                 if (gameDetails.state == GBState.STARTING && !playersReadyDialogShown) {
                     playersReadyDialogShown = true
                     playersReadyDialog.show(parentFragmentManager, "playersReady")
                     playersReadyDialog.lifecycleScope.launchWhenResumed {
-                        playerDialogDisplay(gameDetails)
+                        playersReadyDialogDisplay(gameDetails)
                     }
                 }
                 else if (gameDetails.state == GBState.STARTING) {
-                    playerDialogDisplay(gameDetails)
+                    playersReadyDialogDisplay(gameDetails)
                 }
                 else if (gameDetails.state == GBState.INIT && playersReadyDialogShown) {
                     playersReadyDialog.dismiss()
@@ -179,7 +212,45 @@ class PrepareGameFragment : Fragment() {
         }
     }
 
-    private fun playerDialogDisplay(gameDetails: GameDetails) {
+    private fun observePlayerAccepted(dataState: DataState<Unit>) {
+        when (dataState) {
+            is DataState.Loading -> addPlayerDialog.progressBar.show()
+            is DataState.Failure -> {
+                addPlayerDialog.progressBar.hide()
+                dataState.errors?.let { errors ->
+                    val sorted = ErrorMessages.sort(errors)
+                    sorted[specific]?.let {
+                        it.forEach { errorMessage ->
+                            when (errorMessage) {
+                                ErrorMessages.NAME_EMPTY -> addPlayerDialog.nameInput.error = errorMessage.toString()
+                                ErrorMessages.LASTNAME_EMPTY -> addPlayerDialog.lastNameInput.error = errorMessage.toString()
+                                ErrorMessages.USERNAME_EMPTY -> addPlayerDialog.usernameInput.error = errorMessage.toString()
+                                else -> {}
+                            }
+                        }
+
+                        sorted[snack]?.let { snackErrors -> makeSnackbar(binding.root, snackErrors) }
+                    }
+                }
+            }
+            is  DataState.Success -> {
+                addPlayerDialogShown = false
+                addPlayerDialog.dismiss()
+            }
+        }
+    }
+
+    private fun subscribeToGameNotification(gameId: Int) {
+        mainViewModel.openGameSocket(gameId, object : GameListener {
+
+            override fun onGameDetailsNotification() =
+                viewModel.setStateEvent(PrepareGameEvent.GetGameDetailsEvent)
+
+            override fun onScoreNotification() {}
+        })
+    }
+
+    private fun playersReadyDialogDisplay(gameDetails: GameDetails) {
         val sizeReady = gameDetails.playersReady.size
         val sizeAll = gameDetails.players.size
         val progress = (sizeReady * 100) / sizeAll
@@ -257,10 +328,8 @@ class PrepareGameFragment : Fragment() {
     }
 
     private fun showAddPlayerDialog() {
-        addPlayerDialog.let{
-            it.show(parentFragmentManager, "addPlayer")
-            addPlayerDialogShown = true
-        }
+        addPlayerDialog.show(parentFragmentManager, "addPlayer")
+        addPlayerDialogShown = true
     }
 
     private fun bindStars(stars: Int) {

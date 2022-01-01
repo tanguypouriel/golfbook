@@ -25,6 +25,10 @@ class CourseNetworkDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun getCourseByName(name: String): Course {
+        return courseApiService.getCourseByName(name)
+    }
+
     override suspend fun getCourses(limit: Int?, offset: Int?): List<Course> {
         try {
             return courseApiService.getCourses(limit, offset)
@@ -39,6 +43,7 @@ class CourseNetworkDataSourceImpl @Inject constructor(
 
     override suspend fun postCourse(postCourse: PostCourseNetworkEntity): CourseDetails {
         try {
+            // TODO rajouter l'unicité sur les noms de parcours
             return courseApiService.postCourse(postCourse)
         } catch (e: HttpException) {
             throw UnknownError("status code is ${e.code()}")

@@ -22,8 +22,6 @@ import javax.inject.Inject
 class PrepareGameViewModel
 @Inject constructor(
     private val prepareGameInteractors: PrepareGameInteractors,
-    private val socketBuilder: WebSocketBuilder,
-    private val gameWebSocketListener: GameWebSocketListener,
     sharedPreferences: SharedPreferences,
     state: SavedStateHandle
 ) : ViewModel() {
@@ -33,6 +31,15 @@ class PrepareGameViewModel
 
     private val _course: MutableLiveData<DataState<Course>> = MutableLiveData()
     val course: LiveData<DataState<Course>> = _course
+
+    private val _playerAccepted: MutableLiveData<DataState<Unit>> = MutableLiveData()
+    val playerAccepted: LiveData<DataState<Unit>> = _playerAccepted
+
+    private val _acceptStartStatus: MutableLiveData<DataState<Unit>> = MutableLiveData()
+    val acceptStartStatus: MutableLiveData<DataState<Unit>> = _acceptStartStatus
+
+    private val _rejectStartStatus: MutableLiveData<DataState<Unit>> = MutableLiveData()
+    val rejectStartStatus: MutableLiveData<DataState<Unit>> = _rejectStartStatus
 
     val selfName: String? = sharedPreferences.getString(USERNAME_KEY, null)
 
@@ -51,14 +58,29 @@ class PrepareGameViewModel
                 }.launchIn(viewModelScope)
             }
             is PrepareGameEvent.AcceptGameStart -> {
-
+                prepareGameInteractors.acceptStart(selfName!!).onEach {
+                    _acceptStartStatus.value = it
+                }.launchIn(viewModelScope)
             }
             is PrepareGameEvent.RejectGameStart -> {
-
+                prepareGameInteractors.rejectStart(selfName!!) .onEach {
+                    _rejectStartStatus.value = it
+                }.launchIn(viewModelScope)
             }
             is PrepareGameEvent.GetCourseEvent -> {
-                prepareGameInteractors.getCourse(stateEvent.courseId).onEach {
+                prepareGameInteractors.getCourse(stateEvent.courseName).onEach {
                     _course.value = it
+                }.launchIn(viewModelScope)
+            }
+            is PrepareGameEvent.AddPlayer -> {
+                prepareGameInteractors.addPlayer(
+                    stateEvent.name,
+                    stateEvent.lastName,
+                    stateEvent.username,
+                    stateEvent.avatarId,
+                    gameId
+                ).onEach {
+                    _playerAccepted.value = it
                 }.launchIn(viewModelScope)
             }
         }

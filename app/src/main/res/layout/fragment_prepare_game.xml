@@ -42,6 +42,7 @@
             android:columnCount="5"
             android:padding="8dp"
             android:rowCount="1"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/numberOfHoles"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/courseName">

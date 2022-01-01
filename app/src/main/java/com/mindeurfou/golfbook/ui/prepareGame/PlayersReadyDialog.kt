@@ -42,7 +42,6 @@ class PlayersReadyDialog(
         }
         negativeButton!!.setOnClickListener {
             listener.onDialogNegativeClick(this)
-            this.dismiss()
         }
 
         builder

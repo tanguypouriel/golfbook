@@ -4,6 +4,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PatchGameNetworkEntity(
-    val playerId: Int,
+    val name: String,
+    val lastName: String,
+    val username: String,
+    val avatarId: Int,
     val playing: Boolean
 )
