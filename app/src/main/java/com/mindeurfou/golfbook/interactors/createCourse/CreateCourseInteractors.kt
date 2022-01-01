@@ -6,6 +6,7 @@ import com.mindeurfou.golfbook.data.hole.local.Hole
 import com.mindeurfou.golfbook.datasource.network.course.CourseNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.ErrorMessages
+import com.mindeurfou.golfbook.utils.GBException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -54,7 +55,10 @@ fun sendCourseInfo(name: String, holes: List<Int>): Flow<DataState<Unit>> = flow
             else
                 emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
         } catch (e: Exception) {
-            emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+            if (e is GBException && e.message == GBException.NAME_ALREADY_TAKEN_MESSAGE)
+                emit(DataState.Failure(listOf(ErrorMessages.NAME_ALREADY_TAKEN)))
+            else
+                emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
         }
     }
 }

@@ -13,7 +13,8 @@ class GBException(override val message: String) : Exception() {
 
         const val INVALID_OPERATION_MESSAGE    = "Invalid operation"
         const val TOURNAMENT_DONE_MESSAGE      = "This tournament is finished"
-        const val NO_RESOURCES_MESSAGE        = "There isn't any resources matching your criteria"
+        const val NO_RESOURCES_MESSAGE         = "There isn't any resources matching your criteria"
         const val USERNAME_ALREADY_TAKEN_MESSAGE = "This username is already taken"
+        const val NAME_ALREADY_TAKEN_MESSAGE   = "This name is already taken"
     }
 }

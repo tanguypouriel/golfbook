@@ -77,6 +77,7 @@ class CreateCourseFragment : CourseConfigFragment() {
             when (it) {
                 ErrorMessages.NAME_EMPTY -> binding.courseNameInputLayout.error = it.toString()
                 ErrorMessages.HOLES_UNCOMPLETED -> showUncompletedHole(it.toString())
+                ErrorMessages.NAME_ALREADY_TAKEN -> binding.courseNameInputLayout.error = it.toString()
                 else -> {}
             }
         }

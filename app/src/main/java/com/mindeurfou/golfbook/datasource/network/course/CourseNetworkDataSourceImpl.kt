@@ -5,6 +5,7 @@ import com.mindeurfou.golfbook.data.course.local.CourseDetails
 import com.mindeurfou.golfbook.data.course.remote.PostCourseNetworkEntity
 import com.mindeurfou.golfbook.data.course.remote.PutCourseNetworkEntity
 import com.mindeurfou.golfbook.utils.GBException
+import com.mindeurfou.golfbook.utils.GBHttpStatusCode
 import retrofit2.HttpException
 import retrofit2.http.HTTP
 import java.net.HttpURLConnection
@@ -43,10 +44,12 @@ class CourseNetworkDataSourceImpl @Inject constructor(
 
     override suspend fun postCourse(postCourse: PostCourseNetworkEntity): CourseDetails {
         try {
-            // TODO rajouter l'unicité sur les noms de parcours
             return courseApiService.postCourse(postCourse)
         } catch (e: HttpException) {
-            throw UnknownError("status code is ${e.code()}")
+            if (e.code() == GBHttpStatusCode.valueA)
+                throw GBException(GBException.NAME_ALREADY_TAKEN_MESSAGE)
+            else
+                throw Exception("status code is ${e.code()}")
         }
     }
 

@@ -18,7 +18,8 @@ enum class ErrorMessages(
     USERNAME_EMPTY(ErrorTag.SPECIFIC),
     COURSE_EMPTY(ErrorTag.SPECIFIC),
     SCORING_SYSTEM_EMPTY(ErrorTag.SPECIFIC),
-    UNKNOWN_SCORING_SYSTEM(ErrorTag.SPECIFIC);
+    UNKNOWN_SCORING_SYSTEM(ErrorTag.SPECIFIC),
+    NAME_ALREADY_TAKEN(ErrorTag.SPECIFIC);
 
     override fun toString(): String {
         return when(name){
@@ -36,6 +37,7 @@ enum class ErrorMessages(
             COURSE_EMPTY.name -> "Le champs parcours est vide"
             SCORING_SYSTEM_EMPTY.name -> "Le champs Formule de jeu est vide"
             UNKNOWN_SCORING_SYSTEM.name -> "La formule de jeu n'a pas été reconnue"
+            NAME_ALREADY_TAKEN.name -> "Ce nom est déjà pris"
             else -> "Erreur"
         }
     }
