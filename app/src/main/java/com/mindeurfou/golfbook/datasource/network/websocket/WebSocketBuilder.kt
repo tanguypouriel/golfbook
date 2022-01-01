@@ -1,4 +1,4 @@
-package com.mindeurfou.golfbook.datasource.network
+package com.mindeurfou.golfbook.datasource.network.websocket
 
 import com.mindeurfou.golfbook.utils.AuthInterceptor
 import okhttp3.OkHttpClient

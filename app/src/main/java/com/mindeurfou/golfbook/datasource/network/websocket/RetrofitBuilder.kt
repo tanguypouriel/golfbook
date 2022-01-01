@@ -1,4 +1,4 @@
-package com.mindeurfou.golfbook.datasource.network
+package com.mindeurfou.golfbook.datasource.network.websocket
 
 import android.content.Context
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
