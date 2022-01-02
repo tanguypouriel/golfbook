@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.*
 import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.game.local.GameDetails
+import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.PLAYER_ID_KEY
 import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.USERNAME_KEY
 import com.mindeurfou.golfbook.interactors.prepareGame.PrepareGameEvent
 import com.mindeurfou.golfbook.interactors.prepareGame.PrepareGameInteractors
@@ -41,6 +42,7 @@ class PrepareGameViewModel
     val playerAccepted: LiveData<DataState<Unit>> = _playerAccepted
 
     val selfName: String? = sharedPreferences.getString(USERNAME_KEY, null)
+    private val selfId: Int = sharedPreferences.getInt(PLAYER_ID_KEY, 0)
 
     private val gameId: Int = state.get("gameId")!!
 
@@ -99,6 +101,23 @@ class PrepareGameViewModel
                 ).onEach {
                     _playerAccepted.value = it
                 }.launchIn(viewModelScope)
+            }
+            is PrepareGameEvent.LeaveGameEvent -> {
+                if (selfId == 0) {
+                    _status.value = DataState.Failure(listOf(ErrorMessages.INTERNAL_ERROR))
+                    return
+                }
+
+                if (gameDetails.value !is DataState.Success) {
+                    _status.value = DataState.Failure(listOf(ErrorMessages.INTERNAL_ERROR))
+                    return
+                }
+                val gameDetails = (gameDetails.value as DataState.Success<GameDetails>).data
+
+                prepareGameInteractors.leaveGame(gameId, selfId, gameDetails.players).onEach {
+                    _status.value = it
+                }.launchIn(viewModelScope)
+
             }
         }
     }

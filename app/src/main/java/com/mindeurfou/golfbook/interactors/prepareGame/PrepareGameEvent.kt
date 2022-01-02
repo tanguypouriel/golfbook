@@ -15,4 +15,5 @@ sealed class PrepareGameEvent : StateEvent {
         val username: String,
         val avatarId: Int
         ) : PrepareGameEvent()
+    object  LeaveGameEvent : PrepareGameEvent()
 }

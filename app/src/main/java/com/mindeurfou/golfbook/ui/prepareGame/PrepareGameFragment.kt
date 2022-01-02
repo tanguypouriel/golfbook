@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.activity.addCallback
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -48,6 +49,14 @@ class PrepareGameFragment : Fragment() {
     private var playersReadyDialogShown: Boolean = false
     private var addPlayerDialogShown: Boolean = false
     private var firstDisplay = true
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            viewModel.setStateEvent(PrepareGameEvent.LeaveGameEvent)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

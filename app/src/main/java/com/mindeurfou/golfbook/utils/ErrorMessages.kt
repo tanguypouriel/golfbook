@@ -19,7 +19,8 @@ enum class ErrorMessages(
     COURSE_EMPTY(ErrorTag.SPECIFIC),
     SCORING_SYSTEM_EMPTY(ErrorTag.SPECIFIC),
     UNKNOWN_SCORING_SYSTEM(ErrorTag.SPECIFIC),
-    NAME_ALREADY_TAKEN(ErrorTag.SPECIFIC);
+    NAME_ALREADY_TAKEN(ErrorTag.SPECIFIC),
+    PLAYER_NOT_IN_GAME(ErrorTag.SNACK);
 
     override fun toString(): String {
         return when(name){

@@ -134,6 +134,37 @@ class PrepareGameInteractors
         }
     }
 
+    fun leaveGame(gameId: Int, playerId: Int, players: List<Player>): Flow<DataState<Unit>> = flow {
+        emit(DataState.Loading)
+
+        if (BuildConfig.fakeData) {
+            kotlinx.coroutines.delay(1000)
+            emit(DataState.Success(Unit))
+            return@flow
+        }
+
+        val updatedList = players.toMutableList()
+        val player = updatedList.find { player -> player.id == playerId }
+
+        if (player == null) {
+            emit(DataState.Failure(listOf(ErrorMessages.PLAYER_NOT_IN_GAME)))
+            return@flow
+        }
+
+        updatedList.remove(player)
+        val body = mapOf("players" to updatedList)
+
+        try {
+            gameNetworkDataSourceImpl.updatePlayers(gameId, body)
+            emit(DataState.Success(Unit))
+        } catch (e: Exception) {
+            if (e is GBException && e.message == GBException.GAME_NOT_FIND_MESSAGE)
+                emit(DataState.Failure(listOf(ErrorMessages.EMPTY_RESSOURCE)))
+            else
+                emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+        }
+    }
+
 
     fun getPlayersReady(gameId: Int) : Flow<DataState<List<String>>> = flow {
         emit(DataState.Loading)
