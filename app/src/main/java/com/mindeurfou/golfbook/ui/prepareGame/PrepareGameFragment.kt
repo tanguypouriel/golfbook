@@ -114,9 +114,7 @@ class PrepareGameFragment : Fragment() {
         viewModel.course.observe(viewLifecycleOwner) { observeCourse(it) }
         viewModel.playersReady.observe(viewLifecycleOwner) { observePlayersReady(it) }
         viewModel.playerAccepted.observe(viewLifecycleOwner) { observePlayerAccepted(it) } // from addPlayerDialog
-        viewModel.tryStartStatus.observe(viewLifecycleOwner) { observeStatus(it) }
-        viewModel.acceptStartStatus.observe(viewLifecycleOwner) { observeStatus(it) }
-        viewModel.rejectStartStatus.observe(viewLifecycleOwner) { observeStatus(it) }
+        viewModel.status.observe(viewLifecycleOwner) { observeStatus(it) }
     }
 
     private fun observeStatus(dataState: DataState<Unit>) {

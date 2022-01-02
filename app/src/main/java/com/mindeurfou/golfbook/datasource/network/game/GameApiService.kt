@@ -3,9 +3,7 @@ package com.mindeurfou.golfbook.datasource.network.game
 import com.mindeurfou.golfbook.data.game.local.Game
 import com.mindeurfou.golfbook.data.game.local.GameDetails
 import com.mindeurfou.golfbook.data.game.local.ScoreBook
-import com.mindeurfou.golfbook.data.game.remote.PatchGameNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PostGameNetworkEntity
-import com.mindeurfou.golfbook.data.game.remote.PutGameNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PutScoreBookNetworkEntity
 import retrofit2.http.*
 
@@ -26,14 +24,11 @@ interface GameApiService {
     @POST("/game")
     suspend fun postGame(@Body postGame: PostGameNetworkEntity): GameDetails
 
-    @PUT("/game/{gameId}")
-    suspend fun updateGame(@Path("gameId") gameId: Int, @Body putGame: PutGameNetworkEntity): GameDetails
-
     @DELETE("/game/{gameId}")
     suspend fun deleteGame(@Path("gameId") gameId: Int)
 
     @PATCH("/game/{gameId}")
-    suspend fun addOrDeletePlayer(@Path("gameId") gameId: Int, @Body patchGame: PatchGameNetworkEntity)
+    suspend fun patchGame(@Path("gameId") gameId: Int, @Body body: Map<String, Any>)
 
     @GET("/game/{gameId}/scorebook")
     suspend fun getScoreBook(@Path("gameId") gameId: Int): ScoreBook

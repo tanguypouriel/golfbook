@@ -4,8 +4,7 @@ import com.mindeurfou.golfbook.BuildConfig
 import com.mindeurfou.golfbook.data.GBState
 import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.game.local.GameDetails
-import com.mindeurfou.golfbook.data.game.remote.PatchGameNetworkEntity
-import com.mindeurfou.golfbook.data.game.remote.PutGameNetworkEntity
+import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.datasource.network.course.CourseNetworkDataSourceImpl
 import com.mindeurfou.golfbook.datasource.network.game.GameNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
@@ -32,9 +31,15 @@ class PrepareGameInteractors
             return@flow
         }
 
-//        gameNetworkDataSourceImpl.updateGame(PutGameNetworkEntity(gameId, GBState.STARTING,))
+        val body = mapOf("state" to GBState.STARTING)
 
-        // TODO
+        try {
+            gameNetworkDataSourceImpl.updateState(gameId, body)
+            emit(DataState.Success(Unit))
+        } catch (e: Exception) {
+            emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+        }
+
     }
 
     fun getGameDetails(gameId: Int) : Flow<DataState<GameDetails>> = flow {
@@ -55,7 +60,6 @@ class PrepareGameInteractors
             else
                 emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
         }
-
     }
 
     fun getCourse(courseName: String) : Flow<DataState<Course>> = flow {
@@ -84,7 +88,8 @@ class PrepareGameInteractors
         lastName: String,
         username: String,
         avatarId: Int,
-        gameId: Int
+        gameId: Int,
+        players: List<Player>
     ): Flow<DataState<Unit>> = flow {
         emit(DataState.Loading)
 
@@ -108,16 +113,21 @@ class PrepareGameInteractors
             return@flow
         }
 
-        val patchGame = PatchGameNetworkEntity(
+        val player = Player(
+            id = 1,
             name = name,
             lastName = lastName,
             username = username,
-            avatarId = avatarId,
-            playing = true
+            drawableResourceId = avatarId
         )
 
+        val updatedList = players.toMutableList()
+        updatedList.add(player)
+
+        val body = mapOf("players" to updatedList)
+
         try {
-            gameNetworkDataSourceImpl.addOrDeletePlayer(gameId, patchGame)
+            gameNetworkDataSourceImpl.updatePlayers(gameId, body)
             emit(DataState.Success(Unit))
         } catch (e: Exception) {
             emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))

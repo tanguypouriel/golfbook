@@ -1,12 +1,12 @@
 package com.mindeurfou.golfbook.datasource.network.game
 
+import com.mindeurfou.golfbook.data.GBState
 import com.mindeurfou.golfbook.data.game.local.Game
 import com.mindeurfou.golfbook.data.game.local.GameDetails
 import com.mindeurfou.golfbook.data.game.local.ScoreBook
-import com.mindeurfou.golfbook.data.game.remote.PatchGameNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PostGameNetworkEntity
-import com.mindeurfou.golfbook.data.game.remote.PutGameNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PutScoreBookNetworkEntity
+import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.utils.GBException
 import com.mindeurfou.golfbook.utils.GBHttpStatusCode
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -68,25 +68,39 @@ class GameNetworkDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateGame(putGame: PutGameNetworkEntity): GameDetails {
+    override suspend fun deleteGame(gameId: Int) {
         try {
-            return gameApiService.updateGame(putGame.id, putGame)
+            gameApiService.deleteGame(gameId)
         } catch (e: HttpException) {
             if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
                 throw GBException(GBException.GAME_NOT_FIND_MESSAGE)
-            else if (e.code() == GBHttpStatusCode.valueA)
-                throw GBException(GBException.INVALID_OPERATION_MESSAGE)
             else
                 throw UnknownError("status code is ${e.code()}")
         }
     }
 
-    override suspend fun deleteGame(gameId: Int) =
-        gameApiService.deleteGame(gameId)
+    override suspend fun updatePlayers(gameId: Int, body: Map<String, List<Player>>) {
+        try {
+            gameApiService.patchGame(gameId, body)
+        } catch (e: HttpException) {
+            if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
+                throw GBException(GBException.GAME_NOT_FIND_MESSAGE)
+            else
+                throw UnknownError("status code is ${e.code()}")
+        }
+    }
 
-    // TODO unsafe method for now
-    override suspend fun addOrDeletePlayer(gameId: Int, patchGame: PatchGameNetworkEntity) =
-        gameApiService.addOrDeletePlayer(gameId, patchGame)
+    override suspend fun updateState(gameId: Int, body: Map<String, GBState>) {
+        try {
+            gameApiService.patchGame(gameId, body)
+        } catch (e: HttpException) {
+            if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
+                throw GBException(GBException.GAME_NOT_FIND_MESSAGE)
+            else
+                throw UnknownError("status code is ${e.code()}")
+
+        }
+    }
 
     override suspend fun getScoreBook(gameId: Int): ScoreBook {
         try {

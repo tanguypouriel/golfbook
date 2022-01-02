@@ -4,12 +4,11 @@ import android.content.SharedPreferences
 import androidx.lifecycle.*
 import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.game.local.GameDetails
-import com.mindeurfou.golfbook.datasource.network.GameWebSocketListener
-import com.mindeurfou.golfbook.datasource.network.WebSocketBuilder
 import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.USERNAME_KEY
 import com.mindeurfou.golfbook.interactors.prepareGame.PrepareGameEvent
 import com.mindeurfou.golfbook.interactors.prepareGame.PrepareGameInteractors
 import com.mindeurfou.golfbook.utils.DataState
+import com.mindeurfou.golfbook.utils.ErrorMessages
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -35,17 +34,11 @@ class PrepareGameViewModel
     private val _playersReady: MutableLiveData<DataState<List<String>>> = MutableLiveData()
     val playersReady: LiveData<DataState<List<String>>> = _playersReady
 
-    private val _tryStartStatus: MutableLiveData<DataState<Unit>> = MutableLiveData()
-    val tryStartStatus: MutableLiveData<DataState<Unit>> = _tryStartStatus
+    private val _status: MutableLiveData<DataState<Unit>> = MutableLiveData()
+    val status: MutableLiveData<DataState<Unit>> = _status
 
     private val _playerAccepted: MutableLiveData<DataState<Unit>> = MutableLiveData()
     val playerAccepted: LiveData<DataState<Unit>> = _playerAccepted
-
-    private val _acceptStartStatus: MutableLiveData<DataState<Unit>> = MutableLiveData()
-    val acceptStartStatus: MutableLiveData<DataState<Unit>> = _acceptStartStatus
-
-    private val _rejectStartStatus: MutableLiveData<DataState<Unit>> = MutableLiveData()
-    val rejectStartStatus: MutableLiveData<DataState<Unit>> = _rejectStartStatus
 
     val selfName: String? = sharedPreferences.getString(USERNAME_KEY, null)
 
@@ -60,7 +53,7 @@ class PrepareGameViewModel
             }
             is PrepareGameEvent.TryStartGameEvent -> {
                 prepareGameInteractors.tryStartingGame(gameId).onEach {
-                    _tryStartStatus.value = it
+                    _status.value = it
                 }.launchIn(viewModelScope)
             }
             is PrepareGameEvent.CheckPlayerReady -> {
@@ -69,16 +62,19 @@ class PrepareGameViewModel
                 }.launchIn(viewModelScope)
             }
             is PrepareGameEvent.AcceptGameStart -> {
-                if (playersReady.value !is DataState.Success) return
+                if (playersReady.value !is DataState.Success) {
+                    _status.value = DataState.Failure(listOf(ErrorMessages.INTERNAL_ERROR))
+                    return
+                }
                 val playersReadyList = (playersReady.value as DataState.Success<List<String>>).data
 
                 prepareGameInteractors.acceptStart(gameId, selfName!!, playersReadyList).onEach {
-                    _acceptStartStatus.value = it
+                    _status.value = it
                 }.launchIn(viewModelScope)
             }
             is PrepareGameEvent.RejectGameStart -> {
                 prepareGameInteractors.rejectStart(gameId) .onEach {
-                    _rejectStartStatus.value = it
+                    _status.value = it
                 }.launchIn(viewModelScope)
             }
             is PrepareGameEvent.GetCourseEvent -> {
@@ -87,12 +83,19 @@ class PrepareGameViewModel
                 }.launchIn(viewModelScope)
             }
             is PrepareGameEvent.AddPlayer -> {
+                if (gameDetails.value !is DataState.Success) {
+                    _status.value = DataState.Failure(listOf(ErrorMessages.INTERNAL_ERROR))
+                    return
+                }
+                val gameDetails = (gameDetails.value as DataState.Success<GameDetails>).data
+
                 prepareGameInteractors.addPlayer(
                     stateEvent.name,
                     stateEvent.lastName,
                     stateEvent.username,
                     stateEvent.avatarId,
-                    gameId
+                    gameId,
+                    gameDetails.players
                 ).onEach {
                     _playerAccepted.value = it
                 }.launchIn(viewModelScope)
