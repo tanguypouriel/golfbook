@@ -13,7 +13,7 @@ interface GameApiService {
     suspend fun getGame(@Path("gameId") gameId: Int): GameDetails
 
     @GET("/game?state=init")
-    suspend fun getPendingGames(): List<Game>?
+    suspend fun getInitGames(): List<Game>?
 
     @GET("/game")
     suspend fun getGamesByTournamentId(@Query("tournamentId") tournamentId : Int): List<Game>

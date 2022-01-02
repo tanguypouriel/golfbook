@@ -20,7 +20,8 @@ enum class ErrorMessages(
     SCORING_SYSTEM_EMPTY(ErrorTag.SPECIFIC),
     UNKNOWN_SCORING_SYSTEM(ErrorTag.SPECIFIC),
     NAME_ALREADY_TAKEN(ErrorTag.SPECIFIC),
-    PLAYER_NOT_IN_GAME(ErrorTag.SNACK);
+    PLAYER_NOT_IN_GAME(ErrorTag.SNACK),
+    GAME_FULL(ErrorTag.SNACK);
 
     override fun toString(): String {
         return when(name){
@@ -39,6 +40,8 @@ enum class ErrorMessages(
             SCORING_SYSTEM_EMPTY.name -> "Le champs Formule de jeu est vide"
             UNKNOWN_SCORING_SYSTEM.name -> "La formule de jeu n'a pas été reconnue"
             NAME_ALREADY_TAKEN.name -> "Ce nom est déjà pris"
+            PLAYER_NOT_IN_GAME.name -> "Le joueur n'est pas dans la partie"
+            GAME_FULL.name -> "La partie est déjà pleine"
             else -> "Erreur"
         }
     }

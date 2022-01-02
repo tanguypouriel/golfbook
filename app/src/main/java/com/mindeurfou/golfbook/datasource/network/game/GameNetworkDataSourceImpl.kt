@@ -30,8 +30,8 @@ class GameNetworkDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getPendingGames(): List<Game>? =
-            gameApiService.getPendingGames()
+    override suspend fun getInitGames(): List<Game>? =
+            gameApiService.getInitGames()
 
     override suspend fun getGamesByTournamentId(tournamentId: Int): List<Game> {
         try {

@@ -15,6 +15,7 @@ import com.mindeurfou.golfbook.interactors.onboardGame.OnBoardGameEvent
 import com.mindeurfou.golfbook.ui.common.MarginItemDecoration
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.hide
+import com.mindeurfou.golfbook.utils.makeSnackbar
 import com.mindeurfou.golfbook.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -46,7 +47,26 @@ class OnboardGameFragment : Fragment(R.layout.fragment_onboard_game) {
     }
 
     private fun subscribeObservers() {
-        viewModel.pendingGames.observe(viewLifecycleOwner) { observePendingGames(it) }
+        viewModel.initGames.observe(viewLifecycleOwner) { observePendingGames(it) }
+        viewModel.joinGameStatus.observe(viewLifecycleOwner) { observeJoinGameStatus(it) }
+    }
+
+    private fun observeJoinGameStatus(dataState: DataState<Int>) {
+        when(dataState) {
+            is DataState.Loading -> {
+                binding.pendingGameRecycler.visibility = View.GONE
+                binding.progressBar.show()
+            }
+            is DataState.Failure -> {
+                binding.progressBar.hide()
+                dataState.errors?.let { makeSnackbar(binding.root, it) }
+                viewModel.setStateEvent(OnBoardGameEvent.CheckPendingGameEvent)
+            }
+            is DataState.Success -> {
+                navigateToPrepareGameFragment(dataState.data)
+            }
+        }
+
     }
 
     private fun observePendingGames(dataState: DataState<List<Game>?>) {
@@ -62,8 +82,9 @@ class OnboardGameFragment : Fragment(R.layout.fragment_onboard_game) {
 
                 dataState.data?.let { games ->
                     binding.pendingGameRecycler.adapter = OnBoardGameAdapter(games) { game ->
-                        navigateToPrepareGameFragment(game.id)
+                        viewModel.setStateEvent(OnBoardGameEvent.JoinGameEvent(game.id, game.players!!))
                     }
+                    if (binding.pendingGameRecycler.visibility == View.GONE) binding.pendingGameRecycler.show()
                 } ?: kotlin.run {
                     binding.noGamesText.show()
                     binding.btnRefresh.show()
