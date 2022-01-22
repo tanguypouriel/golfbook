@@ -8,5 +8,5 @@ data class PostPlayerNetworkEntity(
     val lastName : String,
     val username: String,
     val password: String,
-    val drawableResourceId : Int
+    val avatarId : Int
 )

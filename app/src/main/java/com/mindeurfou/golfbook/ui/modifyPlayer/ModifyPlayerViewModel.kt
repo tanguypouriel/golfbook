@@ -19,8 +19,8 @@ class ModifyPlayerViewModel
     private val modifyPlayerInteractors: ModifyPlayerInteractors
 ) : ViewModel(){
 
-    private val _modificationAccepted: MutableLiveData<DataState<Boolean>> = MutableLiveData()
-    val modificationAccepted: LiveData<DataState<Boolean>> = _modificationAccepted
+    private val _modificationAccepted: MutableLiveData<DataState<Unit>> = MutableLiveData()
+    val modificationAccepted: LiveData<DataState<Unit>> = _modificationAccepted
 
     fun setStateEvent(stateEvent: ModifyPlayerEvent) {
         when(stateEvent) {

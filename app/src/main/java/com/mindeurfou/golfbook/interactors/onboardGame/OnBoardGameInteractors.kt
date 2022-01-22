@@ -1,9 +1,12 @@
 package com.mindeurfou.golfbook.interactors.onboardGame
 
+import android.content.SharedPreferences
 import com.mindeurfou.golfbook.BuildConfig
 import com.mindeurfou.golfbook.data.game.local.Game
 import com.mindeurfou.golfbook.data.player.local.Player
+import com.mindeurfou.golfbook.datasource.database.PlayerDao
 import com.mindeurfou.golfbook.datasource.network.game.GameNetworkDataSourceImpl
+import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.ErrorMessages
 import com.mindeurfou.golfbook.utils.FakeData
@@ -14,7 +17,9 @@ import javax.inject.Inject
 
 @ExperimentalSerializationApi
 class OnBoardGameInteractors @Inject constructor(
-    private val gameNetworkDataSourceImpl: GameNetworkDataSourceImpl
+    private val gameNetworkDataSourceImpl: GameNetworkDataSourceImpl,
+    private val sharedPreferences: SharedPreferences,
+    private val playerDao: PlayerDao
 ){
 
     fun getInitGames(): Flow<DataState<List<Game>?>> = flow {
@@ -50,7 +55,13 @@ class OnBoardGameInteractors @Inject constructor(
             return@flow
         }
 
-        val player = Player(1, "Tanguy", "Pouriel", "Tanguy P", 1, false) // TODO faire une database locale pour le player
+        val selfId = sharedPreferences.getInt(ConnectionInteractors.PLAYER_ID_KEY, 0)
+        if (selfId == 0) {
+            emit(DataState.Failure(listOf(ErrorMessages.INTERNAL_ERROR)))
+            return@flow
+        }
+
+        val player = playerDao.getPlayerByPlayerId(selfId).toPlayer()
         val updatedPlayers = players.toMutableList()
         updatedPlayers.add(player)
         val body = mapOf("players" to updatedPlayers)

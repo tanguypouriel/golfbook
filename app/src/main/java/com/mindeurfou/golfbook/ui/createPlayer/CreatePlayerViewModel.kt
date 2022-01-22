@@ -21,20 +21,18 @@ class CreatePlayerViewModel
     private val createPlayerInteractors: CreatePlayerInteractors
 ) : ViewModel() {
 
-    private val _playerCreated: MutableLiveData<DataState<Boolean>> = MutableLiveData()
-    val playerCreated: LiveData<DataState<Boolean>> = _playerCreated
+    private val _playerCreated: MutableLiveData<DataState<Unit>> = MutableLiveData()
+    val playerCreated: LiveData<DataState<Unit>> = _playerCreated
 
     fun setStateEvent(stateEvent: StateEvent) {
         when(stateEvent) {
             is CreatePlayerEvent.SendPlayerInfoEvent -> {
                 createPlayerInteractors.sendPlayerInfo(
-                    PostPlayerNetworkEntity(
-                        name = stateEvent.name,
-                        lastName = stateEvent.lastName,
-                        username = stateEvent.username,
-                        password = stateEvent.password,
-                        drawableResourceId = stateEvent.avatarId
-                    )
+                    name = stateEvent.name,
+                    lastName = stateEvent.lastName,
+                    username = stateEvent.username,
+                    password = stateEvent.password,
+                    avatarId = stateEvent.avatarId
                 ).onEach {
                     _playerCreated.value = it
                 }.launchIn(viewModelScope)

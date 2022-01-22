@@ -55,7 +55,7 @@ class ModifyPlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
         viewModel.modificationAccepted.observe(viewLifecycleOwner) { observerModificationAccepted(it) }
     }
 
-    private fun observerModificationAccepted(dataState: DataState<Boolean>) {
+    private fun observerModificationAccepted(dataState: DataState<Unit>) {
         when (dataState) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Failure -> {
@@ -64,10 +64,7 @@ class ModifyPlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
             }
             is DataState.Success -> {
                 binding.progressBar.hide()
-                if (dataState.data)
-                    navigateToPlayerDetailsFragment(navArgs.player.id)
-                else
-                    Snackbar.make(binding.root, getString(R.string.networkError), Snackbar.LENGTH_SHORT).show()
+                navigateToPlayerDetailsFragment(navArgs.player.id)
             }
         }
     }

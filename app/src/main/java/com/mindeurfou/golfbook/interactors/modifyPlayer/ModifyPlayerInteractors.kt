@@ -1,7 +1,10 @@
 package com.mindeurfou.golfbook.interactors.modifyPlayer
 
+import android.content.SharedPreferences
 import com.mindeurfou.golfbook.BuildConfig
+import com.mindeurfou.golfbook.data.player.PlayerDbEntity
 import com.mindeurfou.golfbook.data.player.local.Player
+import com.mindeurfou.golfbook.datasource.database.PlayerDao
 import com.mindeurfou.golfbook.datasource.network.player.PlayerNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.ErrorMessages
@@ -13,7 +16,8 @@ import javax.inject.Inject
 
 class ModifyPlayerInteractors
 @Inject constructor(
-    private val playerNetworkDataSourceImpl: PlayerNetworkDataSourceImpl
+    private val playerNetworkDataSourceImpl: PlayerNetworkDataSourceImpl,
+    private val playerDao: PlayerDao,
 ) {
 
     fun sendModification(
@@ -23,12 +27,12 @@ class ModifyPlayerInteractors
         username: String,
         drawableResourceId: Int,
         realUser: Boolean
-    ): Flow<DataState<Boolean>> = flow {
+    ): Flow<DataState<Unit>> = flow {
         emit(DataState.Loading)
 
         if (BuildConfig.fakeData) {
             kotlinx.coroutines.delay(1000)
-            emit(DataState.Success(true))
+            emit(DataState.Success(Unit))
             return@flow
         }
 
@@ -50,7 +54,11 @@ class ModifyPlayerInteractors
 
         try {
             val returnedPlayer = playerNetworkDataSourceImpl.updatePlayer(player)
-            emit(DataState.Success(returnedPlayer == player))
+            if (returnedPlayer == player) {
+                playerDao.insertPlayer(player.toDBEntity())
+                emit(DataState.Success(Unit))
+            } else
+                emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
         } catch (e: Exception) {
             emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
         }

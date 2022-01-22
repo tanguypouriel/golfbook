@@ -14,9 +14,9 @@ import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.FragmentCreatePlayerBinding
 import com.mindeurfou.golfbook.interactors.createPlayer.CreatePlayerEvent
 import com.mindeurfou.golfbook.ui.playerDetails.PlayerConfigFragment
-import com.mindeurfou.golfbook.utils.DataState
-import com.mindeurfou.golfbook.utils.hide
-import com.mindeurfou.golfbook.utils.show
+import com.mindeurfou.golfbook.utils.*
+import com.mindeurfou.golfbook.utils.ErrorMessages.Companion.snack
+import com.mindeurfou.golfbook.utils.ErrorMessages.Companion.specific
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,7 +37,7 @@ class CreatePlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCreatePlayerBinding.inflate(inflater, container, false)
 
         setupUI()
@@ -60,7 +60,7 @@ class CreatePlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
         viewModel.playerCreated.observe(viewLifecycleOwner) { observePlayerCreated(it) }
     }
 
-    private fun observePlayerCreated(dataState: DataState<Boolean>) {
+    private fun observePlayerCreated(dataState: DataState<Unit>) {
         when (dataState) {
             is DataState.Loading -> binding.progressBar.show()
             is DataState.Success -> {
@@ -69,7 +69,22 @@ class CreatePlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
             }
             is DataState.Failure -> {
                 binding.progressBar.hide()
-                Toast.makeText(requireContext(), "Erreur", Toast.LENGTH_SHORT).show()
+                dataState.errors?.let { handleErrors(it) }
+            }
+        }
+    }
+
+    private fun handleErrors(errors: List<ErrorMessages>) {
+        val sorted = ErrorMessages.sort(errors)
+        sorted[snack]?.let { makeSnackbar(binding.root, it) }
+        sorted[specific]?.forEach {
+            when (it) {
+                ErrorMessages.USERNAME_TAKEN -> binding.usernameInput.error = it.toString()
+                ErrorMessages.USERNAME_EMPTY -> binding.usernameInput.error = it.toString()
+                ErrorMessages.NAME_EMPTY -> binding.nameInput.error = it.toString()
+                ErrorMessages.LASTNAME_EMPTY -> binding.lastNameInput.error = it.toString()
+                ErrorMessages.PASSWORD_EMPTY -> binding.passwordInput.error = it.toString()
+                else -> {}
             }
         }
     }
