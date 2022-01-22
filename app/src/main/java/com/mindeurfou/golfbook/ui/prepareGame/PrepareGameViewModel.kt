@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.*
 import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.game.local.GameDetails
+import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.PLAYER_ID_KEY
 import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors.Companion.USERNAME_KEY
 import com.mindeurfou.golfbook.interactors.prepareGame.PrepareGameEvent
@@ -41,6 +42,9 @@ class PrepareGameViewModel
     private val _playerAccepted: MutableLiveData<DataState<Unit>> = MutableLiveData()
     val playerAccepted: LiveData<DataState<Unit>> = _playerAccepted
 
+    private val _existingPlayers: MutableLiveData<DataState<List<Player>>> = MutableLiveData()
+    val existingPlayers: LiveData<DataState<List<Player>>> = _existingPlayers
+
     val selfName: String? = sharedPreferences.getString(USERNAME_KEY, null)
     private val selfId: Int = sharedPreferences.getInt(PLAYER_ID_KEY, 0)
 
@@ -58,12 +62,12 @@ class PrepareGameViewModel
                     _status.value = it
                 }.launchIn(viewModelScope)
             }
-            is PrepareGameEvent.CheckPlayerReady -> {
+            is PrepareGameEvent.CheckPlayerReadyEvent -> {
                 prepareGameInteractors.getPlayersReady(gameId).onEach {
                     _playersReady.value = it
                 }.launchIn(viewModelScope)
             }
-            is PrepareGameEvent.AcceptGameStart -> {
+            is PrepareGameEvent.AcceptGameStartEvent -> {
                 if (playersReady.value !is DataState.Success) {
                     _status.value = DataState.Failure(listOf(ErrorMessages.INTERNAL_ERROR))
                     return
@@ -74,7 +78,7 @@ class PrepareGameViewModel
                     _status.value = it
                 }.launchIn(viewModelScope)
             }
-            is PrepareGameEvent.RejectGameStart -> {
+            is PrepareGameEvent.RejectGameStartEvent -> {
                 prepareGameInteractors.rejectStart(gameId) .onEach {
                     _status.value = it
                 }.launchIn(viewModelScope)
@@ -84,14 +88,25 @@ class PrepareGameViewModel
                     _course.value = it
                 }.launchIn(viewModelScope)
             }
-            is PrepareGameEvent.AddPlayer -> {
+            is PrepareGameEvent.AddPlayerEvent -> {
                 if (gameDetails.value !is DataState.Success) {
                     _status.value = DataState.Failure(listOf(ErrorMessages.INTERNAL_ERROR))
                     return
                 }
                 val gameDetails = (gameDetails.value as DataState.Success<GameDetails>).data
 
-                prepareGameInteractors.addPlayer(
+                prepareGameInteractors.addPlayer(stateEvent.player, gameId, gameDetails.players).onEach {
+                    _playerAccepted.value = it
+                }.launchIn(viewModelScope)
+            }
+            is PrepareGameEvent.CreateAndAddPlayerEvent -> {
+                if (gameDetails.value !is DataState.Success) {
+                    _status.value = DataState.Failure(listOf(ErrorMessages.INTERNAL_ERROR))
+                    return
+                }
+                val gameDetails = (gameDetails.value as DataState.Success<GameDetails>).data
+
+                prepareGameInteractors.createAndAddPlayer(
                     stateEvent.name,
                     stateEvent.lastName,
                     stateEvent.username,
@@ -118,6 +133,11 @@ class PrepareGameViewModel
                     _status.value = it
                 }.launchIn(viewModelScope)
 
+            }
+            is PrepareGameEvent.GetPlayersEvent -> {
+                prepareGameInteractors.getExistingPlayers().onEach {
+                    _existingPlayers.value = it
+                }.launchIn(viewModelScope)
             }
         }
     }

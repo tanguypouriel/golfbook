@@ -30,7 +30,8 @@ class ModifyPlayerViewModel
                     stateEvent.name,
                     stateEvent.lastName,
                     stateEvent.username,
-                    stateEvent.drawableResourceId
+                    stateEvent.avatarId,
+                    stateEvent.realUser
                 ).onEach {
                     _modificationAccepted.value = it
                 }.launchIn(viewModelScope)

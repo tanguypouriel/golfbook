@@ -93,7 +93,7 @@ class ModifyPlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
         binding.nameInput.editText!!.setText(navArgs.player.name)
         binding.lastNameInput.editText!!.setText(navArgs.player.lastName)
         binding.usernameInput.editText!!.setText(navArgs.player.username)
-        binding.imageAvatar.setAvatarResource(navArgs.player.drawableResourceId)
+        binding.imageAvatar.setAvatarResource(navArgs.player.avatarId)
 
         binding.imageAvatar.setOnClickListener(
             AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid,true, this)
@@ -109,7 +109,8 @@ class ModifyPlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
             name = binding.nameInput.editText!!.text.toString().trim(),
             lastName = binding.lastNameInput.editText!!.text.toString().trim(),
             username = binding.usernameInput.editText!!.text.toString().trim(),
-            drawableResourceId = binding.imageAvatar.id
+            avatarId = binding.imageAvatar.id,
+            realUser = navArgs.player.realUser
             )
         )
     }

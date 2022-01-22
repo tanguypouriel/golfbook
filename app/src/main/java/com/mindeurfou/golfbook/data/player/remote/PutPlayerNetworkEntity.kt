@@ -7,11 +7,11 @@ import kotlinx.serialization.Serializable
 data class PutPlayerNetworkEntity(
     val id: Int,
     val username: String,
-    val drawableResourceId : Int
+    val avatarId: Int
 )
 
 fun Player.toPutPlayerNetworkEntity() = PutPlayerNetworkEntity(
     id = id,
     username = username,
-    drawableResourceId = drawableResourceId
+    avatarId = avatarId
 )

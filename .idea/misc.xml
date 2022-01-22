@@ -79,6 +79,7 @@
         <entry key="app/src/main/res/layout/item_course_name.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/item_course_second.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/item_course_third.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/item_existing_player.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_game_first.xml" value="0.5987394957983193" />
         <entry key="app/src/main/res/layout/item_game_fourth.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_game_main.xml" value="0.4010416666666667" />

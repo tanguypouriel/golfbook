@@ -68,4 +68,6 @@
     <string name="networkError">Erreur réseau</string>
     <string name="refresh">Rafraîchir</string>
     <string name="noPendingGames">Aucune partie à rejoindre...</string>
+    <string name="existing">Existant</string>
+    <string name="newPlayer">Nouveau</string>
 </resources>

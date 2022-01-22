@@ -90,19 +90,19 @@ class GameDetailsFragment : Fragment(R.layout.fragment_game_details){
         players.forEachIndexed { index, player ->
             when (index + 1) {
                 1 -> {
-                    binding.imageAvatar1.setImageResource(player.drawableResourceId)
+                    binding.imageAvatar1.setImageResource(player.avatarId)
                     binding.player1Name.text = player.username
                 }
                 2 -> {
-                    binding.imageAvatar2.setImageResource(player.drawableResourceId)
+                    binding.imageAvatar2.setImageResource(player.avatarId)
                     binding.player2Name.text = player.username
                 }
                 3 -> {
-                    binding.imageAvatar3.setImageResource(player.drawableResourceId)
+                    binding.imageAvatar3.setImageResource(player.avatarId)
                     binding.player3Name.text = player.username
                 }
                 4 -> {
-                    binding.imageAvatar4.setImageResource(player.drawableResourceId)
+                    binding.imageAvatar4.setImageResource(player.avatarId)
                     binding.player4Name.text = player.username
                 }
                 else -> {}

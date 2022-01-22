@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -77,7 +78,10 @@ class PrepareGameFragment : Fragment() {
     private fun setupUI() {
         binding.startGameBtn.setOnClickListener { onClickStartBtn() }
 
-        addPlayerDialog = AddPlayerDialog(object : AddPlayerDialogListener {
+        addPlayerDialog = AddPlayerDialog(
+            getPlayersEvent = { viewModel.setStateEvent(PrepareGameEvent.GetPlayersEvent) },
+            existingPlayers = viewModel.existingPlayers,
+            object : AddPlayerDialogListener {
 
             override fun onDialogPositiveClick(dialog: AddPlayerDialog) {
                 val name = dialog.nameInput.editText?.text.toString().trim()
@@ -85,10 +89,13 @@ class PrepareGameFragment : Fragment() {
                 val username = dialog.usernameInput.editText?.text.toString().trim()
                 val avatarId = dialog.imageAvatar.id
 
-                viewModel.setStateEvent(PrepareGameEvent.AddPlayer(
-                    name, lastName, username, avatarId
+                if (dialog.togglePlayer.checkedButtonId == R.id.btnNew)
+                    viewModel.setStateEvent(PrepareGameEvent.CreateAndAddPlayerEvent(
+                        name, lastName, username, avatarId
+                        )
                     )
-                )
+                else
+                    viewModel.setStateEvent(PrepareGameEvent.AddPlayerEvent(dialog.selectedPlayer))
             }
 
             override fun onDialogNegativeClick(dialog: AddPlayerDialog) {
@@ -101,10 +108,10 @@ class PrepareGameFragment : Fragment() {
         playersReadyDialog = PlayersReadyDialog(object : DialogListener {
 
             override fun onDialogPositiveClick(dialog: DialogFragment) =
-                viewModel.setStateEvent(PrepareGameEvent.AcceptGameStart)
+                viewModel.setStateEvent(PrepareGameEvent.AcceptGameStartEvent)
 
             override fun onDialogNegativeClick(dialog: DialogFragment) {
-                viewModel.setStateEvent(PrepareGameEvent.RejectGameStart)
+                viewModel.setStateEvent(PrepareGameEvent.RejectGameStartEvent)
                 playersReadyDialogShown = false
                 dialog.dismiss()
             }
@@ -115,7 +122,7 @@ class PrepareGameFragment : Fragment() {
     }
 
     private fun onClickStartBtn() {
-        viewModel.setStateEvent(PrepareGameEvent.CheckPlayerReady)
+        viewModel.setStateEvent(PrepareGameEvent.CheckPlayerReadyEvent)
     }
 
     private fun subscribeObservers() {
@@ -246,7 +253,7 @@ class PrepareGameFragment : Fragment() {
             override fun onScoreNotification() {}
 
             override fun onPlayersReadyNotification() =
-                viewModel.setStateEvent(PrepareGameEvent.CheckPlayerReady)
+                viewModel.setStateEvent(PrepareGameEvent.CheckPlayerReadyEvent)
 
         })
     }
@@ -303,19 +310,19 @@ class PrepareGameFragment : Fragment() {
         players.forEachIndexed { index, player ->
             when(index+1) {
                 1 -> {
-                    binding.imagePlayer1.setImageResource(player.drawableResourceId)
+                    binding.imagePlayer1.setImageResource(player.avatarId)
                     binding.namePlayer1.text = player.username
                 }
                 2 -> {
-                    binding.imagePlayer2.setImageResource(player.drawableResourceId)
+                    binding.imagePlayer2.setImageResource(player.avatarId)
                     binding.namePlayer2.text = player.username
                 }
                 3 -> {
-                    binding.imagePlayer3.setImageResource(player.drawableResourceId)
+                    binding.imagePlayer3.setImageResource(player.avatarId)
                     binding.namePlayer3.text = player.username
                 }
                 4 -> {
-                    binding.imagePlayer4.setImageResource(player.drawableResourceId)
+                    binding.imagePlayer4.setImageResource(player.avatarId)
                     binding.namePlayer4.text = player.username
                 }
                 else -> {}

@@ -48,7 +48,7 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
                 binding.progressBar.hide()
 
                 val selfPlayer = dataState.data.selfPlayer
-                binding.imageAvatar.setAvatarResource(selfPlayer.drawableResourceId)
+                binding.imageAvatar.setAvatarResource(selfPlayer.avatarId)
                 binding.titlePlayer.text = selfPlayer.username
                 binding.playerName.text = selfPlayer.name
                 binding.playerLastName.text = selfPlayer.lastName

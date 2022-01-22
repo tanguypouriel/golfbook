@@ -10,6 +10,7 @@ sealed class ModifyPlayerEvent : StateEvent {
         val name: String,
         val lastName : String,
         val username : String,
-        val drawableResourceId: Int
+        val avatarId: Int,
+        val realUser : Boolean
         ) : ModifyPlayerEvent()
 }

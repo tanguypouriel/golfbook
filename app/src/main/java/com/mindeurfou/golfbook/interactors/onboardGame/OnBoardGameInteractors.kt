@@ -50,7 +50,7 @@ class OnBoardGameInteractors @Inject constructor(
             return@flow
         }
 
-        val player = Player(1, "Tanguy", "Pouriel", "Tanguy P", 1) // TODO faire une database locale pour le player
+        val player = Player(1, "Tanguy", "Pouriel", "Tanguy P", 1, false) // TODO faire une database locale pour le player
         val updatedPlayers = players.toMutableList()
         updatedPlayers.add(player)
         val body = mapOf("players" to updatedPlayers)

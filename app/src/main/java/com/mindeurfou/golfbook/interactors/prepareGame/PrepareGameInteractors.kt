@@ -7,6 +7,7 @@ import com.mindeurfou.golfbook.data.game.local.GameDetails
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.datasource.network.course.CourseNetworkDataSourceImpl
 import com.mindeurfou.golfbook.datasource.network.game.GameNetworkDataSourceImpl
+import com.mindeurfou.golfbook.datasource.network.player.PlayerNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.ErrorMessages
 import com.mindeurfou.golfbook.utils.FakeData
@@ -20,7 +21,8 @@ import javax.inject.Inject
 class PrepareGameInteractors
 @Inject constructor(
     private val gameNetworkDataSourceImpl: GameNetworkDataSourceImpl,
-    private val courseNetworkDataSourceImpl: CourseNetworkDataSourceImpl
+    private val courseNetworkDataSourceImpl: CourseNetworkDataSourceImpl,
+    private val playerNetworkDataSourceImpl: PlayerNetworkDataSourceImpl
 ){
 
     fun tryStartingGame(gameId: Int): Flow<DataState<Unit>> = flow {
@@ -84,6 +86,42 @@ class PrepareGameInteractors
     }
 
     fun addPlayer(
+        player: Player?,
+        gameId: Int,
+        players: List<Player>
+    ): Flow<DataState<Unit>> = flow {
+        emit(DataState.Loading)
+
+        if (BuildConfig.fakeData) {
+            kotlinx.coroutines.delay(1000)
+            emit(DataState.Success(Unit))
+            return@flow
+        }
+
+        val errors: MutableList<ErrorMessages> = mutableListOf()
+
+        if (player == null)
+            errors.add(ErrorMessages.INTERNAL_ERROR)
+
+        if (errors.isNotEmpty()) {
+            emit(DataState.Failure(errors))
+            return@flow
+        }
+
+        val updatedList = players.toMutableList()
+        updatedList.add(player!!)
+
+        val body = mapOf("players" to updatedList)
+
+        try {
+            gameNetworkDataSourceImpl.updatePlayers(gameId, body)
+            emit(DataState.Success(Unit))
+        } catch (e: Exception) {
+            emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+        }
+    }
+
+    fun createAndAddPlayer(
         name: String,
         lastName: String,
         username: String,
@@ -118,7 +156,8 @@ class PrepareGameInteractors
             name = name,
             lastName = lastName,
             username = username,
-            drawableResourceId = avatarId
+            avatarId = avatarId,
+            realUser = false
         )
 
         val updatedList = players.toMutableList()
@@ -219,4 +258,20 @@ class PrepareGameInteractors
         }
 
     }
+
+    fun getExistingPlayers() : Flow<DataState<List<Player>>> = flow {
+        emit(DataState.Loading)
+
+        if (BuildConfig.fakeData) {
+            kotlinx.coroutines.delay(1000)
+            emit(DataState.Success(FakeData.players()))
+            return@flow
+        }
+
+        try {
+            val getPlayersResponse = playerNetworkDataSourceImpl.getPlayers()
+            emit(DataState.Success(getPlayersResponse.players))
+        } catch (e: Exception) {}
+    }
+
 }

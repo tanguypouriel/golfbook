@@ -1,29 +1,42 @@
 package com.mindeurfou.golfbook.ui.prepareGame
 
 import android.app.Dialog
-import android.content.Context
-import android.content.DialogInterface
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.textfield.TextInputLayout
 import com.mindeurfou.golfbook.R
-import com.mindeurfou.golfbook.ui.MainActivity
-import com.mindeurfou.golfbook.utils.setAvatarResource
+import com.mindeurfou.golfbook.data.player.local.Player
+import com.mindeurfou.golfbook.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
+@AndroidEntryPoint
 class AddPlayerDialog(
+    private val getPlayersEvent: () -> Unit,
+    private val existingPlayers: LiveData<DataState<List<Player>>>,
     private val listener: AddPlayerDialogListener
 ) : DialogFragment() {
 
     private lateinit var positiveButton: TextView
     private lateinit var negativeButton: TextView
+    private lateinit var newPlayerLayout: ConstraintLayout
+    private lateinit var existingPlayerLayout: ConstraintLayout
+    private lateinit var recycler: RecyclerView
+    private lateinit var existingPlayersProgress: ProgressBar
+    lateinit var togglePlayer: MaterialButtonToggleGroup
     lateinit var nameInput: TextInputLayout
     lateinit var lastNameInput: TextInputLayout
     lateinit var usernameInput: TextInputLayout
@@ -31,6 +44,8 @@ class AddPlayerDialog(
     lateinit var progressBar: ProgressBar
 
     private var autoUsername = true
+
+    var selectedPlayer: Player? = null
 
     private val images = listOf(
         R.drawable.man_1, R.drawable.man_2, R.drawable.man_3, R.drawable.man_4,
@@ -46,11 +61,16 @@ class AddPlayerDialog(
 
         imageAvatar = root.findViewById(R.id.imageAvatar)
         positiveButton = root.findViewById(R.id.positiveBtn)
+        newPlayerLayout = root.findViewById(R.id.newPlayerLayout)
+        existingPlayerLayout = root.findViewById(R.id.existingPlayerLayout)
         negativeButton = root.findViewById(R.id.negativeBtn)
+        togglePlayer = root.findViewById(R.id.togglePlayer)
         nameInput = root.findViewById(R.id.nameInput)
         lastNameInput = root.findViewById(R.id.lastNameInput)
         usernameInput = root.findViewById(R.id.usernameInput)
         progressBar = root.findViewById(R.id.progressBar)
+        recycler = root.findViewById(R.id.existingPlayersRecycler)
+        existingPlayersProgress = root.findViewById(R.id.existingPlayersProgress)
 
         autoUsername = true
 
@@ -71,6 +91,37 @@ class AddPlayerDialog(
         }
 
         setupAutoUsername()
+
+        existingPlayers.observe(this) {
+            when(it) {
+                is DataState.Loading -> {
+                    recycler.hide()
+                    existingPlayersProgress.show()
+                }
+                is DataState.Failure -> existingPlayersProgress.hide()
+                is DataState.Success -> {
+                    existingPlayersProgress.hide()
+                    recycler.adapter = ExistingPlayersAdapter(requireContext(), it.data) { player ->
+                        selectedPlayer = player
+                    }
+                    recycler.show()
+                }
+            }
+        }
+
+        togglePlayer.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                if (checkedId == R.id.btnExisting) {
+                    getPlayersEvent()
+                    newPlayerLayout.hide()
+                    existingPlayerLayout.show(400)
+                }
+                else if (checkedId == R.id.btnNew) {
+                    existingPlayerLayout.hide()
+                    newPlayerLayout.show(400)
+                }
+            }
+        }
 
         return builder.create()
     }

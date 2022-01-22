@@ -22,7 +22,7 @@ class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val playerLastName: TextView = itemView.findViewById(R.id.playerLastName)
 
     fun bind(player: Player, onClick: (player: Player) -> Unit) {
-        imageAvatar.setAvatarResource(player.drawableResourceId)
+        imageAvatar.setAvatarResource(player.avatarId)
         playerUsername.text = player.username
         playerName.text = player.name
         playerLastName.text = player.lastName

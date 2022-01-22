@@ -39,20 +39,20 @@ class GamesViewHolder(itemView: View) : BaseViewHolder<Game>(itemView) {
     private fun setPlayer(index : Int, player: Player) {
         when (index) {
             0 -> {
-                player1Avatar.setAvatarResource(player.drawableResourceId)
+                player1Avatar.setAvatarResource(player.avatarId)
                 player1Name.text = player.username
             }
             1 -> {
-                player2Avatar.setAvatarResource(player.drawableResourceId)
+                player2Avatar.setAvatarResource(player.avatarId)
                 player2Name.text = player.username
             }
             2 -> {
-                player3Avatar.setAvatarResource(player.drawableResourceId)
+                player3Avatar.setAvatarResource(player.avatarId)
                 player3Name.text = player.username
             }
 
             3 -> {
-                player4Avatar.setAvatarResource(player.drawableResourceId)
+                player4Avatar.setAvatarResource(player.avatarId)
                 player4Name.text = player.username
             }
         }

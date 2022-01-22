@@ -21,7 +21,8 @@ class ModifyPlayerInteractors
         name: String,
         lastName: String,
         username: String,
-        drawableResourceId: Int
+        drawableResourceId: Int,
+        realUser: Boolean
     ): Flow<DataState<Boolean>> = flow {
         emit(DataState.Loading)
 
@@ -45,7 +46,7 @@ class ModifyPlayerInteractors
             return@flow
         }
 
-        val player = Player(id, name, lastName, username, drawableResourceId)
+        val player = Player(id, name, lastName, username, drawableResourceId, realUser)
 
         try {
             val returnedPlayer = playerNetworkDataSourceImpl.updatePlayer(player)

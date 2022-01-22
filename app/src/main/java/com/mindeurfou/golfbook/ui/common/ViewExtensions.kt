@@ -158,14 +158,32 @@ fun makeSnackbar(view: View, errors: List<ErrorMessages>) {
     }
 }
 
-fun View.show() {
+fun View.show(startDelay: Long = 0) {
     alpha = 0f
     visibility = View.VISIBLE
 
     ValueAnimator.ofFloat(0f, 1f).apply {
         duration = 400
+        this.startDelay = startDelay
         interpolator = AccelerateDecelerateInterpolator()
         addUpdateListener { alpha = it.animatedValue as Float }
+        start()
+    }
+}
+
+fun View.hide() {
+    alpha = 1f
+    visibility = View.VISIBLE
+
+    ValueAnimator.ofFloat(1f, 0f).apply {
+        duration = 400
+        interpolator = AccelerateDecelerateInterpolator()
+        addUpdateListener {
+            alpha = it.animatedValue as Float
+
+            if (alpha == 0f)
+                visibility = View.GONE
+        }
         start()
     }
 }
