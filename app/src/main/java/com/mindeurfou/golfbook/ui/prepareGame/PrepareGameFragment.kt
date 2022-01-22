@@ -122,7 +122,7 @@ class PrepareGameFragment : Fragment() {
     }
 
     private fun onClickStartBtn() {
-        viewModel.setStateEvent(PrepareGameEvent.CheckPlayerReadyEvent)
+        viewModel.setStateEvent(PrepareGameEvent.TryStartGameEvent)
     }
 
     private fun subscribeObservers() {
