@@ -60,7 +60,7 @@ class GameDetailsFragment : Fragment(R.layout.fragment_game_details){
                 val gameDetails = dataState.data
                 binding.title.text = gameDetails.name
                 binding.scoreBookView.par = gameDetails.par
-                binding.scoreBookView.scoreBook = gameDetails.scoreBook!!
+                binding.scoreBookView.scoreBook = gameDetails.scoreBook
                 binding.scoreBookView.visibility = View.VISIBLE
 
                 binding.scoringSystem.text = gameDetails.scoringSystem.toString()

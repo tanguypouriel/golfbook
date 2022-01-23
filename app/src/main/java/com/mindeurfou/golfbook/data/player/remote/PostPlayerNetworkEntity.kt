@@ -8,5 +8,6 @@ data class PostPlayerNetworkEntity(
     val lastName : String,
     val username: String,
     val password: String,
-    val avatarId : Int
+    val avatarId : Int,
+    val realUser: Boolean
 )

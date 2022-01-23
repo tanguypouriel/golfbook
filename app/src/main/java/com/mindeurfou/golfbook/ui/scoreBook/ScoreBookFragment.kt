@@ -66,7 +66,7 @@ class ScoreBookFragment(
             is DataState.Failure -> binding.progressBar.hide()
             is DataState.Success -> {
                 binding.progressBar.hide()
-                binding.scoreBookView.scoreBook = dataState.data.scoreBook!!
+                binding.scoreBookView.scoreBook = dataState.data.scoreBook
                 binding.scoreBookView.par = dataState.data.par
                 binding.scoreBookView.visibility = View.VISIBLE
 

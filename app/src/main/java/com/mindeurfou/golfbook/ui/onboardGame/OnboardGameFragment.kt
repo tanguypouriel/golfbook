@@ -82,7 +82,7 @@ class OnboardGameFragment : Fragment(R.layout.fragment_onboard_game) {
 
                 dataState.data?.let { games ->
                     binding.pendingGameRecycler.adapter = OnBoardGameAdapter(games) { game ->
-                        viewModel.setStateEvent(OnBoardGameEvent.JoinGameEvent(game.id, game.players!!))
+                        viewModel.setStateEvent(OnBoardGameEvent.JoinGameEvent(game.id, game.players))
                     }
                     if (binding.pendingGameRecycler.visibility == View.GONE) binding.pendingGameRecycler.show()
                 } ?: kotlin.run {

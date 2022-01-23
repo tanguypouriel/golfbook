@@ -5,8 +5,10 @@ import com.mindeurfou.golfbook.data.GBState
 import com.mindeurfou.golfbook.data.course.local.Course
 import com.mindeurfou.golfbook.data.game.local.GameDetails
 import com.mindeurfou.golfbook.data.player.local.Player
+import com.mindeurfou.golfbook.data.player.remote.PostPlayerNetworkEntity
 import com.mindeurfou.golfbook.datasource.network.course.CourseNetworkDataSourceImpl
 import com.mindeurfou.golfbook.datasource.network.game.GameNetworkDataSourceImpl
+import com.mindeurfou.golfbook.datasource.network.game.GameNetworkMapper
 import com.mindeurfou.golfbook.datasource.network.player.PlayerNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.ErrorMessages
@@ -54,7 +56,9 @@ class PrepareGameInteractors
         }
 
         try {
-            val gameDetails = gameNetworkDataSourceImpl.getGame(gameId)
+            val gameDetails = GameNetworkMapper.toGameDetails(
+                gameNetworkDataSourceImpl.getGame(gameId)
+            )
             emit(DataState.Success(gameDetails))
         } catch (e: Exception) {
             if (e is GBException && e.message == GBException.GAME_NOT_FIND_MESSAGE)
@@ -148,6 +152,25 @@ class PrepareGameInteractors
 
         if (errors.isNotEmpty()) {
             emit(DataState.Failure(errors))
+            return@flow
+        }
+
+        val postPlayer = PostPlayerNetworkEntity(
+            name = name,
+            lastName = lastName,
+            username = username,
+            password = "",
+            avatarId = avatarId,
+            realUser = true
+        )
+
+        try {
+            playerNetworkDataSourceImpl.postPlayer(postPlayer) // map with playerId returned
+        } catch (e: Exception) {
+            if (e is GBException && e.message == GBException.USERNAME_ALREADY_TAKEN_MESSAGE)
+                emit(DataState.Failure(listOf(ErrorMessages.USERNAME_TAKEN)))
+            else
+                emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
             return@flow
         }
 

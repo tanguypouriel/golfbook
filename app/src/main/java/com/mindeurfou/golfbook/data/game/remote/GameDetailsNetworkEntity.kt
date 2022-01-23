@@ -1,14 +1,15 @@
-package com.mindeurfou.golfbook.data.game.local
+package com.mindeurfou.golfbook.data.game.remote
 
 import com.mindeurfou.golfbook.data.GBState
-import com.mindeurfou.golfbook.data.game.remote.PostGameNetworkEntity
+import com.mindeurfou.golfbook.data.game.local.ScoreBook
+import com.mindeurfou.golfbook.data.game.local.ScoringSystem
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.utils.DateAsLongSerializer
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
 
 @Serializable
-data class GameDetails(
+data class GameDetailsNetworkEntity(
     val id : Int,
     val name: String,
     val state: GBState,
@@ -18,6 +19,12 @@ data class GameDetails(
     val courseName: String,
     val par: List<Int>,
     val players: List<Player>,
-    val scoreSummaries: List<ScoreSummary>,
-    val scoreBook : ScoreBook
-)
+    val scoreBook : ScoreBookNetworkEntity
+) {
+
+    fun equalsPostGame(postGame: PostGameNetworkEntity): Boolean {
+        return name == postGame.name &&
+                scoringSystem == postGame.scoringSystem &&
+                courseName == postGame.courseName && state == GBState.INIT
+    }
+}

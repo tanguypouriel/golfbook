@@ -29,7 +29,7 @@ class OnBoardGameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     fun bind(item: Game, onClick: (Game) -> Unit) {
 
         gameName.text =  item.name
-        item.players?.forEachIndexed { i, player -> setPlayer(i, player) }
+        item.players.forEachIndexed { i, player -> setPlayer(i, player) }
 
         joinGame.setOnClickListener { onClick(item) }
     }

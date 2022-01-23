@@ -53,9 +53,7 @@ class ModifyCourseInteractors
             name = name,
             numberOfHoles = holes.size,
             par = Hole.computePar(holes),
-            gamesPlayed = gamesPlayed,
             stars = stars,
-            createdAt = createdAt,
             holes = holes
         )
 

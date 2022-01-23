@@ -53,7 +53,8 @@ class CreatePlayerInteractors
          lastName = lastName,
          username = username,
          password = password,
-         avatarId = avatarId
+         avatarId = avatarId,
+         realUser = true
       )
 
       try {

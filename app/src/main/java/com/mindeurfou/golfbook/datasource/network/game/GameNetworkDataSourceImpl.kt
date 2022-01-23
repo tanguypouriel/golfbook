@@ -2,10 +2,9 @@ package com.mindeurfou.golfbook.datasource.network.game
 
 import com.mindeurfou.golfbook.data.GBState
 import com.mindeurfou.golfbook.data.game.local.Game
-import com.mindeurfou.golfbook.data.game.local.GameDetails
-import com.mindeurfou.golfbook.data.game.local.ScoreBook
+import com.mindeurfou.golfbook.data.game.remote.GameDetailsNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PostGameNetworkEntity
-import com.mindeurfou.golfbook.data.game.remote.PutScoreBookNetworkEntity
+import com.mindeurfou.golfbook.data.game.remote.ScoreBookNetworkEntity
 import com.mindeurfou.golfbook.data.player.local.Player
 import com.mindeurfou.golfbook.utils.GBException
 import com.mindeurfou.golfbook.utils.GBHttpStatusCode
@@ -19,7 +18,7 @@ class GameNetworkDataSourceImpl @Inject constructor(
     private val gameApiService: GameApiService
 ) : GameNetworkDataSource {
 
-    override suspend fun getGame(gameId: Int): GameDetails {
+    override suspend fun getGame(gameId: Int): GameDetailsNetworkEntity {
         try {
             return gameApiService.getGame(gameId)
         } catch (e: HttpException) {
@@ -55,7 +54,7 @@ class GameNetworkDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun postGame(postGame: PostGameNetworkEntity): GameDetails {
+    override suspend fun postGame(postGame: PostGameNetworkEntity): GameDetailsNetworkEntity  {
         try {
             return gameApiService.postGame(postGame)
         } catch (e: HttpException) {
@@ -102,17 +101,6 @@ class GameNetworkDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getScoreBook(gameId: Int): ScoreBook {
-        try {
-            return gameApiService.getScoreBook(gameId)
-        } catch (e: HttpException) {
-            if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
-                throw GBException(GBException.GAME_NOT_FIND_MESSAGE)
-            else
-                throw UnknownError("status code is ${e.code()}")
-        }
-    }
-
     override suspend fun getPlayersReady(gameId: Int) : List<String> {
         try {
             return gameApiService.getPlayersReady(gameId)
@@ -136,9 +124,20 @@ class GameNetworkDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun putScoreBook(putScoreBook: PutScoreBookNetworkEntity): ScoreBook {
+    override suspend fun getScoreBook(gameId: Int): ScoreBookNetworkEntity {
         try {
-            return gameApiService.putScoreBook(putScoreBook.gameId, putScoreBook)
+            return gameApiService.getScoreBook(gameId)
+        } catch (e: HttpException) {
+            if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
+                throw GBException(GBException.GAME_NOT_FIND_MESSAGE)
+            else
+                throw UnknownError("status code is ${e.code()}")
+        }
+    }
+
+    override suspend fun putScoreBook(gameId: Int, scoreBookNetworkEntity: ScoreBookNetworkEntity): ScoreBookNetworkEntity {
+        try {
+            return gameApiService.putScoreBook(gameId, scoreBookNetworkEntity)
         } catch (e: HttpException) {
             if (e.code() == HttpURLConnection.HTTP_NOT_FOUND)
                 throw GBException(GBException.GAME_NOT_FIND_MESSAGE)

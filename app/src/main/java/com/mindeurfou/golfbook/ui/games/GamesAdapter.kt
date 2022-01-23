@@ -31,7 +31,7 @@ class GamesViewHolder(itemView: View) : BaseViewHolder<Game>(itemView) {
         gameState.text = itemView.context.getString(R.string.bulletPointString, item.state)
         gameCourse.text = itemView.context.getString(R.string.bulletPointString, item.courseName)
 
-        item.players?.forEachIndexed { i, player -> setPlayer(i, player) }
+        item.players.forEachIndexed { i, player -> setPlayer(i, player) }
 
         itemView.setOnClickListener { onClick(item) }
     }

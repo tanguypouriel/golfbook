@@ -68,7 +68,7 @@ class ScoreInputFragment(
             is DataState.Success -> {
                 binding.progressBar.hide()
                 binding.scoreInputView.par = dataState.data.par
-                binding.scoreInputView.scoreBook = dataState.data.scoreBook!!
+                binding.scoreInputView.scoreBook = dataState.data.scoreBook
                 binding.scoreInputView.scoreSummaries = dataState.data.scoreSummaries
                 binding.scoreInputView.visibility = View.VISIBLE
             }

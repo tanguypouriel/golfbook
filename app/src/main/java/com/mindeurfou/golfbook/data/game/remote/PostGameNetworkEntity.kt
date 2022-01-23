@@ -7,6 +7,5 @@ import kotlinx.serialization.Serializable
 data class PostGameNetworkEntity(
     val name: String,
     val courseName: String,
-    val tournamentId: Int? = null,
     val scoringSystem: ScoringSystem
 )
