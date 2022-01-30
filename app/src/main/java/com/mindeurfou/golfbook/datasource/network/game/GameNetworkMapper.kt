@@ -4,6 +4,7 @@ import com.mindeurfou.golfbook.data.game.local.*
 import com.mindeurfou.golfbook.data.game.remote.GameDetailsNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.PlayerScoreNetworkEntity
 import com.mindeurfou.golfbook.data.game.remote.ScoreBookNetworkEntity
+import com.mindeurfou.golfbook.data.game.remote.ScoreDetailsNetworkEntity
 
 object GameNetworkMapper {
 
@@ -22,13 +23,13 @@ object GameNetworkMapper {
                 ScoreSummary("1", "Tanguy", "1"),
                 ScoreSummary("2", "Romane", "0")
             ),
-            toScoreBook(gameDetailsNetworkEntity.par.size, gameDetailsNetworkEntity.scoreBook)
+            toScoreBook(gameDetailsNetworkEntity.par.size, gameDetailsNetworkEntity.scoreBook, parList = gameDetailsNetworkEntity.par)
         )
     }
 
-    fun toScoreBook(numberOfHoles: Int, scoreBookNetworkEntity: ScoreBookNetworkEntity) : ScoreBook {
+    fun toScoreBook(numberOfHoles: Int, scoreBookNetworkEntity: ScoreBookNetworkEntity, parList: List<Int>) : ScoreBook {
         return ScoreBook(
-            scoreBookNetworkEntity.playerScores.map { toPlayerScore(numberOfHoles, it) }
+            scoreBookNetworkEntity.playerScores.map { toPlayerScore(numberOfHoles, it, parList) }
         )
     }
 
@@ -40,11 +41,16 @@ object GameNetworkMapper {
 
     private fun toPlayerScoreNetworkEntity(playerScore: PlayerScore) : PlayerScoreNetworkEntity {
 
-        val scores: MutableList<ScoreDetails> = mutableListOf()
+        val scores: MutableList<ScoreDetailsNetworkEntity> = mutableListOf()
 
         playerScore.scores.forEach { scoreDetails ->
             scoreDetails?.let {
-                scores.add(it)
+                scores.add(
+                    ScoreDetailsNetworkEntity(
+                        score = it.score,
+                        net = it.net
+                    )
+                )
             }
         }
 
@@ -56,14 +62,14 @@ object GameNetworkMapper {
         )
     }
 
-    private fun toPlayerScore(numberOfHoles: Int, playerScoreNetworkEntity: PlayerScoreNetworkEntity) : PlayerScore {
+    private fun toPlayerScore(numberOfHoles: Int, playerScoreNetworkEntity: PlayerScoreNetworkEntity, parList: List<Int>) : PlayerScore {
 
         val scores: MutableList<ScoreDetails?> = mutableListOf()
         val size = playerScoreNetworkEntity.scores.size
 
         for (i in 0 until numberOfHoles) {
             if (i < size)
-                scores.add(playerScoreNetworkEntity.scores[i])
+                scores.add(toScoreDetails(playerScoreNetworkEntity.scores[i], parList[i]))
             else
                 scores.add(null)
         }
@@ -83,6 +89,24 @@ object GameNetworkMapper {
             scores,
             scoreSum,
             netSum
+        )
+    }
+
+    private fun toScoreDetails(scoreDetailsNetworkEntity: ScoreDetailsNetworkEntity, par: Int) : ScoreDetails {
+
+        val scoreType = when (scoreDetailsNetworkEntity.score - par) {
+            -2 -> ScoreType.EAGLE
+            -1 -> ScoreType.BIRDIE
+            0 -> ScoreType.PAR
+            1 -> ScoreType.BOGEY
+            2 -> ScoreType.DOUBLE_BOGEY
+            3 -> ScoreType.HIGHER_THAN_DB
+            else -> ScoreType.PAR
+        }
+        return ScoreDetails(
+            score = scoreDetailsNetworkEntity.score,
+            scoreType = scoreType,
+            net = scoreDetailsNetworkEntity.net
         )
     }
 }
