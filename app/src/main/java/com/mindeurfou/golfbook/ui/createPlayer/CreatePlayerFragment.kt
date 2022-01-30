@@ -99,58 +99,58 @@ class CreatePlayerFragment : Fragment(R.layout.fragment_create_player), PlayerCo
         val lastname = binding.lastNameInput.editText!!.text.toString().trim()
         val username = binding.usernameInput.editText!!.text.toString().trim()
         val password = binding.passwordInput.editText!!.text.toString().trim()
-        val avatarId = binding.imageAvatar.id
+        val avatarId = binding.imageAvatar.avatarId()
         viewModel.setStateEvent(CreatePlayerEvent.SendPlayerInfoEvent(name, lastname, username, password, avatarId))
     }
 
     private fun setOnClickListenersAvatars() {
         binding.man1.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.man_1)
+            binding.imageAvatar.setAvatarResource(1)
         })
         binding.man2.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.man_2)
+            binding.imageAvatar.setAvatarResource(2)
         })
         binding.man3.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.man_3)
+            binding.imageAvatar.setAvatarResource(3)
         })
         binding.man4.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.man_4)
+            binding.imageAvatar.setAvatarResource(4)
         })
         binding.man5.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.man_5)
+            binding.imageAvatar.setAvatarResource(5)
         })
         binding.man6.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.man_6)
+            binding.imageAvatar.setAvatarResource(6)
         })
         binding.man7.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.man_7)
+            binding.imageAvatar.setAvatarResource(7)
         })
         binding.man8.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.man_8)
+            binding.imageAvatar.setAvatarResource(8)
         })
         binding.woman1.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.woman_1)
+            binding.imageAvatar.setAvatarResource(9)
         })
         binding.woman2.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.woman_2)
+            binding.imageAvatar.setAvatarResource(10)
         })
         binding.woman3.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.woman_3)
+            binding.imageAvatar.setAvatarResource(11)
         })
         binding.woman4.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.woman_4)
+            binding.imageAvatar.setAvatarResource(12)
         })
         binding.woman5.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.woman_5)
+            binding.imageAvatar.setAvatarResource(13)
         })
         binding.woman6.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.woman_6)
+            binding.imageAvatar.setAvatarResource(14)
         })
         binding.woman7.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.woman_7)
+            binding.imageAvatar.setAvatarResource(15)
         })
         binding.woman8.setOnClickListener(AvatarImageClickListener(requireContext(), binding.mainLayout, binding.avatarGrid, fragment = this) {
-            binding.imageAvatar.setImageResource(R.drawable.woman_8)
+            binding.imageAvatar.setAvatarResource(16)
         })
     }
 }

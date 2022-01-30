@@ -116,10 +116,86 @@ fun Path.scale(width: Int, height: Int) {
 }
 
 fun ImageView.setAvatarResource(avatarId: Int) {
-    if (avatarId >= R.drawable.man_1 && avatarId <= R.drawable.woman_8)
-        setImageResource(avatarId)
+    when (avatarId) {
+        1 -> {
+            setImageResource(R.drawable.man_1)
+            tag = 1
+        }
+        2 -> {
+            setImageResource(R.drawable.man_2)
+            tag = 2
+        }
+        3 -> {
+            setImageResource(R.drawable.man_3)
+            tag = 3
+        }
+        4 -> {
+            setImageResource(R.drawable.man_4)
+            tag = 4
+        }
+        5 -> {
+            setImageResource(R.drawable.man_5)
+            tag = 5
+        }
+        6 -> {
+            setImageResource(R.drawable.man_6)
+            tag = 6
+        }
+        7 -> {
+            setImageResource(R.drawable.man_7)
+            tag = 7
+        }
+        8 -> {
+            setImageResource(R.drawable.man_8)
+            tag = 8
+        }
+        9 -> {
+            setImageResource(R.drawable.woman_1)
+            tag = 9
+        }
+        10 -> {
+            setImageResource(R.drawable.woman_2)
+            tag = 10
+        }
+        11 -> {
+            setImageResource(R.drawable.woman_3)
+            tag = 11
+        }
+        12 -> {
+            setImageResource(R.drawable.woman_4)
+            tag = 12
+        }
+        13 -> {
+            setImageResource(R.drawable.woman_5)
+            tag = 13
+        }
+        14 -> {
+            setImageResource(R.drawable.woman_6)
+            tag = 14
+        }
+        15 -> {
+            setImageResource(R.drawable.woman_7)
+            tag = 15
+        }
+        16 -> {
+            setImageResource(R.drawable.woman_8)
+            tag = 16
+        }
+        else -> {
+            setImageResource(R.drawable.man_1)
+            tag = 1
+        }
+    }
+}
+
+fun ImageView.avatarId() : Int {
+    val avatarId = tag as? Int
+        ?: throw IllegalStateException("Image doesn't correspond to an avatar")
+
+    return if (avatarId in 1..16)
+        avatarId
     else
-        setImageResource(R.drawable.man_1)
+        1
 }
 
 fun MaterialCardView.cropTopEdge() {
