@@ -42,10 +42,9 @@ class PlayerNetworkDataSourceImpl @Inject constructor(
         try {
             return playerApiService.getPlayers(limit, offset)
         } catch (e: HttpException) {
-            if (e.code() == HttpURLConnection.HTTP_NO_CONTENT)
-                throw GBException(GBException.NO_RESOURCES_MESSAGE)
-            else
                 throw Exception("status code is ${e.code()}")
+        } catch (e: NullPointerException) {
+            throw GBException(GBException.NO_RESOURCES_MESSAGE)
         }
     }
 

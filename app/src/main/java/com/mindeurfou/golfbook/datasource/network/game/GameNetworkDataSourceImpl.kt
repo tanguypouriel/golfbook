@@ -29,8 +29,15 @@ class GameNetworkDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getInitGames(): List<Game>? =
-            gameApiService.getInitGames()
+    override suspend fun getInitGames(): List<Game> {
+        try {
+            return gameApiService.getInitGames()
+        } catch (e: HttpException) {
+            throw UnknownError("status code is ${e.code()}")
+        } catch (e: NullPointerException) {
+            throw GBException(GBException.NO_RESOURCES_MESSAGE)
+        }
+    }
 
     override suspend fun getGamesByTournamentId(tournamentId: Int): List<Game> {
         try {
@@ -47,10 +54,9 @@ class GameNetworkDataSourceImpl @Inject constructor(
         try {
             return gameApiService.getGamesByPlayerId(playerId)
         } catch (e: HttpException) {
-            if (e.code() == HttpURLConnection.HTTP_NO_CONTENT)
-                throw GBException(GBException.NO_RESOURCES_MESSAGE)
-            else
-                throw UnknownError("status code is ${e.code()}")
+            throw UnknownError("status code is ${e.code()}")
+        } catch (e: NullPointerException) {
+            throw GBException(GBException.NO_RESOURCES_MESSAGE)
         }
     }
 

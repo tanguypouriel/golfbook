@@ -7,7 +7,7 @@ import com.mindeurfou.golfbook.data.course.remote.PutCourseNetworkEntity
 import com.mindeurfou.golfbook.utils.GBException
 import com.mindeurfou.golfbook.utils.GBHttpStatusCode
 import retrofit2.HttpException
-import retrofit2.http.HTTP
+import java.lang.NullPointerException
 import java.net.HttpURLConnection
 import javax.inject.Inject
 
@@ -34,10 +34,9 @@ class CourseNetworkDataSourceImpl @Inject constructor(
         try {
             return courseApiService.getCourses(limit, offset)
         } catch (e: HttpException) {
-            if (e.code() == HttpURLConnection.HTTP_NO_CONTENT)
-                throw GBException(GBException.NO_RESOURCES_MESSAGE)
-            else
-                throw UnknownError("status code is ${e.code()}")
+            throw UnknownError("status code is ${e.code()}")
+        } catch (e: NullPointerException) {
+            throw GBException(GBException.NO_RESOURCES_MESSAGE)
         }
     }
 

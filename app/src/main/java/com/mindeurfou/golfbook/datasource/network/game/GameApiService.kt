@@ -12,7 +12,7 @@ interface GameApiService {
     suspend fun getGame(@Path("gameId") gameId: Int): GameDetailsNetworkEntity
 
     @GET("/game?state=init")
-    suspend fun getInitGames(): List<Game>?
+    suspend fun getInitGames(): List<Game>
 
     @GET("/game")
     suspend fun getGamesByTournamentId(@Query("tournamentId") tournamentId : Int): List<Game>

@@ -9,7 +9,7 @@ import com.mindeurfou.golfbook.data.player.local.Player
 
 interface GameNetworkDataSource {
     suspend fun getGame(gameId: Int): GameDetailsNetworkEntity
-    suspend fun getInitGames() : List<Game>?
+    suspend fun getInitGames() : List<Game>
     suspend fun getGamesByTournamentId(tournamentId: Int): List<Game>
     suspend fun getGamesByPlayerId(playerId: Int): List<Game>
     suspend fun postGame(postGame: PostGameNetworkEntity): GameDetailsNetworkEntity
