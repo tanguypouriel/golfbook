@@ -60,9 +60,9 @@ class ExistingPlayersAdapter(
 
         holder.bind(players[position]) {
 
-            onClick(players[position])
+            onClick(players[holder.adapterPosition])
             selectedPosition?.let { notifyItemChanged(it) }
-            selectedPosition = position
+            selectedPosition = holder.adapterPosition
             notifyItemChanged(selectedPosition!!)
         }
     }
