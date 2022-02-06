@@ -14,20 +14,22 @@ import java.time.LocalDate
 object FakeData {
 
     fun getPlayersResponse() = GetPlayersResponse(
-        Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_2, true),
+        Player(1, "Jérome", "Purin", "Jérôme P.", 3, true),
         listOf(
-            Player(2, "Romane", "Philbert", "Roro", R.drawable.woman_2, true),
-            Player(3, "Lisa", "Debrincat", "Petrouchka", R.drawable.woman_4, true),
-            Player(5, "Romane", "Philbert", "Roro", R.drawable.woman_2, true),
-            Player(6, "Lisa", "Debrincat", "Petrouchka", R.drawable.woman_4, true),
-            Player(2, "Romane", "Philbert", "Roro", R.drawable.woman_2, true),
-            Player(3, "Lisa", "Debrincat", "Petrouchka", R.drawable.woman_4, true),
-            Player(5, "Romane", "Philbert", "Roro", R.drawable.woman_2, true),
-            Player(6, "Lisa", "Debrincat", "Petrouchka", R.drawable.woman_4, true)
+            Player(2, "Eddy", "Michel", "Eddy M.", 2, true),
+            Player(3, "Fabienne", "Gordeau", "Fabi", 13, true),
+            Player(5, "Aude", "Armani", "Aude A.", 10, true),
+            Player(6, "Sarah", "Yasma", "Sarah Y.", 15, true),
+            Player(2, "Marion", "Mori", "Momo", 16, true),
+            Player(3, "Adrien", "Aloué", "Adri", 6, true),
+            Player(5, "Patrick", "Dubosse", "Patrick D.", 1, true),
+            Player(6, "Manon", "Erztatz", "Manon E.", 12, true)
         )
     )
 
-    fun player() = Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5, true)
+    fun player() = Player(1, "Jérome", "Purin", "Jérôme P.", 3, true)
+
+
 
     fun players() = listOf(
         Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5, true),
@@ -59,12 +61,12 @@ object FakeData {
 
     fun courses() = listOf(
         Course(1, "Parcours du chêne", 18, 72, 3, 4, LocalDate.now()),
-        Course(1, "Parcours du chêne", 18, 72, 3, 4, LocalDate.now()),
-        Course(1, "Parcours du chêne", 18, 72, 3, 3, LocalDate.now()),
-        Course(1, "Parcours du chêne", 18, 72, 3, 3, LocalDate.now()),
-        Course(1, "Parcours du chêne", 18, 72, 3, 3, LocalDate.now()),
-        Course(1, "Parcours du chêne", 18, 72, 3, 2, LocalDate.now()),
-        Course(1, "Parcours du chêne", 18, 72, 3, 2, LocalDate.now()),
+        Course(1, "Parcours du cygne", 18, 72, 3, 4, LocalDate.now()),
+        Course(1, "Parcours du chevreuil", 18, 72, 3, 3, LocalDate.now()),
+        Course(1, "Parcours du lac", 18, 72, 3, 3, LocalDate.now()),
+        Course(1, "Parcours de la marmotte", 18, 72, 3, 3, LocalDate.now()),
+        Course(1, "Parcours du bassin", 18, 72, 3, 2, LocalDate.now()),
+        Course(1, "Parcours du marcassin", 18, 72, 3, 2, LocalDate.now()),
     )
 
     fun course() = Course(1, "Parcours du chêne", 18, 72, 3, 4, LocalDate.now())
@@ -92,44 +94,44 @@ object FakeData {
 
     fun games() = listOf(
         Game(1, "Parcours du 17/08/21", GBState.DONE, ScoringSystem.STROKE_PLAY, listOf(
-            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5, true),
-            Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_4, true)
-        ), "Parcours de la belette des sables", LocalDate.now()),
+            Player(1, "Tanguy", "Pouriel", "Patrick", 1, true),
+            Player(1, "Tanguy", "Pouriel", "Jérôme", 3, true)
+        ), "Parcours du cygne", LocalDate.now()),
         Game(2, "Parcours du 24/06/21", GBState.PENDING, ScoringSystem.STROKE_PLAY, listOf(
-            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_2, true),
-            Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7, true),
-            Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7, true)
-        ), "Parcours de la peugot 207", LocalDate.now()),
+            Player(1, "Tanguy", "Pouriel", "Adrien", 6, true),
+            Player(1, "Tanguy", "Pouriel", "Fabienne", 13, true),
+            Player(1, "Tanguy", "Pouriel", "Eddy", 2, true)
+        ), "Parcours du chêne", LocalDate.now()),
         Game(1, "Parcours du 17/08/21", GBState.DONE, ScoringSystem.STROKE_PLAY, listOf(
-            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5, true),
-            Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_4, true),
-            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5,true)
-        ), "Parcours trop court", LocalDate.now()),
+            Player(1, "Tanguy", "Pouriel", "Jérémy", 5, true),
+            Player(1, "Tanguy", "Pouriel", "Aude", 10, true),
+            Player(1, "Tanguy", "Pouriel", "Sarah", 15,true)
+        ), "Parcours du lac", LocalDate.now()),
         Game(2, "Parcours du 17/08/21", GBState.PENDING, ScoringSystem.STROKE_PLAY, listOf(
-            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_2, true),
-            Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7, true),
-            Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7, true)
-        ), "Parcours", LocalDate.now()),
+            Player(1, "Tanguy", "Pouriel", "Jérôme", 3, true),
+            Player(1, "Tanguy", "Pouriel", "Patrick", 1, true),
+            Player(1, "Tanguy", "Pouriel", "Marion", 16, true)
+        ), "Parcours du lac", LocalDate.now()),
         Game(2, "Parcours du 17/08/21", GBState.PENDING, ScoringSystem.STROKE_PLAY, listOf(
-            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_2, true),
-            Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7, true),
-            Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7, true)
-        ), "Parcours", LocalDate.now()),
+            Player(1, "Tanguy", "Pouriel", "Manon", 12, true),
+            Player(1, "Tanguy", "Pouriel", "Patrick", 1, true),
+            Player(1, "Tanguy", "Pouriel", "Fabienne", 13, true)
+        ), "Parcours du cygne", LocalDate.now()),
         Game(1, "Parcours du 17/08/21", GBState.DONE, ScoringSystem.STROKE_PLAY, listOf(
-            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5, true),
-            Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_4, true),
-            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5, true)
-        ), "Parcours", LocalDate.now())
+            Player(1, "Tanguy", "Pouriel", "Adrien", 6, true),
+            Player(1, "Tanguy", "Pouriel", "Eddy", 2, true),
+            Player(1, "Tanguy", "Pouriel", "Jérôme", 3, true)
+        ), "Parcours du chêne", LocalDate.now())
     )
     fun pendingGames() = listOf(
         Game(1, "Partie du 17/08/21", GBState.DONE, ScoringSystem.STROKE_PLAY, listOf(
-            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5, true),
-            Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_4, true)
+            Player(1, "Tanguy", "Pouriel", "Patrick", 1, true),
+            Player(1, "Tanguy", "Pouriel", "Eddy", 2, true)
         ), "Parcours de la belette des sables", LocalDate.now()),
         Game(2, "Partie du 24/06/21", GBState.PENDING, ScoringSystem.STROKE_PLAY, listOf(
-            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_2, true),
-            Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7, true),
-            Player(1, "Tanguy", "Pouriel", "Frere le boss", R.drawable.man_7, true)
+            Player(1, "Tanguy", "Pouriel", "Aude", 10, true),
+            Player(1, "Tanguy", "Pouriel", "Marion", 16, true),
+            Player(1, "Tanguy", "Pouriel", "Sarah", 15, true)
         ), "Parcours de la peugot 207", LocalDate.now()))
 
     fun game() = Game(2, "Partie du 24/06/21", GBState.PENDING, ScoringSystem.STROKE_PLAY, listOf(
@@ -148,7 +150,7 @@ object FakeData {
     fun scoreBook() = ScoreBook(
         playerScores = listOf(
             PlayerScore(
-                "Tanguy",
+                "Jérôme P.",
                 listOf(
                     ScoreDetails(3, ScoreType.BIRDIE,"2"),
                     ScoreDetails(4, ScoreType.PAR, "4"),
@@ -173,7 +175,7 @@ object FakeData {
                 "-4"
             ),
             PlayerScore(
-                "Romane",
+                "Eddy M.",
                 listOf(
                     ScoreDetails(3, ScoreType.PAR,"2"),
                     ScoreDetails(2, ScoreType.BIRDIE, "4"),
@@ -198,7 +200,7 @@ object FakeData {
                 "-3"
             ),
                     PlayerScore(
-                    "Romain",
+                    "Sarah",
             listOf(
                 ScoreDetails(3, ScoreType.PAR,"2"),
                 ScoreDetails(4, ScoreType.BIRDIE, "4"),
@@ -227,21 +229,21 @@ object FakeData {
 
     fun gameDetails(state: GBState? = null) = GameDetails(
         1,
-        "Partie du swag",
+        "Partie des copains",
         state ?: GBState.DONE,
         LocalDate.now(),
         ScoringSystem.STROKE_PLAY,
         "Parcours du tube",
         listOf(2, 4, 3, 5, 3, 4, 2, 4, 3, 5, 3, 4, 3, 3, 5, 3, 4, 3),
         listOf(
-            Player(1, "Tanguy", "Pouriel", "MindeurFou", R.drawable.man_5, true),
-            Player(1, "Romane", "Philbert", "Roro", R.drawable.woman_2, true),
-            Player(1, "Romsko", "Prasil", "Bobby", R.drawable.man_8, true)
+            Player(1, "Jérôme", "Purin", "Jérôme P.", 3, true),
+            Player(1, "Eddy", "", "Eddy M.", 2, true),
+            Player(1, "Sarah", "Prasil", "Sarah", 15, true)
         ),
         scoreSummaries = listOf(
-            ScoreSummary("1.", "MindeurFou", "2 up"),
-            ScoreSummary("T2.", "Roro", "1 up"),
-            ScoreSummary("T2.", "Boby", "1 up"),
+            ScoreSummary("1.", "Jérôme P.", "2 up"),
+            ScoreSummary("T2.", "Eddy M.", "1 up"),
+            ScoreSummary("T2.", "Sarah", "1 up"),
         ),
         scoreBook = scoreBook()
     )

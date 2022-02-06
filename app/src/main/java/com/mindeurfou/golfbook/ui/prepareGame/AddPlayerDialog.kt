@@ -47,15 +47,8 @@ class AddPlayerDialog(
 
     var selectedPlayer: Player? = null
 
-    private val images = listOf(
-        R.drawable.man_1, R.drawable.man_2, R.drawable.man_3, R.drawable.man_4,
-        R.drawable.man_5, R.drawable.man_6, R.drawable.man_7, R.drawable.man_8,
-        R.drawable.woman_1, R.drawable.woman_2, R.drawable.woman_3, R.drawable.woman_4,
-        R.drawable.woman_5, R.drawable.woman_6, R.drawable.woman_7, R.drawable.woman_8,
-    )
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity!!)
+        val builder = AlertDialog.Builder(requireActivity())
         val inflater = requireActivity().layoutInflater
         val root = inflater.inflate(R.layout.dialog_add_player, null)
 
@@ -142,10 +135,8 @@ class AddPlayerDialog(
 
     }
 
-    private fun randomAvatarImage() : Int {
-        val index = Random.nextInt(until = images.size)
-        return images[index]
-    }
+    private fun randomAvatarImage() : Int =
+        Random.nextInt(from = 1, until = 17)
 }
 
 interface AddPlayerDialogListener {

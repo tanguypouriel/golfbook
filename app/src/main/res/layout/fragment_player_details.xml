@@ -128,7 +128,14 @@
         app:layout_constraintBottom_toTopOf="@+id/modifyProfileButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myStats" />
+        app:layout_constraintTop_toBottomOf="@+id/myStats" >
+
+        <ProgressBar
+            android:layout_width="@dimen/progressBarSize"
+            android:layout_height="@dimen/progressBarSize"
+            android:layout_gravity="center"/>
+
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/modifyProfileButton"

@@ -310,19 +310,19 @@ class PrepareGameFragment : Fragment() {
         players.forEachIndexed { index, player ->
             when(index+1) {
                 1 -> {
-                    binding.imagePlayer1.setImageResource(player.avatarId)
+                    binding.imagePlayer1.setAvatarResource(player.avatarId)
                     binding.namePlayer1.text = player.username
                 }
                 2 -> {
-                    binding.imagePlayer2.setImageResource(player.avatarId)
+                    binding.imagePlayer2.setAvatarResource(player.avatarId)
                     binding.namePlayer2.text = player.username
                 }
                 3 -> {
-                    binding.imagePlayer3.setImageResource(player.avatarId)
+                    binding.imagePlayer3.setAvatarResource(player.avatarId)
                     binding.namePlayer3.text = player.username
                 }
                 4 -> {
-                    binding.imagePlayer4.setImageResource(player.avatarId)
+                    binding.imagePlayer4.setAvatarResource(player.avatarId)
                     binding.namePlayer4.text = player.username
                 }
                 else -> {}
