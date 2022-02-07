@@ -32,6 +32,8 @@
         <entry key="app/src/main/res/drawable/ic_ball_empty_green.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/ic_ball_full.xml" value="0.37135416666666665" />
         <entry key="app/src/main/res/drawable/ic_ball_full_green.xml" value="0.371875" />
+        <entry key="app/src/main/res/drawable/ic_empty_ressource.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_erreur_.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_error.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/ic_flag.xml" value="0.24444444444444444" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.4171875" />
