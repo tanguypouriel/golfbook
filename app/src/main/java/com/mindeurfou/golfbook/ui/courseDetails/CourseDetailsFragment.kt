@@ -16,10 +16,7 @@ import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.course.local.CourseDetails
 import com.mindeurfou.golfbook.databinding.FragmentCourseDetailsBinding
 import com.mindeurfou.golfbook.interactors.courseDetails.CourseDetailsEvent
-import com.mindeurfou.golfbook.utils.DataState
-import com.mindeurfou.golfbook.utils.hide
-import com.mindeurfou.golfbook.utils.reveal
-import com.mindeurfou.golfbook.utils.show
+import com.mindeurfou.golfbook.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -61,7 +58,14 @@ class CourseDetailsFragment : Fragment(R.layout.fragment_course_details){
 
     private fun observeCourseDetails(dataState: DataState<CourseDetails>) {
         when (dataState) {
-            is DataState.Failure -> binding.progressBar.hide()
+            is DataState.Failure -> {
+                binding.progressBar.hide()
+
+                dataState.errors?.let { errors ->
+                    val sorted = ErrorMessages.sort(errors)
+                    sorted[ErrorMessages.snack]?.let { makeSnackbar(binding.root, it) }
+                }
+            }
             is DataState.Success -> {
                 binding.progressBar.hide()
 

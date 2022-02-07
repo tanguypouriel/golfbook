@@ -29,7 +29,10 @@ class HoleInputItem (
             holeEditText.setText(par.toString())
 
         holeEditText.doOnTextChanged { text, _, _, _ ->
-            setPar(text.toString().toInt())
+            text?.let {
+                if (it.isNotBlank())
+                    setPar(it.toString().toInt())
+            }
         }
     }
 

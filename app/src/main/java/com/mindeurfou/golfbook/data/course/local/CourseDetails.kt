@@ -27,30 +27,4 @@ data class CourseDetails(
         return holes.map { it.par }
     }
 
-    fun equalsPostCourse(postCourse: PostCourseNetworkEntity) : Boolean {
-        val baseIsEqual = name == postCourse.name &&
-                numberOfHoles == postCourse.numberOfHOles &&
-                par == postCourse.par &&
-                stars == postCourse.stars
-
-        var holesAreEqual = true
-        postCourse.holes.forEachIndexed  { index, par ->
-            if (par != holes[index].par) {
-                holesAreEqual = false
-                return@forEachIndexed
-            }
-        }
-
-        return baseIsEqual && holesAreEqual
-    }
-
-    fun toCourse() = Course(
-        id = id,
-        name = name,
-        numberOfHoles = numberOfHoles,
-        par = par,
-        gamesPlayed = gamesPlayed,
-        stars = stars,
-        createdAt = createdAt
-    )
 }

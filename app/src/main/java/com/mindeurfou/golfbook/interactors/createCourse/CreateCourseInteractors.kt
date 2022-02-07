@@ -32,7 +32,7 @@ fun sendCourseInfo(name: String, holes: List<Int>): Flow<DataState<Unit>> = flow
             errors.add(ErrorMessages.NAME_EMPTY)
         if (holes.any { it == 0 })
             errors.add(ErrorMessages.HOLES_UNCOMPLETED)
-        if (holes.size != 9 || holes.size != 18)
+        if (holes.size != 9 && holes.size != 18)
             errors.add(ErrorMessages.BAD_INPUT)
 
         if (errors.size != 0) {
@@ -49,11 +49,8 @@ fun sendCourseInfo(name: String, holes: List<Int>): Flow<DataState<Unit>> = flow
         )
 
         try {
-            val courseDetails = courseNetworkDataSourceImpl.postCourse(postCourse)
-            if (courseDetails.equalsPostCourse(postCourse))
-                emit(DataState.Success(Unit))
-            else
-                emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+            courseNetworkDataSourceImpl.postCourse(postCourse)
+            emit(DataState.Success(Unit))
         } catch (e: Exception) {
             if (e is GBException && e.message == GBException.NAME_ALREADY_TAKEN_MESSAGE)
                 emit(DataState.Failure(listOf(ErrorMessages.NAME_ALREADY_TAKEN)))
