@@ -4,6 +4,7 @@ import com.mindeurfou.golfbook.BuildConfig
 import com.mindeurfou.golfbook.data.game.local.Game
 import com.mindeurfou.golfbook.data.game.local.ScoringSystem
 import com.mindeurfou.golfbook.data.game.remote.PostGameNetworkEntity
+import com.mindeurfou.golfbook.datasource.network.course.CourseNetworkDataSourceImpl
 import com.mindeurfou.golfbook.datasource.network.game.GameNetworkDataSourceImpl
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.ErrorMessages
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @ExperimentalSerializationApi
 class CreateGameInteractors @Inject constructor(
-    private val gameNetworkDataSourceImpl: GameNetworkDataSourceImpl
+    private val gameNetworkDataSourceImpl: GameNetworkDataSourceImpl,
+    private val courseNetworkDataSourceImpl: CourseNetworkDataSourceImpl
 ) {
 
     fun sendGame(name: String, courseName: String, scoringSystemString: String) : Flow<DataState<Int>> = flow {
@@ -69,7 +71,6 @@ class CreateGameInteractors @Inject constructor(
     }
 
     fun getCoursesNames() : Flow<DataState<List<String>>> = flow {
-
         emit(DataState.Loading)
 
         if (BuildConfig.fakeData) {
@@ -78,6 +79,13 @@ class CreateGameInteractors @Inject constructor(
             val coursesNames = courses.map { it.name }
             emit(DataState.Success(coursesNames))
             return@flow
+        }
+
+        try {
+            val names = courseNetworkDataSourceImpl.getCourseNames()
+            emit(DataState.Success(names))
+        } catch (e: Exception) {
+            emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
         }
     }
 }

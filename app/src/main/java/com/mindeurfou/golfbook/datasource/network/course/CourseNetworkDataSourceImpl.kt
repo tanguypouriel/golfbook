@@ -7,9 +7,9 @@ import com.mindeurfou.golfbook.data.course.remote.PutCourseNetworkEntity
 import com.mindeurfou.golfbook.utils.GBException
 import com.mindeurfou.golfbook.utils.GBHttpStatusCode
 import retrofit2.HttpException
-import java.lang.NullPointerException
 import java.net.HttpURLConnection
 import javax.inject.Inject
+import kotlin.NullPointerException
 
 class CourseNetworkDataSourceImpl @Inject constructor(
     private val courseApiService: CourseApiService
@@ -23,6 +23,16 @@ class CourseNetworkDataSourceImpl @Inject constructor(
                 throw GBException(GBException.COURSE_NOT_FIND_MESSAGE)
             else
                 throw UnknownError("status code is ${e.code()}")
+        }
+    }
+
+    override suspend fun getCourseNames(): List<String> {
+        try {
+            return courseApiService.getCourseNames()
+        } catch (e: HttpException) {
+            throw UnknownError("status code is ${e.code()}")
+        } catch (e: NullPointerException) {
+            throw GBException(GBException.NO_RESOURCES_MESSAGE)
         }
     }
 

@@ -14,6 +14,9 @@ interface CourseApiService {
     @GET("/course")
     suspend fun getCourseByName(@Query("name") name: String): Course
 
+    @GET("/courseNames")
+    suspend fun getCourseNames() : List<String>
+
     @GET("/course")
     suspend fun getCourses(@Query("limit") limit: Int? = null, @Query("offset") offset: Int? = null): List<Course>
 
