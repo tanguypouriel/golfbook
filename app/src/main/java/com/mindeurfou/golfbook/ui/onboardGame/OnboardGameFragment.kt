@@ -41,7 +41,7 @@ class OnboardGameFragment : Fragment(R.layout.fragment_onboard_game) {
         setupUI()
         subscribeObservers()
 
-        viewModel.setStateEvent(OnBoardGameEvent.CheckPendingGameEvent)
+        viewModel.setStateEvent(OnBoardGameEvent.CheckInitGameEvent)
 
         return binding.root
     }
@@ -60,7 +60,7 @@ class OnboardGameFragment : Fragment(R.layout.fragment_onboard_game) {
             is DataState.Failure -> {
                 binding.progressBar.hide()
                 dataState.errors?.let { makeSnackbar(binding.root, it) }
-                viewModel.setStateEvent(OnBoardGameEvent.CheckPendingGameEvent)
+                viewModel.setStateEvent(OnBoardGameEvent.CheckInitGameEvent)
             }
             is DataState.Success -> {
                 navigateToPrepareGameFragment(dataState.data)
@@ -76,7 +76,10 @@ class OnboardGameFragment : Fragment(R.layout.fragment_onboard_game) {
                 if (binding.noGamesText.visibility == View.VISIBLE) binding.noGamesText.visibility = View.GONE
                 if (binding.btnRefresh.visibility == View.VISIBLE) binding.btnRefresh.visibility = View.GONE
             }
-            is DataState.Failure -> binding.progressBar.hide()
+            is DataState.Failure -> {
+                binding.progressBar.hide()
+                dataState.errors?.let { makeSnackbar(binding.root, it) }
+            }
             is DataState.Success -> {
                 binding.progressBar.hide()
 
@@ -96,7 +99,7 @@ class OnboardGameFragment : Fragment(R.layout.fragment_onboard_game) {
     private fun setupUI() {
         binding.btnCreateGame.setOnClickListener { navigateToCreateGameFragment() }
         binding.btnRefresh.setOnClickListener {
-            viewModel.setStateEvent(OnBoardGameEvent.CheckPendingGameEvent)
+            viewModel.setStateEvent(OnBoardGameEvent.CheckInitGameEvent)
         }
         binding.pendingGameRecycler.addItemDecoration(MarginItemDecoration(resources.getDimension(R.dimen.default_margin).toInt()))
     }

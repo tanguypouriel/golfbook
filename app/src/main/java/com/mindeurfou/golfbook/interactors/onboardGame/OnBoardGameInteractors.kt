@@ -10,6 +10,7 @@ import com.mindeurfou.golfbook.interactors.connection.ConnectionInteractors
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.ErrorMessages
 import com.mindeurfou.golfbook.utils.FakeData
+import com.mindeurfou.golfbook.utils.GBException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -36,7 +37,10 @@ class OnBoardGameInteractors @Inject constructor(
             val games = gameNetworkDataSourceImpl.getInitGames()
             emit(DataState.Success(games))
         } catch (e: Exception) {
-            emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+            if (e is GBException && e.message == GBException.NO_RESOURCES_MESSAGE)
+                emit(DataState.Success(null))
+            else
+                emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
         }
 
     }

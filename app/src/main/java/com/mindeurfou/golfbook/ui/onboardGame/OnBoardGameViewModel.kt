@@ -30,7 +30,7 @@ class OnBoardGameViewModel @Inject constructor(
 
     fun setStateEvent(stateEvent: OnBoardGameEvent) {
         when (stateEvent) {
-            is OnBoardGameEvent.CheckPendingGameEvent -> {
+            is OnBoardGameEvent.CheckInitGameEvent -> {
                 onBoardGameInteractors.getInitGames().onEach {
                     _initGames.value = it
                 }.launchIn(viewModelScope)
