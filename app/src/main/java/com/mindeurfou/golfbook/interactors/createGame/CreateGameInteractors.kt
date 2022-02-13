@@ -42,7 +42,7 @@ class CreateGameInteractors @Inject constructor(
 
         var scoringSystem: ScoringSystem? = null
         try {
-            scoringSystem = ScoringSystem.valueOf(scoringSystemString)
+            scoringSystem = ScoringSystem.toScoringSystem(scoringSystemString)
         } catch (e: IllegalArgumentException) {}
 
         if (scoringSystem == null)
