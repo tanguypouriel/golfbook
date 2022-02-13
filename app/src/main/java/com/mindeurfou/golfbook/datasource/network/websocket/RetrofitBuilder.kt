@@ -20,7 +20,7 @@ class RetrofitBuilder
     authInterceptor: AuthInterceptor
 ){
 
-    private val BASE_URL = "http://192.168.1.98:8080/"
+    private val BASE_URL = "http://10.0.2.2:8080/"
     private val contentType = "application/json; charset=utf-8".toMediaType()
     private val cacheSize = (5 * 1024 * 1024).toLong()
 
