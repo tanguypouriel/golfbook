@@ -6,6 +6,7 @@ import com.mindeurfou.golfbook.datasource.network.course.CourseNetworkDataSource
 import com.mindeurfou.golfbook.utils.DataState
 import com.mindeurfou.golfbook.utils.ErrorMessages
 import com.mindeurfou.golfbook.utils.FakeData
+import com.mindeurfou.golfbook.utils.GBException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -28,7 +29,10 @@ class CoursesInteractors
             val courses = courseNetworkDataSourceImpl.getCourses()
             emit(DataState.Success(courses))
         } catch (e : Exception) {
-            emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+            if( e !is GBException)
+                emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+            else
+                emit(DataState.Success(listOf()))
         }
     }
 }

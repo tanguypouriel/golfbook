@@ -54,11 +54,18 @@ class CourseNetworkDataSourceImpl @Inject constructor(
     override suspend fun postCourse(postCourse: PostCourseNetworkEntity): CourseDetails {
         try {
             return courseApiService.postCourse(postCourse)
-        } catch (e: HttpException) {
-            if (e.code() == GBHttpStatusCode.valueA)
-                throw GBException(GBException.NAME_ALREADY_TAKEN_MESSAGE)
-            else
-                throw Exception("status code is ${e.code()}")
+        } catch (e: Exception) {
+            if (e is HttpException) {
+                if (e.code() == GBHttpStatusCode.valueA) {
+                    throw GBException(GBException.NAME_ALREADY_TAKEN_MESSAGE)
+                }
+                else {
+                    throw Exception("status code is ${e.code()}")
+                }
+            }
+            else {
+                throw e
+            }
         }
     }
 
