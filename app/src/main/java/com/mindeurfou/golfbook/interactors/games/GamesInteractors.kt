@@ -41,9 +41,13 @@ class GamesInteractors @Inject constructor(
             val games = gameNetworkDataSourceImpl.getGamesByPlayerId(playerId)
             emit(DataState.Success(games))
         } catch (e: Exception) {
-            if (e is GBException && e.message == GBException.NO_RESOURCES_MESSAGE)
-                emit(DataState.Failure(listOf(ErrorMessages.NO_GAMES)))
-            else
+            if (e is GBException) {
+                when (e.message) {
+                    GBException.NO_RESOURCES_MESSAGE -> emit(DataState.Failure(listOf(ErrorMessages.NO_GAMES)))
+                    GBException.UNAUTHORIZED -> emit(DataState.Failure(listOf(ErrorMessages.UNAUTHORIZED)))
+                    else -> emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
+                }
+            } else
                 emit(DataState.Failure(listOf(ErrorMessages.NETWORK_ERROR)))
         }
     }

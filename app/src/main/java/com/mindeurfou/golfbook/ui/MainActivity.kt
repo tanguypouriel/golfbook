@@ -1,6 +1,7 @@
 package com.mindeurfou.golfbook.ui
 
 import android.animation.ValueAnimator
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -60,6 +61,11 @@ class MainActivity : AppCompatActivity(), HillActivity {
         }
     }
 
+    fun navigateToStartActivity() {
+        val intent = Intent(this, StartActivity::class.java)
+        finish()
+        startActivity(intent)
+    }
 
     override fun onDestroy() {
         super.onDestroy()

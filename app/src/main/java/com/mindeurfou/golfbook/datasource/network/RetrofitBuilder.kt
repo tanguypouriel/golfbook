@@ -1,8 +1,9 @@
-package com.mindeurfou.golfbook.datasource.network.websocket
+package com.mindeurfou.golfbook.datasource.network
 
 import android.content.Context
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.mindeurfou.golfbook.utils.AuthInterceptor
+import com.mindeurfou.golfbook.utils.UnauthorizedResponseInterceptor
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -17,7 +18,8 @@ import javax.inject.Inject
 class RetrofitBuilder
 @Inject constructor(
     @ApplicationContext context: Context,
-    authInterceptor: AuthInterceptor
+    authInterceptor: AuthInterceptor,
+    unauthorizedResponseInterceptor: UnauthorizedResponseInterceptor
 ){
 
     private val BASE_URL = "http://10.0.2.2:8080/"
@@ -30,6 +32,7 @@ class RetrofitBuilder
         .writeTimeout(1, TimeUnit.SECONDS)
         .cache(Cache(context.cacheDir, cacheSize))
         .addInterceptor(authInterceptor)
+        .addInterceptor(unauthorizedResponseInterceptor)
         .build()
 
     @ExperimentalSerializationApi

@@ -11,6 +11,7 @@ import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.data.game.local.Game
 import com.mindeurfou.golfbook.databinding.FragmentGamesBinding
 import com.mindeurfou.golfbook.interactors.games.GamesEvent
+import com.mindeurfou.golfbook.ui.MainActivity
 import com.mindeurfou.golfbook.utils.*
 import com.mindeurfou.golfbook.utils.ErrorMessages.Companion.snack
 import com.mindeurfou.golfbook.utils.ErrorMessages.Companion.specific
@@ -59,7 +60,12 @@ class GamesFragment : Fragment(R.layout.fragment_games) {
                 binding.progressBar.hide()
                 dataState.errors?.let { errors ->
                     val sorted = ErrorMessages.sort(errors)
-                    sorted[snack]?.let { makeSnackbar(binding.root, it) }
+                    sorted[snack]?.let {
+                        if (it.contains(ErrorMessages.UNAUTHORIZED))
+                            (activity as MainActivity).navigateToStartActivity()
+                        else
+                            makeSnackbar(binding.root, it)
+                    }
                     sorted[specific]?.forEach {
                         when (it) {
                             ErrorMessages.NO_GAMES -> showNoGames()

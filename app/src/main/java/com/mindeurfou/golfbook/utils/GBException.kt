@@ -16,5 +16,7 @@ class GBException(override val message: String) : Exception() {
         const val NO_RESOURCES_MESSAGE         = "There isn't any resources matching your criteria"
         const val USERNAME_ALREADY_TAKEN_MESSAGE = "This username is already taken"
         const val NAME_ALREADY_TAKEN_MESSAGE   = "This name is already taken"
+        const val UNAUTHORIZED                 = "You can't access this ressource"
+        const val SERVER_ERROR                 = "Server error"
     }
 }

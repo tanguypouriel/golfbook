@@ -54,7 +54,10 @@ class GameNetworkDataSourceImpl @Inject constructor(
         try {
             return gameApiService.getGamesByPlayerId(playerId)
         } catch (e: HttpException) {
-            throw UnknownError("status code is ${e.code()}")
+            if (e.code() == HttpURLConnection.HTTP_UNAUTHORIZED)
+                throw GBException(GBException.UNAUTHORIZED)
+            else
+                throw GBException(GBException.SERVER_ERROR)
         } catch (e: NullPointerException) {
             throw GBException(GBException.NO_RESOURCES_MESSAGE)
         }

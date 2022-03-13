@@ -22,7 +22,8 @@ enum class ErrorMessages(
     NAME_ALREADY_TAKEN(ErrorTag.SPECIFIC),
     PLAYER_NOT_IN_GAME(ErrorTag.SNACK),
     GAME_FULL(ErrorTag.SNACK),
-    PASSWORD_EMPTY(ErrorTag.SPECIFIC);
+    PASSWORD_EMPTY(ErrorTag.SPECIFIC),
+    UNAUTHORIZED(ErrorTag.SNACK);
 
     override fun toString(): String {
         return when(name){
@@ -44,6 +45,7 @@ enum class ErrorMessages(
             PLAYER_NOT_IN_GAME.name -> "Le joueur n'est pas dans la partie"
             GAME_FULL.name -> "La partie est déjà pleine"
             PASSWORD_EMPTY.name -> "Le champs mot de passe est vide"
+            UNAUTHORIZED.name -> "Accès refusé"
             else -> "Erreur"
         }
     }

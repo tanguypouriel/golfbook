@@ -4,11 +4,8 @@ import android.animation.ValueAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mindeurfou.golfbook.R
 import com.mindeurfou.golfbook.databinding.ActivityStartBinding
 import com.mindeurfou.golfbook.ui.hillView.HillPosition

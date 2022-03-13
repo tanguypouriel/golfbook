@@ -1,6 +1,6 @@
 package com.mindeurfou.golfbook.di
 
-import com.mindeurfou.golfbook.datasource.network.websocket.RetrofitBuilder
+import com.mindeurfou.golfbook.datasource.network.RetrofitBuilder
 import com.mindeurfou.golfbook.datasource.network.course.CourseApiService
 import com.mindeurfou.golfbook.datasource.network.game.GameApiService
 import com.mindeurfou.golfbook.datasource.network.player.PlayerApiService
